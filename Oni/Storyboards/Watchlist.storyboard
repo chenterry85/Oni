@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0An-cv-pGL">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Watchlist-->
+        <scene sceneID="2Rl-5u-SuY">
+            <objects>
+                <viewController id="kr4-YR-s5V" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IOM-cv-EFR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="M1x-ZX-B2D"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Watchlist" id="6IJ-mZ-4Is"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cgb-RV-oCX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1528.985507246377" y="300.66964285714283"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="esX-vG-W0C">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0An-cv-pGL" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="watchlist_icon" id="Lrs-xf-4Xg"/>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iYW-s1-eSE">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="kr4-YR-s5V" kind="relationship" relationship="rootViewController" id="inv-GX-bse"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Gz-JL-tXb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="618.84057971014499" y="300.66964285714283"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="watchlist_icon" width="25" height="25"/>
+    </resources>
+</document>
