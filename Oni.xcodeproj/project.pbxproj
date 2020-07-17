@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,10 @@
 		361D666324C0AD8000C620FA /* Simulation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 361D666224C0AD8000C620FA /* Simulation.storyboard */; };
 		361D666524C0ADB800C620FA /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 361D666424C0ADB800C620FA /* Settings.storyboard */; };
 		361D666724C0AE6800C620FA /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361D666624C0AE6800C620FA /* LogInViewController.swift */; };
+		361D667124C2226200C620FA /* AppUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361D666F24C2226200C620FA /* AppUtilities.swift */; };
+		361D667324C2246000C620FA /* FinnhubConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361D667224C2246000C620FA /* FinnhubConnector.swift */; };
+		361D667524C227EB00C620FA /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361D667424C227EB00C620FA /* Backend.swift */; };
+		EAC2AA9AB9C552AA1A065575 /* Pods_Oni.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C191498FCFA204F0A7996E6 /* Pods_Oni.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C191498FCFA204F0A7996E6 /* Pods_Oni.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Oni.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		361D662824C0AB9E00C620FA /* Oni.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Oni.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		361D662B24C0AB9E00C620FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		361D662D24C0AB9E00C620FA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +66,11 @@
 		361D666224C0AD8000C620FA /* Simulation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Simulation.storyboard; sourceTree = "<group>"; };
 		361D666424C0ADB800C620FA /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		361D666624C0AE6800C620FA /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		361D666F24C2226200C620FA /* AppUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtilities.swift; sourceTree = "<group>"; };
+		361D667224C2246000C620FA /* FinnhubConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinnhubConnector.swift; sourceTree = "<group>"; };
+		361D667424C227EB00C620FA /* Backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
+		3F0F9044AADC8C00EBA4F092 /* Pods-Oni.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oni.debug.xcconfig"; path = "Target Support Files/Pods-Oni/Pods-Oni.debug.xcconfig"; sourceTree = "<group>"; };
+		91ABCD2AE96737D1117ADF28 /* Pods-Oni.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oni.release.xcconfig"; path = "Target Support Files/Pods-Oni/Pods-Oni.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAC2AA9AB9C552AA1A065575 /* Pods_Oni.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +106,8 @@
 				361D664124C0ABA000C620FA /* OniTests */,
 				361D664C24C0ABA000C620FA /* OniUITests */,
 				361D662924C0AB9E00C620FA /* Products */,
+				D0F76ABBAC45D44EA263C83D /* Pods */,
+				EF9CEC09F82E86430F417CF4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,6 +124,8 @@
 		361D662A24C0AB9E00C620FA /* Oni */ = {
 			isa = PBXGroup;
 			children = (
+				361D667224C2246000C620FA /* FinnhubConnector.swift */,
+				361D666F24C2226200C620FA /* AppUtilities.swift */,
 				361D665B24C0ABCB00C620FA /* Storyboards */,
 				361D662B24C0AB9E00C620FA /* AppDelegate.swift */,
 				361D662D24C0AB9E00C620FA /* SceneDelegate.swift */,
@@ -120,6 +135,7 @@
 				361D663924C0ABA000C620FA /* Info.plist */,
 				361D665C24C0AC6700C620FA /* WelcomeViewController.swift */,
 				361D666624C0AE6800C620FA /* LogInViewController.swift */,
+				361D667424C227EB00C620FA /* Backend.swift */,
 			);
 			path = Oni;
 			sourceTree = "<group>";
@@ -154,6 +170,23 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		D0F76ABBAC45D44EA263C83D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3F0F9044AADC8C00EBA4F092 /* Pods-Oni.debug.xcconfig */,
+				91ABCD2AE96737D1117ADF28 /* Pods-Oni.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		EF9CEC09F82E86430F417CF4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1C191498FCFA204F0A7996E6 /* Pods_Oni.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -161,9 +194,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 361D665224C0ABA100C620FA /* Build configuration list for PBXNativeTarget "Oni" */;
 			buildPhases = (
+				1EE2D3B9B55D9254608FDBE0 /* [CP] Check Pods Manifest.lock */,
 				361D662424C0AB9E00C620FA /* Sources */,
 				361D662524C0AB9E00C620FA /* Frameworks */,
 				361D662624C0AB9E00C620FA /* Resources */,
+				6506DC438D146B5E202834CE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -284,15 +319,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1EE2D3B9B55D9254608FDBE0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Oni-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6506DC438D146B5E202834CE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Oni/Pods-Oni-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Oni/Pods-Oni-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Oni/Pods-Oni-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		361D662424C0AB9E00C620FA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				361D667524C227EB00C620FA /* Backend.swift in Sources */,
 				361D663024C0AB9E00C620FA /* ViewController.swift in Sources */,
 				361D665D24C0AC6700C620FA /* WelcomeViewController.swift in Sources */,
 				361D662C24C0AB9E00C620FA /* AppDelegate.swift in Sources */,
+				361D667324C2246000C620FA /* FinnhubConnector.swift in Sources */,
 				361D666724C0AE6800C620FA /* LogInViewController.swift in Sources */,
+				361D667124C2226200C620FA /* AppUtilities.swift in Sources */,
 				361D662E24C0AB9E00C620FA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,6 +544,7 @@
 		};
 		361D665324C0ABA100C620FA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F0F9044AADC8C00EBA4F092 /* Pods-Oni.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -482,6 +563,7 @@
 		};
 		361D665424C0ABA100C620FA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91ABCD2AE96737D1117ADF28 /* Pods-Oni.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
