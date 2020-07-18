@@ -8,11 +8,11 @@
 
 import Foundation
 
-class Backend {
+class StocksDataManager{
     
     var finnhubConnector:FinnhubConnector!
     
-    func doSomething(){
+    init() {
         
         finnhubConnector = FinnhubConnector()
         finnhubConnector.start(myEventHandler: eventHandler(incoming:), onReadyEvent: eventReady)
@@ -24,6 +24,7 @@ class Backend {
     }
     
     func eventReady() -> (){
+        print("Event Ready")
         finnhubConnector.subscribe(withSymbol: "AAPL")
     }
     
