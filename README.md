@@ -1,2 +1,4 @@
 # Oni
-Finacne & Investment App
+**Finacne & Investment App**
+
+(Currently in development)
