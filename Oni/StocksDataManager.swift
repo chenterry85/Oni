@@ -19,13 +19,28 @@ class StocksDataManager{
         
     }
     
+    func timezone(){
+        let secondsInOneHour = 3600.0
+        let timestamp = NSDate().timeIntervalSince1970
+        let wallStreetTimestamp = timestamp - (secondsInOneHour * 4)
+        let time = NSDate(timeIntervalSince1970: wallStreetTimestamp)
+        print(time)
+        
+        let now = Date()
+        let calendar = Calendar.current
+        print(calendar.date(bySettingHour: 17, minute: 30, second: 0, of: now)!)
+        print(NSDate(timeIntervalSince1970: calendar.startOfDay(for: now).timeIntervalSince1970 + (secondsInOneHour * 24)))
+    }
+    
     func eventHandler(incoming: Packet?) -> () {
         
     }
     
     func eventReady() -> (){
         print("Event Ready")
-        finnhubConnector.subscribe(withSymbol: "AAPL")
+        finnhubConnector.subscribe(withSymbol: "IBM")
+        finnhubConnector.subscribe(withSymbol: "CCL")
+
     }
     
 }

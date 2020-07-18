@@ -88,7 +88,7 @@ class FinnhubConnector: WebSocketDelegate{
     func subscribe(withSymbol: String) {
         if subscribedSymbols.firstIndex(of: withSymbol) == nil {
             subscribedSymbols.append(withSymbol)
-            socket?.write(string: "{\"type\":\"subscribe\",\"symbol\":\"AAPL\"}")
+            socket?.write(string: "{\"type\":\"subscribe\",\"symbol\":\"\(withSymbol)\"}")
         }
     }
     
