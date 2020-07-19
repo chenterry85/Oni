@@ -50,7 +50,6 @@ class StocksDataManager{
         print("Event Ready")
         finnhubConnector.subscribe(withSymbol: "IBM")
         finnhubConnector.subscribe(withSymbol: "CCL")
-
     }
     
 }

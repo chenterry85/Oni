@@ -98,7 +98,7 @@ class FinnhubConnector: WebSocketDelegate{
     func unsubscribe(withSymbol: String) {
         if let index = subscribedSymbols.firstIndex(of: withSymbol) {
             subscribedSymbols.remove(at: index)
-            socket?.write(string: "{\"topic\": \"iex:securities:\(withSymbol)\",\"event\": \"phx_leave\",\"payload\": {},\"ref\": null}")
+            socket?.write(string: "{\"type\":\"unsubscribe\",\"symbol\":\"\(withSymbol)\"}")
         }
     }
     
