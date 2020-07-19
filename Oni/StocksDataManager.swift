@@ -10,13 +10,13 @@ import Foundation
 
 class StocksDataManager{
     
-    var finnhubConnector:FinnhubConnector!
+    let finnhubConnector = FinnhubConnector.shared
+    static let shared = StocksDataManager()
     
-    init() {
-        
-        finnhubConnector = FinnhubConnector()
+    private init() {}
+    
+    func connectToFinnhub(){
         finnhubConnector.start(myEventHandler: finnhubHandler(incoming:), onReadyEvent: finnhubReady)
-        
     }
     
     func marketIsOpen() -> Bool{
@@ -31,8 +31,12 @@ class StocksDataManager{
         let marketOpenTime = calendar.date(bySettingHour: 17, minute: 30, second: 0, of: now)!
         let marketCloseTime = NSDate(timeIntervalSince1970: calendar.startOfDay(for: now).timeIntervalSince1970 + (secondsInOneHour * 24)) as Date
         
+        let weekday = calendar.component(.weekday, from: currentTime)
+            
         if marketOpenTime <= currentTime && currentTime <= marketCloseTime{
-            return true
+            if weekday != 1 && weekday != 7 { //if current day is not Saturday and Sunday
+                return true
+            }
         }
         
         return false

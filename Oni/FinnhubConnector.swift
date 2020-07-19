@@ -17,6 +17,9 @@ class FinnhubConnector: WebSocketDelegate{
     var connectionReady: Bool = false
     var subscribedSymbols: [String] = []
     var heartbeater: Timer?
+    static let shared = FinnhubConnector()
+    
+    private init() {}
     
     func start(myEventHandler: @escaping (Packet?) -> Void, onReadyEvent: @escaping () -> Void) {
         
