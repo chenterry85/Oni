@@ -42,7 +42,7 @@ class StocksDataManager{
         return false
     }
     
-    func finnhubHandler(incoming: Packet?) -> () {
+    func finnhubHandler(incoming: TradeDataPacket?) -> () {
         
     }
     

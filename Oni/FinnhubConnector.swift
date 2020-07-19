@@ -12,7 +12,7 @@ import Starscream
 class FinnhubConnector: WebSocketDelegate{
     
     var socket: WebSocket?
-    var eventHandler: ((Packet? ) -> Void)?
+    var eventHandler: ((TradeDataPacket? ) -> Void)?
     var eventReady: (() -> Void)?
     var connectionReady: Bool = false
     var subscribedSymbols: [String] = []
@@ -21,7 +21,7 @@ class FinnhubConnector: WebSocketDelegate{
     
     private init() {}
     
-    func start(myEventHandler: @escaping (Packet?) -> Void, onReadyEvent: @escaping () -> Void) {
+    func start(myEventHandler: @escaping (TradeDataPacket?) -> Void, onReadyEvent: @escaping () -> Void) {
         
         eventHandler = myEventHandler
         eventReady = onReadyEvent
@@ -70,7 +70,7 @@ class FinnhubConnector: WebSocketDelegate{
         connectionReady = true
         subscribedSymbols = []
         
-        heartbeater = Timer.scheduledTimer(withTimeInterval: 20.0, repeats: true) { [weak self] _ in
+        heartbeater = Timer.scheduledTimer(withTimeInterval: Settings.heartbeatTimeInterval, repeats: true) { [weak self] _ in
             self?.heartbeat()
         }
         
@@ -106,17 +106,26 @@ class FinnhubConnector: WebSocketDelegate{
         
         print("Received text: \(text)")
 
-        let decoder = JSONDecoder()
-        do {
-            let packet: Packet = try decoder.decode(Packet.self, from: text.data(using: .utf8)!)
-            
-            DispatchQueue.main.async {
-                self.eventHandler!(packet)
+        let rawStringData = text.data(using: .utf8)!
+        do{
+            if let jsonObject = try JSONSerialization.jsonObject(with: rawStringData, options: .allowFragments) as? [String:Any]{
+                let messageType = jsonObject["type"] as! String
+                
+                switch messageType{
+                case "trade":
+                    let tradeDataPacket = try JSONDecoder().decode(TradeDataPacket.self, from: rawStringData)
+                    eventHandler!(tradeDataPacket)
+                case "ping":
+                    return
+                case "error":
+                    return
+                default:
+                    return
+                }
             }
-        } catch {
+        }catch let error as NSError{
             print(error)
         }
-        
         
     }
     
@@ -126,14 +135,53 @@ class FinnhubConnector: WebSocketDelegate{
         
         let decoder = JSONDecoder()
         do {
-            let packet: Packet = try decoder.decode(Packet.self, from: data)
+            let tradeDataPacket: TradeDataPacket = try decoder.decode(TradeDataPacket.self, from: data)
             
             DispatchQueue.main.async {
-                self.eventHandler!(packet)
+                self.eventHandler!(tradeDataPacket)
             }
         } catch {
             print(error)
         }
+    }
+    
+    func stockQuote(withSymbol: String) -> StockQuote{
+        
+        var requestedStockQuote:StockQuote = StockQuote()
+
+        guard let requestURL = URL(string: "https://finnhub.io/api/v1/quote?symbol=\(withSymbol)&token=\(AppConstants.API_KEY)") else {
+            print("Stock Quote URL invalid")
+            return requestedStockQuote
+        }
+        
+        let requestTask = URLSession.shared.downloadTask(with: requestURL) { (url:URL?, response:URLResponse?, error:Error?) in
+            
+            guard let url=url, let response=response else{
+                print("error in grabbing Stock Quote JSON")
+                return
+            }
+            
+            guard error == nil else{
+                print(error!);
+                return
+            }
+            
+            guard (response as! HTTPURLResponse).statusCode == 200 else { //status code 200 =  success download
+                print("Grab Stock Quote failed")
+                return
+            }
+            
+            guard let data = try? Data.init(contentsOf: url) else{
+                return
+            }
+
+            if let stockQuote = try? JSONDecoder().decode(StockQuote.self, from: data) {
+                requestedStockQuote = stockQuote
+            }
+        }
+        requestTask.resume()
+        
+        return requestedStockQuote
     }
     
     

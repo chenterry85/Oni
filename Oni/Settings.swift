@@ -9,6 +9,8 @@
 import Foundation
 
 struct Settings{
-    static var backgroundThemeColor = "Black"
+    
+    static let heartbeatTimeInterval:Double = 20.0
+    static let backgroundThemeColor:String = "Black"
     
 }
