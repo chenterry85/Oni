@@ -9,6 +9,6 @@
 import Foundation
 
 struct Settings{
-    static backgroundThemeColor = "Black"
+    static var backgroundThemeColor = "Black"
     
 }

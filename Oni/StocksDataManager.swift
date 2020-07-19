@@ -19,17 +19,23 @@ class StocksDataManager{
         
     }
     
-    func timezone(){
+    func marketIsOpen() -> Bool{
         let secondsInOneHour = 3600.0
+        
         let timestamp = NSDate().timeIntervalSince1970
-        let wallStreetTimestamp = timestamp - (secondsInOneHour * 4)
-        let time = NSDate(timeIntervalSince1970: wallStreetTimestamp)
-        print(time)
+        let easternTimestamp = timestamp - (secondsInOneHour * 4)
+        let currentTime = NSDate(timeIntervalSince1970: easternTimestamp) as Date
         
         let now = Date()
         let calendar = Calendar.current
-        print(calendar.date(bySettingHour: 17, minute: 30, second: 0, of: now)!)
-        print(NSDate(timeIntervalSince1970: calendar.startOfDay(for: now).timeIntervalSince1970 + (secondsInOneHour * 24)))
+        let marketOpenTime = calendar.date(bySettingHour: 17, minute: 30, second: 0, of: now)!
+        let marketCloseTime = NSDate(timeIntervalSince1970: calendar.startOfDay(for: now).timeIntervalSince1970 + (secondsInOneHour * 24)) as Date
+        
+        if marketOpenTime <= currentTime && currentTime <= marketCloseTime{
+            return true
+        }
+        
+        return false
     }
     
     func eventHandler(incoming: Packet?) -> () {

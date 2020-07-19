@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
                         
         
-        //let stocksDataManager = StocksDataManager()
+        let stocksDataManager = StocksDataManager()
     }
 
 

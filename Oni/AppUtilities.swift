@@ -12,6 +12,13 @@ struct AppConstants{
     static let API_KEY = "bs88067rh5r8i6g9dhl0"
 }
 
+struct Stock{
+    let name: String
+    let price: Double
+    let priceChange: Double
+    let percentageChange: String
+}
+
 struct Packet: Decodable{
     let p:Double
     let s:String
