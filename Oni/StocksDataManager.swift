@@ -15,7 +15,7 @@ class StocksDataManager{
     init() {
         
         finnhubConnector = FinnhubConnector()
-        finnhubConnector.start(myEventHandler: eventHandler(incoming:), onReadyEvent: eventReady)
+        finnhubConnector.start(myEventHandler: finnhubHandler(incoming:), onReadyEvent: finnhubReady)
         
     }
     
@@ -38,11 +38,11 @@ class StocksDataManager{
         return false
     }
     
-    func eventHandler(incoming: Packet?) -> () {
+    func finnhubHandler(incoming: Packet?) -> () {
         
     }
     
-    func eventReady() -> (){
+    func finnhubReady() -> (){
         print("Event Ready")
         finnhubConnector.subscribe(withSymbol: "IBM")
         finnhubConnector.subscribe(withSymbol: "CCL")
