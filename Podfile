@@ -9,5 +9,8 @@ target 'Oni' do
 
   pod 'Alamofire'
   pod 'Starscream' 
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Auth'
 
 end

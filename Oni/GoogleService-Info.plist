@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>783695989091-cuk6lj811gapi9g8pmqeuluk4a98jgfd.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.783695989091-cuk6lj811gapi9g8pmqeuluk4a98jgfd</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBux9SapJmG6vTJJQ9fvbBSKzmIfYhdJ9Q</string>
+	<key>GCM_SENDER_ID</key>
+	<string>783695989091</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.terrychen.Oni</string>
+	<key>PROJECT_ID</key>
+	<string>oni-investment-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>oni-investment-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:783695989091:ios:51de2c2a4ba3d7acf52b56</string>
+	<key>DATABASE_URL</key>
+	<string>https://oni-investment-app.firebaseio.com</string>
+</dict>
+</plist>

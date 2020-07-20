@@ -10,8 +10,9 @@ import Foundation
 
 class StocksDataManager{
     
-    let finnhubConnector = FinnhubConnector.shared
     static let shared = StocksDataManager()
+    let finnhubConnector = FinnhubConnector.shared
+    var subscribedSymbols:[String] = []
     
     private init() {}
     
@@ -33,8 +34,8 @@ class StocksDataManager{
         
         let weekday = calendar.component(.weekday, from: currentTime)
             
-        if marketOpenTime <= currentTime && currentTime <= marketCloseTime{
-            if weekday != 1 && weekday != 7 { //if current day is not Saturday and Sunday
+        if marketOpenTime <= currentTime && currentTime <= marketCloseTime{ // 9:00 am <= current time <= 4:00pm
+            if weekday != 1 && weekday != 7 { //current day is not Saturday and Sunday
                 return true
             }
         }
@@ -50,12 +51,15 @@ class StocksDataManager{
         print("Event Ready")
         finnhubConnector.subscribe(withSymbol: "IBM")
         finnhubConnector.subscribe(withSymbol: "CCL")
+        
         DispatchQueue.global(qos: .userInteractive).async {
-            let _ = self.finnhubConnector.getStockQuote(withSymbol: "AAPL") { (stockQuote: StockQuote?, error: NSError?) in
-                print(stockQuote)
+            let _ = self.finnhubConnector.getStockQuote(withSymbol: "AAPL") {
+                (stockQuote: StockQuote?) in
+                if stockQuote != nil{
+                    print(stockQuote!)
+                }
             }
         }
-        print("hello")
     }
     
 }
