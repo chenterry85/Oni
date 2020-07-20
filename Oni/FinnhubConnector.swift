@@ -145,43 +145,45 @@ class FinnhubConnector: WebSocketDelegate{
         }
     }
     
-    func stockQuote(withSymbol: String) -> StockQuote{
-        
-        var requestedStockQuote:StockQuote = StockQuote()
-
+    func getStockQuote(withSymbol: String, stockQuoteCompleteHandler: @escaping (_ stockQuote: StockQuote?, _ error: NSError?) -> Void){
+                
         guard let requestURL = URL(string: "https://finnhub.io/api/v1/quote?symbol=\(withSymbol)&token=\(AppConstants.API_KEY)") else {
             print("Stock Quote URL invalid")
-            return requestedStockQuote
+            return
         }
-        
-        let requestTask = URLSession.shared.downloadTask(with: requestURL) { (url:URL?, response:URLResponse?, error:Error?) in
+            
+        let task = URLSession.shared.downloadTask(with: requestURL, completionHandler: {
+            (url:URL?, response:URLResponse?, error:Error?) in
             
             guard let url=url, let response=response else{
-                print("error in grabbing Stock Quote JSON")
-                return
-            }
-            
-            guard error == nil else{
-                print(error!);
-                return
-            }
-            
-            guard (response as! HTTPURLResponse).statusCode == 200 else { //status code 200 =  success download
-                print("Grab Stock Quote failed")
-                return
-            }
-            
-            guard let data = try? Data.init(contentsOf: url) else{
-                return
-            }
+                           print("error in grabbing Stock Quote JSON")
+                           return
+                       }
+           
+           guard error == nil else{
+               print(error!);
+               return
+           }
+           
+           guard (response as! HTTPURLResponse).statusCode == 200 else { //status code 200 =  success download
+               print("Grab Stock Quote failed")
+               return
+           }
+           
+           guard let data = try? Data.init(contentsOf: url) else{
+               return
+           }
 
-            if let stockQuote = try? JSONDecoder().decode(StockQuote.self, from: data) {
-                requestedStockQuote = stockQuote
-            }
-        }
-        requestTask.resume()
+           if let stockQuote = try? JSONDecoder().decode(StockQuote.self, from: data) {
+               stockQuoteCompleteHandler(stockQuote,nil)
+           }
+           print("almost done")
+            
+        })
+        task.resume()
         
-        return requestedStockQuote
+        
+        print("done")
     }
     
     

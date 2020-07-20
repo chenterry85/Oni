@@ -50,6 +50,12 @@ class StocksDataManager{
         print("Event Ready")
         finnhubConnector.subscribe(withSymbol: "IBM")
         finnhubConnector.subscribe(withSymbol: "CCL")
+        DispatchQueue.global(qos: .userInteractive).async {
+            let _ = self.finnhubConnector.getStockQuote(withSymbol: "AAPL") { (stockQuote: StockQuote?, error: NSError?) in
+                print(stockQuote)
+            }
+        }
+        print("hello")
     }
     
 }
