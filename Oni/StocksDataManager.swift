@@ -12,7 +12,8 @@ class StocksDataManager{
     
     static let shared = StocksDataManager()
     let finnhubConnector = FinnhubConnector.shared
-    var subscribedSymbols:[String] = []
+    var subscribedSymbols: [String] = []
+    var subscribedStocks: Stock!
     
     private init() {}
     
@@ -23,6 +24,36 @@ class StocksDataManager{
     
     func connectToFinnhub(){
         finnhubConnector.start(myEventHandler: finnhubHandler(incoming:), onReadyEvent: finnhubReady)
+    }
+    
+    func initStockObjects(){
+        
+        for symbol in subscribedSymbols{
+            var name: String?
+            var price: Double?
+            var priceChange: Double?
+            var percentChange: Double?
+            var previousClosePrice: Double?
+            
+            let _ = finnhubConnector.getStockQuote(withSymbol: symbol) {
+                (stockQuote: StockQuote?) in
+                if let stockQuote = stockQuote{
+                    name = "" // empty for now
+                    price = stockQuote.c
+                    previousClosePrice = stockQuote.pc
+                    priceChange = self.calculatePriceChange(price!,previousClosePrice!)
+                    percentChange = self.calculatePercentChange(price!, previousClosePrice!)
+                    
+                    let stock = Stock(symbol: symbol, name: name!, price: price!, priceChange: priceChange!, percentChange: percentChange!, previousClosePrice: previousClosePrice!)
+                    
+                    print(String(describing: stock))
+                }else{
+                    // error when requesting stock quote
+                }
+            }
+            
+            
+        }
     }
     
     func finnhubHandler(incoming: TradeDataPacket){
@@ -67,6 +98,24 @@ class StocksDataManager{
         }
         
         return false
+    }
+    
+    func calculatePriceChange(_ currentPrice: Double, _ previousClosingPrice: Double) -> Double{
+        let priceChange = currentPrice - previousClosingPrice
+        return roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: priceChange)
+    }
+    
+    func calculatePercentChange(_ currentPrice: Double, _ previousClosingPrice: Double) -> Double{
+        let percentChange = abs(currentPrice - previousClosingPrice) / previousClosingPrice
+        return roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: percentChange)
+    }
+    
+    func roundTo(decimalPlace: Int, withValue: Double) -> Double{
+        var base:Double = 10.0
+        for _ in 0 ..< (decimalPlace - 1){
+            base *= 10
+        }
+        return Double(round(base * withValue) / base)
     }
     
 }

@@ -24,10 +24,13 @@ struct AppConstants{
 }
 
 struct Stock{
+    let symbol: String
     let name: String
     let price: Double
     let priceChange: Double
-    let percentageChange: String
+    let percentChange: Double
+    let previousClosePrice: Double
+
 }
 
 struct TradeDataPacket{

@@ -59,7 +59,7 @@ class FinnhubConnector: WebSocketDelegate{
         }
     }
     
-    func heartbeat() {
+    func heartbeat() { // Send data to finnhub periodically to prevent disconnection for inactivity
         socket?.write(string: "")
     }
 

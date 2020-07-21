@@ -17,6 +17,9 @@ class WatchlistViewController: UITableViewController {
         
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         stocksDataManager.grabSubscribedStocksFromFirebase()
+        DispatchQueue.main.async {
+            self.stocksDataManager.initStockObjects()
+        }
         stocksDataManager.connectToFinnhub()
     }
 
