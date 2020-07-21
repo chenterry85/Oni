@@ -1,47 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0An-cv-pGL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="C7F-45-gBB">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Watchlist-->
-        <scene sceneID="2Rl-5u-SuY">
+        <!--Watchlist View Controller-->
+        <scene sceneID="8Bh-Yi-8Kw">
             <objects>
-                <viewController id="kr4-YR-s5V" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="IOM-cv-EFR">
+                <tableViewController id="hLb-RG-WA8" customClass="WatchlistViewController" customModule="Oni" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bry-bL-VlQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="M1x-ZX-B2D"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Watchlist" id="6IJ-mZ-4Is"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cgb-RV-oCX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="5Jy-6A-duw">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5Jy-6A-duw" id="Vi3-at-skA">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hLb-RG-WA8" id="Bw0-Qd-u4V"/>
+                            <outlet property="delegate" destination="hLb-RG-WA8" id="vSD-QF-yml"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="CZ9-jJ-nTl"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dRb-jM-iBp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1528.985507246377" y="300.66964285714283"/>
+            <point key="canvasLocation" x="2450.7246376811595" y="300.66964285714283"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="esX-vG-W0C">
+        <scene sceneID="3xX-RM-TbN">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0An-cv-pGL" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="C7F-45-gBB" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="watchlist_icon" id="Lrs-xf-4Xg"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iYW-s1-eSE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ht6-pY-a87">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="kr4-YR-s5V" kind="relationship" relationship="rootViewController" id="inv-GX-bse"/>
+                        <segue destination="hLb-RG-WA8" kind="relationship" relationship="rootViewController" id="ecS-QW-V9Y"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5Gz-JL-tXb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n9c-NJ-vcg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="618.84057971014499" y="300.66964285714283"/>
+            <point key="canvasLocation" x="1540.5797101449277" y="300.66964285714283"/>
         </scene>
     </scenes>
     <resources>

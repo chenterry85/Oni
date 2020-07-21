@@ -74,7 +74,7 @@
 		361D667424C227EB00C620FA /* StocksDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksDataManager.swift; sourceTree = "<group>"; };
 		361D667624C33A4500C620FA /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		361D667924C5883200C620FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		361D667B24C74CD700C620FA /* WatchlistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WatchlistViewController.swift; path = ViewControllers/WatchlistViewController.swift; sourceTree = "<group>"; };
+		361D667B24C74CD700C620FA /* WatchlistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistViewController.swift; sourceTree = "<group>"; };
 		3F0F9044AADC8C00EBA4F092 /* Pods-Oni.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oni.debug.xcconfig"; path = "Target Support Files/Pods-Oni/Pods-Oni.debug.xcconfig"; sourceTree = "<group>"; };
 		91ABCD2AE96737D1117ADF28 /* Pods-Oni.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oni.release.xcconfig"; path = "Target Support Files/Pods-Oni/Pods-Oni.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -142,7 +142,6 @@
 				361D663424C0ABA000C620FA /* Assets.xcassets */,
 				361D663924C0ABA000C620FA /* Info.plist */,
 				361D667924C5883200C620FA /* GoogleService-Info.plist */,
-				361D667B24C74CD700C620FA /* WatchlistViewController.swift */,
 			);
 			path = Oni;
 			sourceTree = "<group>";
@@ -183,6 +182,7 @@
 				361D665C24C0AC6700C620FA /* WelcomeViewController.swift */,
 				361D666624C0AE6800C620FA /* LogInViewController.swift */,
 				361D662F24C0AB9E00C620FA /* HomeViewController.swift */,
+				361D667B24C74CD700C620FA /* WatchlistViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
