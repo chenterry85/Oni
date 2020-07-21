@@ -33,10 +33,8 @@ class StocksDataManager{
         print("Event Ready")
         
         for symbol in subscribedSymbols{
-            print(symbol)
             finnhubConnector.subscribe(withSymbol: symbol)
         }
-       
         
         DispatchQueue.global(qos: .userInteractive).async {
             let _ = self.finnhubConnector.getStockQuote(withSymbol: "AAPL") {

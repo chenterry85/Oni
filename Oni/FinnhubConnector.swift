@@ -106,21 +106,25 @@ class FinnhubConnector: WebSocketDelegate{
         print("Received text: \(text)")
 
         let rawStringData = text.data(using: .utf8)!
+        
         do{
             if let jsonObject = try JSONSerialization.jsonObject(with: rawStringData, options: .allowFragments) as? [String:Any]{
-                let messageType = jsonObject["type"] as! String
                 
+                let messageType = jsonObject["type"] as! String
                 switch messageType{
-                case "trade":
-                    let tradeDataPacket = try JSONDecoder().decode(TradeDataPacket.self, from: rawStringData)
-                    eventHandler!(tradeDataPacket)
-                case "ping":
-                    return
-                case "error":
-                    return
-                default:
-                    return
+                    case "trade":
+                        let tradeDataPacket = try JSONDecoder().decode(TradeDataPacket.self, from: rawStringData)
+                        DispatchQueue.main.async {
+                            self.eventHandler!(tradeDataPacket)
+                        }
+                    case "ping":
+                        return
+                    case "error":
+                        return
+                    default:
+                        return
                 }
+                
             }
         }catch let error as NSError{
             print(error)
