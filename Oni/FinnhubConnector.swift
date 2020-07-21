@@ -12,7 +12,7 @@ import Starscream
 class FinnhubConnector: WebSocketDelegate{
     
     var socket: WebSocket?
-    var eventHandler: ((TradeDataPacket? ) -> Void)?
+    var eventHandler: ((TradeDataPacket) -> Void)?
     var eventReady: (() -> Void)?
     var connectionReady: Bool = false
     var subscribedSymbols: [String] = []
@@ -21,7 +21,7 @@ class FinnhubConnector: WebSocketDelegate{
     
     private init() {}
     
-    func start(myEventHandler: @escaping (TradeDataPacket?) -> Void, onReadyEvent: @escaping () -> Void) {
+    func start(myEventHandler: @escaping (TradeDataPacket) -> Void, onReadyEvent: @escaping () -> Void) {
         
         eventHandler = myEventHandler
         eventReady = onReadyEvent
@@ -105,17 +105,19 @@ class FinnhubConnector: WebSocketDelegate{
         
         print("Received text: \(text)")
 
-        let rawStringData = text.data(using: .utf8)!
+        let rawJSONData = text.data(using: .utf8)!
         
         do{
-            if let jsonObject = try JSONSerialization.jsonObject(with: rawStringData, options: .allowFragments) as? [String:Any]{
+            if let jsonObject = try JSONSerialization.jsonObject(with:rawJSONData, options :[]) as? Dictionary<String,Any>{
                 
                 let messageType = jsonObject["type"] as! String
                 switch messageType{
                     case "trade":
-                        let tradeDataPacket = try JSONDecoder().decode(TradeDataPacket.self, from: rawStringData)
+                        let rawTradeData = jsonObject["data"] as? [[String:Any]]
+                        let tradeData = TradeDataPacket(with: rawTradeData![0])
+                        print("trade: " + String(describing: tradeData))
                         DispatchQueue.main.async {
-                            self.eventHandler!(tradeDataPacket)
+                            self.eventHandler!(tradeData)
                         }
                     case "ping":
                         return
@@ -138,10 +140,10 @@ class FinnhubConnector: WebSocketDelegate{
         
         let decoder = JSONDecoder()
         do {
-            let tradeDataPacket: TradeDataPacket = try decoder.decode(TradeDataPacket.self, from: data)
+            //let tradeDataPacket: TradeDataPacket = try decoder.decode(TradeDataPacket.self, from: data)
             
             DispatchQueue.main.async {
-                self.eventHandler!(tradeDataPacket)
+                //self.eventHandler!(tradeDataPacket)
             }
         } catch {
             print(error)

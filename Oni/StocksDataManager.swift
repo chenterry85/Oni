@@ -18,15 +18,15 @@ class StocksDataManager{
     
     func grabSubscribedStocksFromFirebase(){
         // grab user subscribed stocks from Firebase
-        subscribedSymbols = ["AAPL", "IBM","CCL","TSLA"]
+        subscribedSymbols = ["AAPL","IBM"]
     }
     
     func connectToFinnhub(){
         finnhubConnector.start(myEventHandler: finnhubHandler(incoming:), onReadyEvent: finnhubReady)
     }
     
-    func finnhubHandler(incoming: TradeDataPacket?){
-        
+    func finnhubHandler(incoming: TradeDataPacket){
+        print("Incoming: " + String(describing: incoming))
     }
     
     func finnhubReady(){

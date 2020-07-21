@@ -30,11 +30,25 @@ struct Stock{
     let percentageChange: String
 }
 
-struct TradeDataPacket: Decodable{
-    let p: Double // last price
-    let s: String // symbol
-    let t: Int64  // timestamp
-    let v: Double // volume
+struct TradeDataPacket{
+    let price: Double
+    let symbol: String
+    let timestamp: Int64
+    let volume: Double
+    
+    init(with dictionary: [String:Any]?){
+        guard let dictionary = dictionary else {
+            price = 0.0
+            symbol = ""
+            timestamp = Int64(NSDate().timeIntervalSince1970)
+            volume = 0.0
+            return
+        }
+        price = dictionary["p"] as! Double
+        symbol = dictionary["s"] as! String
+        timestamp = dictionary["t"] as! Int64
+        volume = dictionary["v"] as! Double
+    }
 }
 
 struct StockQuote: Decodable{
