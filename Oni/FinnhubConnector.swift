@@ -26,7 +26,7 @@ class FinnhubConnector: WebSocketDelegate{
         eventHandler = myEventHandler
         eventReady = onReadyEvent
     
-        let finnhubURL = URL(string: "wss://ws.finnhub.io?token=" + AppConstants.API_KEY)!
+        let finnhubURL = URL(string: "wss://ws.finnhub.io?token=" + AppConstants.CURRENT_API_KEY)!
         socket = WebSocket(request: URLRequest(url: finnhubURL))
         socket?.delegate = self
         socket?.connect()
@@ -146,7 +146,7 @@ class FinnhubConnector: WebSocketDelegate{
     
     func getStockQuote(withSymbol: String, stockQuoteCompleteHandler: @escaping (_ stockQuote: StockQuote?) -> Void){
                 
-        guard let requestURL = URL(string: "https://finnhub.io/api/v1/quote?symbol=\(withSymbol)&token=\(AppConstants.API_KEY)") else {
+        guard let requestURL = URL(string: "https://finnhub.io/api/v1/quote?symbol=\(withSymbol)&token=\(AppConstants.CURRENT_API_KEY)") else {
             print("Stock Quote URL invalid")
             return
         }

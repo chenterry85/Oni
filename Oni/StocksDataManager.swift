@@ -16,8 +16,36 @@ class StocksDataManager{
     
     private init() {}
     
+    func grabSubscribedStocksFromFirebase(){
+        // grab user subscribed stocks from Firebase
+        subscribedSymbols = ["AAPL", "IBM","CCL","TSLA"]
+    }
+    
     func connectToFinnhub(){
         finnhubConnector.start(myEventHandler: finnhubHandler(incoming:), onReadyEvent: finnhubReady)
+    }
+    
+    func finnhubHandler(incoming: TradeDataPacket?){
+        
+    }
+    
+    func finnhubReady(){
+        print("Event Ready")
+        
+        for symbol in subscribedSymbols{
+            print(symbol)
+            finnhubConnector.subscribe(withSymbol: symbol)
+        }
+       
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            let _ = self.finnhubConnector.getStockQuote(withSymbol: "AAPL") {
+                (stockQuote: StockQuote?) in
+                if stockQuote != nil{
+                    print(stockQuote!)
+                }
+            }
+        }
     }
     
     func marketIsOpen() -> Bool{
@@ -41,25 +69,6 @@ class StocksDataManager{
         }
         
         return false
-    }
-    
-    func finnhubHandler(incoming: TradeDataPacket?) -> () {
-        
-    }
-    
-    func finnhubReady() -> (){
-        print("Event Ready")
-        finnhubConnector.subscribe(withSymbol: "IBM")
-        finnhubConnector.subscribe(withSymbol: "CCL")
-        
-        DispatchQueue.global(qos: .userInteractive).async {
-            let _ = self.finnhubConnector.getStockQuote(withSymbol: "AAPL") {
-                (stockQuote: StockQuote?) in
-                if stockQuote != nil{
-                    print(stockQuote!)
-                }
-            }
-        }
     }
     
 }
