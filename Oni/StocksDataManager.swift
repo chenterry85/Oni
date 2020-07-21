@@ -106,7 +106,7 @@ class StocksDataManager{
     }
     
     func calculatePercentChange(_ currentPrice: Double, _ previousClosingPrice: Double) -> Double{
-        let percentChange = abs(currentPrice - previousClosingPrice) / previousClosingPrice
+        let percentChange = 100 * (abs(currentPrice - previousClosingPrice) / previousClosingPrice)
         return roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: percentChange)
     }
     
