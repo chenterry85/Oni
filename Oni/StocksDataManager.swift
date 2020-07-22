@@ -60,6 +60,7 @@ class StocksDataManager{
     }
     
     func finnhubHandler(incoming: TradeDataPacket){
+        
     }
     
     func finnhubReady(){
@@ -72,6 +73,10 @@ class StocksDataManager{
         }else{
             
         }
+        
+    }
+    
+    func updateStocksOnUI(){
         
     }
     
