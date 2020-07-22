@@ -8,18 +8,18 @@
 
 import Foundation
 
-struct AppConstants{
-    static let API_KEYS = ["bs88067rh5r8i6g9dhl0", "bsat2lnrh5r96cvcqtn0", "bsat31nrh5r96cvcqtu0", "bsat387rh5r96cvcquc0", ]
-    static var CURRENT_API_KEY = AppConstants.API_KEYS[0]
-    static func switchToNextAPIKey(){
-        let currentKeyIndex = API_KEYS.firstIndex(of: CURRENT_API_KEY)!
+struct API{
+    static let KEYS = ["bs88067rh5r8i6g9dhl0", "bsat2lnrh5r96cvcqtn0", "bsat31nrh5r96cvcqtu0", "bsat387rh5r96cvcquc0", ]
+    static var CURRENT_KEY = KEYS[0]
+    static func switchToNextKey(){
+        let currentKeyIndex = KEYS.firstIndex(of: CURRENT_KEY)!
         let newKeyIndex:Int!
-        if currentKeyIndex == API_KEYS.count - 1{ // when CURRENT_API_KEY is the last key in array
+        if currentKeyIndex == KEYS.count - 1{ // when CURRENT_API_KEY is the last key in array
             newKeyIndex = 0
         }else{
             newKeyIndex = currentKeyIndex + 1
         }
-        CURRENT_API_KEY = API_KEYS[newKeyIndex]
+        CURRENT_KEY = KEYS[newKeyIndex]
     }
 }
 

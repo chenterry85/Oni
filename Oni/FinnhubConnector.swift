@@ -26,7 +26,7 @@ class FinnhubConnector: WebSocketDelegate{
         eventHandler = myEventHandler
         eventReady = onReadyEvent
     
-        let finnhubURL = URL(string: "wss://ws.finnhub.io?token=" + AppConstants.CURRENT_API_KEY)!
+        let finnhubURL = URL(string: "wss://ws.finnhub.io?token=" + API.CURRENT_KEY)!
         socket = WebSocket(request: URLRequest(url: finnhubURL))
         socket?.delegate = self
         socket?.connect()
@@ -60,7 +60,12 @@ class FinnhubConnector: WebSocketDelegate{
     }
     
     func heartbeat() { // Send data to finnhub periodically to prevent disconnection for inactivity
-        socket?.write(string: "")
+        
+        for symbol in subscribedSymbols{
+            socket?.write(string: "{\"type\":\"unsubscribe\",\"symbol\":\"\(symbol)\"}")
+            socket?.write(string: "{\"type\":\"subscribe\",\"symbol\":\"\(symbol)\"}")
+        }
+        
     }
 
     func websocketDidConnect(_ headers: [String:String]) {
@@ -97,10 +102,9 @@ class FinnhubConnector: WebSocketDelegate{
     func unsubscribe(withSymbol: String) {
         if let index = subscribedSymbols.firstIndex(of: withSymbol) {
             subscribedSymbols.remove(at: index)
-            socket?.write(string: "{\"type\":\"unsubscribe\",\"symbol\":\"\(withSymbol)\"}")
         }
     }
-    
+        
     func websocketDidReceiveMessage(text: String) {
         
         print("Received text: \(text)")
@@ -115,7 +119,6 @@ class FinnhubConnector: WebSocketDelegate{
                     case "trade":
                         let rawTradeData = jsonObject["data"] as? [[String:Any]]
                         let tradeData = TradeDataPacket(with: rawTradeData![0])
-                        print("trade: " + String(describing: tradeData))
                         DispatchQueue.main.async {
                             self.eventHandler!(tradeData)
                         }
@@ -152,7 +155,7 @@ class FinnhubConnector: WebSocketDelegate{
     
     func getStockQuote(withSymbol: String, stockQuoteCompleteHandler: @escaping (_ stockQuote: StockQuote?) -> Void){
                 
-        guard let requestURL = URL(string: "https://finnhub.io/api/v1/quote?symbol=\(withSymbol)&token=\(AppConstants.CURRENT_API_KEY)") else {
+        guard let requestURL = URL(string: "https://finnhub.io/api/v1/quote?symbol=\(withSymbol)&token=\(API.CURRENT_KEY)") else {
             print("Stock Quote URL invalid")
             return
         }
@@ -168,6 +171,13 @@ class FinnhubConnector: WebSocketDelegate{
             guard error == nil else{
                 print(error!);
                 return
+            }
+            
+            if (response as! HTTPURLResponse).statusCode == 429 { // exceed API call limit (30 API calls per second)
+                print("exceed")
+                print(API.CURRENT_KEY)
+                API.switchToNextKey()
+                
             }
            
             guard (response as! HTTPURLResponse).statusCode == 200 else { // status code 200 =  success download

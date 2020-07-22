@@ -19,10 +19,13 @@ class StocksDataManager{
     
     func grabSubscribedStocksFromFirebase(){
         // grab user subscribed stocks from Firebase
-        subscribedSymbols = ["AAPL","IBM"]
+        subscribedSymbols = ["AAPL","IBM","CCL","TSLA","GOOG","AMZN","CRM"]
     }
     
     func connectToFinnhub(){
+        DispatchQueue.main.async {
+            self.initStockObjects()
+        }
         finnhubConnector.start(myEventHandler: finnhubHandler(incoming:), onReadyEvent: finnhubReady)
     }
     
@@ -57,24 +60,19 @@ class StocksDataManager{
     }
     
     func finnhubHandler(incoming: TradeDataPacket){
-        print("Incoming: " + String(describing: incoming))
     }
     
     func finnhubReady(){
         print("Event Ready")
         
-        for symbol in subscribedSymbols{
-            finnhubConnector.subscribe(withSymbol: symbol)
+        if marketIsOpen(){
+            for symbol in subscribedSymbols{
+                finnhubConnector.subscribe(withSymbol: symbol)
+            }
+        }else{
+            
         }
         
-        DispatchQueue.global(qos: .userInteractive).async {
-            let _ = self.finnhubConnector.getStockQuote(withSymbol: "AAPL") {
-                (stockQuote: StockQuote?) in
-                if stockQuote != nil{
-                    print(stockQuote!)
-                }
-            }
-        }
     }
     
     func marketIsOpen() -> Bool{
@@ -88,11 +86,11 @@ class StocksDataManager{
         let calendar = Calendar.current
         let marketOpenTime = calendar.date(bySettingHour: 17, minute: 30, second: 0, of: now)!
         let marketCloseTime = NSDate(timeIntervalSince1970: calendar.startOfDay(for: now).timeIntervalSince1970 + (secondsInOneHour * 24)) as Date
-        
+    
         let weekday = calendar.component(.weekday, from: currentTime)
             
-        if marketOpenTime <= currentTime && currentTime <= marketCloseTime{ // 9:00 am <= current time <= 4:00pm
-            if weekday != 1 && weekday != 7 { //current day is not Saturday and Sunday
+        if marketOpenTime <= currentTime && currentTime <= marketCloseTime{ // when 9:00 am <= current time <= 4:00pm
+            if weekday != 1 && weekday != 7 { // when current day is not Saturday and Sunday
                 return true
             }
         }
