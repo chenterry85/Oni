@@ -10,6 +10,8 @@ import UIKit
 
 class WatchlistViewController: UITableViewController {
     
+    var stocks: [Stock] = []
+
     let stocksDataManager = StocksDataManager.shared
 
     override func viewDidLoad() {
@@ -23,23 +25,20 @@ class WatchlistViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return stocksDataManager.subscribedSymbols.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "stock", for: indexPath) as! StockCell
+        cell.stock = stocks[indexPath.row]
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

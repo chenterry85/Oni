@@ -10,7 +10,7 @@ import Foundation
 
 struct API{
     static let KEYS = ["bs88067rh5r8i6g9dhl0", "bsat2lnrh5r96cvcqtn0", "bsat31nrh5r96cvcqtu0", "bsat387rh5r96cvcquc0", ]
-    static var CURRENT_KEY = KEYS[0]
+    static var CURRENT_KEY = KEYS[1]
     static func switchToNextKey(){
         let currentKeyIndex = KEYS.firstIndex(of: CURRENT_KEY)!
         let newKeyIndex:Int!

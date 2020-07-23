@@ -103,6 +103,10 @@ class StocksDataManager{
         return false
     }
     
+    func getSubscribedStocks() -> Stock {
+        return subscribedStocks
+    }
+    
     func calculatePriceChange(_ currentPrice: Double, _ previousClosingPrice: Double) -> Double{
         let priceChange = currentPrice - previousClosingPrice
         return roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: priceChange)
