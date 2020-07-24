@@ -30,6 +30,10 @@ class FinnhubConnector: WebSocketDelegate{
         socket = WebSocket(request: URLRequest(url: finnhubURL))
         socket?.delegate = self
         socket?.connect()
+        
+        for i in 1 ... 10{
+            print("THREE: \(i)")
+        }
     
     }
     

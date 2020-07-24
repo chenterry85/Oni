@@ -17,9 +17,23 @@ class WatchlistViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.rightBarButtonItem = self.editButtonItem
-        stocksDataManager.grabSubscribedStocksFromFirebase()
+        let dispatchGroup = DispatchGroup()
+        
+        dispatchGroup.enter()
+        stocksDataManager.grabSubscribedStocksFromFirebase {
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.enter()
+        stocksDataManager.initStockObjects {
+            dispatchGroup.leave()
+        }
+        
         stocksDataManager.connectToFinnhub()
+        
+        dispatchGroup.notify(queue: .main) {
+            self.stocks = self.stocksDataManager.getSubscribedStocks()
+        }
     }
 
     // MARK: - Table view data source
@@ -34,8 +48,8 @@ class WatchlistViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "stock", for: indexPath) as! StockCell
-        cell.stock = stocks[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "stock", for: indexPath)
+        //cell.stock = stocks[indexPath.row]
         return cell
     }
     

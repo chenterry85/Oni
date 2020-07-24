@@ -11,25 +11,28 @@ import Foundation
 class StocksDataManager{
     
     static let shared = StocksDataManager()
+    
     let finnhubConnector = FinnhubConnector.shared
     var subscribedSymbols: [String] = []
-    var subscribedStocks: Stock!
-    
+    var subscribedStocks: [Stock]!
+        
     private init() {}
     
-    func grabSubscribedStocksFromFirebase(){
+    func grabSubscribedStocksFromFirebase(completeHandler: @escaping () -> Void){
         // grab user subscribed stocks from Firebase
         subscribedSymbols = ["AAPL","IBM","CCL","TSLA","GOOG","AMZN","CRM"]
+        for i in 1 ... 10{
+            print("ONE: \(i)")
+        }
+        
+        completeHandler()
     }
     
     func connectToFinnhub(){
-        DispatchQueue.main.async {
-            self.initStockObjects()
-        }
-        finnhubConnector.start(myEventHandler: finnhubHandler(incoming:), onReadyEvent: finnhubReady)
+        finnhubConnector.start(myEventHandler: self.finnhubHandler(incoming:), onReadyEvent: self.finnhubReady)
     }
     
-    func initStockObjects(){
+    func initStockObjects(completeHandler: @escaping () -> Void){
         
         for symbol in subscribedSymbols{
             var name: String?
@@ -37,6 +40,10 @@ class StocksDataManager{
             var priceChange: Double?
             var percentChange: Double?
             var previousClosePrice: Double?
+            
+            
+            print("TWO: \(symbol)")
+            
             
             let _ = finnhubConnector.getStockQuote(withSymbol: symbol) {
                 (stockQuote: StockQuote?) in
@@ -49,14 +56,15 @@ class StocksDataManager{
                     
                     let stock = Stock(symbol: symbol, name: name!, price: price!, priceChange: priceChange!, percentChange: percentChange!, previousClosePrice: previousClosePrice!)
                     
+                    self.subscribedStocks.append(stock)
                     print(String(describing: stock))
                 }else{
                     // error when requesting stock quote
                 }
             }
-            
-            
         }
+        
+        completeHandler()
     }
     
     func finnhubHandler(incoming: TradeDataPacket){
@@ -103,7 +111,7 @@ class StocksDataManager{
         return false
     }
     
-    func getSubscribedStocks() -> Stock {
+    func getSubscribedStocks() -> [Stock] {
         return subscribedStocks
     }
     
