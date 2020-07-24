@@ -25,7 +25,7 @@ class WatchlistViewController: UITableViewController {
         }
         
         dispatchGroup.enter()
-        stocksDataManager.initStockObjects {
+        stocksDataManager.fetchStockObjects {
             dispatchGroup.leave()
         }
         

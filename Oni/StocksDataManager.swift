@@ -32,7 +32,7 @@ class StocksDataManager{
         finnhubConnector.start(myEventHandler: self.finnhubHandler(incoming:), onReadyEvent: self.finnhubReady)
     }
     
-    func initStockObjects(completeHandler: @escaping () -> Void){
+    func fetchStockObjects(completeHandler: @escaping () -> Void){
         
         for symbol in subscribedSymbols{
             var name: String?
