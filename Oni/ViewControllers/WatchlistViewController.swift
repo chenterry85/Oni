@@ -48,11 +48,17 @@ class WatchlistViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "stock", for: indexPath)
-        //cell.stock = stocks[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "stock", for: indexPath) as! StockCell
+        cell.stock = stocks[indexPath.row]
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! StockCell
+        if let stock = cell.stock {
+            // goToStockDetail()
+        }
+    }
 
     /*
     // Override to support conditional editing of the table view.
