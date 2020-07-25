@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 import Starscream
 
 class FinnhubConnector: WebSocketDelegate{
@@ -30,10 +31,6 @@ class FinnhubConnector: WebSocketDelegate{
         socket = WebSocket(request: URLRequest(url: finnhubURL))
         socket?.delegate = self
         socket?.connect()
-        
-        for i in 1 ... 10{
-            print("THREE: \(i)")
-        }
     
     }
     
@@ -138,7 +135,6 @@ class FinnhubConnector: WebSocketDelegate{
         }catch let error as NSError{
             print(error)
         }
-        
     }
     
     func websocketDidReceiveData(data: Data) {
@@ -158,50 +154,22 @@ class FinnhubConnector: WebSocketDelegate{
     }
     
     func getStockQuote(withSymbol: String, stockQuoteCompleteHandler: @escaping (_ stockQuote: StockQuote?) -> Void){
+        
+        AF.request("https://finnhub.io/api/v1/quote?symbol=\(withSymbol)&token=\(API.CURRENT_KEY)")
+            .validate()
+            .responseJSON { [unowned self] response in
+                guard let data = response.data else {
+                    print("Error fetching stock quote")
+                    stockQuoteCompleteHandler(nil)
+                    return
+                }
                 
-        guard let requestURL = URL(string: "https://finnhub.io/api/v1/quote?symbol=\(withSymbol)&token=\(API.CURRENT_KEY)") else {
-            print("Stock Quote URL invalid")
-            return
-        }
-            
-        let task = URLSession.shared.downloadTask(with: requestURL, completionHandler: {
-            (url:URL?, response:URLResponse?, error:Error?) in
-            
-            guard let url=url, let response=response else{
-                print("error in grabbing Stock Quote JSON")
-                return
-            }
-           
-            guard error == nil else{
-                print(error!);
-                return
-            }
-            
-            if (response as! HTTPURLResponse).statusCode == 429 { // exceed API call limit (30 API calls per second)
-                print("exceed")
-                print(API.CURRENT_KEY)
-                API.switchToNextKey()
-                
-            }
-           
-            guard (response as! HTTPURLResponse).statusCode == 200 else { // status code 200 =  success download
-                print("Grab Stock Quote failed")
-                return
-            }
-           
-            guard let data = try? Data.init(contentsOf: url) else{
-                return
-            }
+                if let stockQuote = try? JSONDecoder().decode(StockQuote.self, from: data) {
+                    stockQuoteCompleteHandler(stockQuote)
+                }
 
-            if let stockQuote = try? JSONDecoder().decode(StockQuote.self, from: data) {
-                stockQuoteCompleteHandler(stockQuote) // return valid stock quote
-            }
-            
-        })
-        stockQuoteCompleteHandler(nil) // return nil when catch errors
-        task.resume()
+        }
     }
-    
     
 }
 

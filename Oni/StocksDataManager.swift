@@ -14,25 +14,23 @@ class StocksDataManager{
     
     let finnhubConnector = FinnhubConnector.shared
     var subscribedSymbols: [String] = []
-    var subscribedStocks: [Stock]!
+    var subscribedStocks: [Stock] = []
         
-    private init() {}
+    private init() {
+        grabSubscribedStocksFromFirebase()
+        fetchStockObjects()
+    }
     
-    func grabSubscribedStocksFromFirebase(completeHandler: @escaping () -> Void){
+    func grabSubscribedStocksFromFirebase(){
         // grab user subscribed stocks from Firebase
         subscribedSymbols = ["AAPL","IBM","CCL","TSLA","GOOG","AMZN","CRM"]
-        for i in 1 ... 10{
-            print("ONE: \(i)")
-        }
-        
-        completeHandler()
     }
     
     func connectToFinnhub(){
         finnhubConnector.start(myEventHandler: self.finnhubHandler(incoming:), onReadyEvent: self.finnhubReady)
     }
     
-    func fetchStockObjects(completeHandler: @escaping () -> Void){
+    func fetchStockObjects(){
         
         for symbol in subscribedSymbols{
             var name: String?
@@ -41,12 +39,9 @@ class StocksDataManager{
             var percentChange: Double?
             var previousClosePrice: Double?
             
-            
-            print("TWO: \(symbol)")
-            
-            
             let _ = finnhubConnector.getStockQuote(withSymbol: symbol) {
                 (stockQuote: StockQuote?) in
+                                
                 if let stockQuote = stockQuote{
                     name = "" // empty for now
                     price = stockQuote.c
@@ -63,8 +58,6 @@ class StocksDataManager{
                 }
             }
         }
-        
-        completeHandler()
     }
     
     func finnhubHandler(incoming: TradeDataPacket){

@@ -14,27 +14,11 @@ class WatchlistViewController: UITableViewController {
 
     let stocksDataManager = StocksDataManager.shared
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let dispatchGroup = DispatchGroup()
-        
-        dispatchGroup.enter()
-        stocksDataManager.grabSubscribedStocksFromFirebase {
-            dispatchGroup.leave()
-        }
-        
-        dispatchGroup.enter()
-        stocksDataManager.fetchStockObjects {
-            dispatchGroup.leave()
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         stocksDataManager.connectToFinnhub()
-        
-        // run after grabSubscribedStocksFromFirebase() and fetchStockObjects finishes
-        dispatchGroup.notify(queue: .main) {
-            self.stocks = self.stocksDataManager.getSubscribedStocks()
-        }
+        stocks = stocksDataManager.getSubscribedStocks()
         
         let customCell = UINib(nibName: "StockCell", bundle: nil)
         tableView.register(customCell, forCellReuseIdentifier: "stock")
