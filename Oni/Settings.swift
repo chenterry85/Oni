@@ -10,8 +10,8 @@ import Foundation
 
 struct Settings{
     
-    static let roundingDecimalPlaces: Int = 3
-    static let heartbeatTimeInterval:Double = 5.0
-    static let backgroundThemeColor:String = "Black"
+    static let roundingDecimalPlaces: Int = 2
+    static let heartbeatTimeInterval: Double = 5.0
+    static let backgroundThemeColor: String = "Black"
     
 }

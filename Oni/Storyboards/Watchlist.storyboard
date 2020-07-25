@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Watchlist View Controller-->
+        <!--Watchlist-->
         <scene sceneID="8Bh-Yi-8Kw">
             <objects>
                 <tableViewController id="hLb-RG-WA8" customClass="WatchlistViewController" customModule="Oni" customModuleProvider="target" sceneMemberID="viewController">
@@ -22,6 +22,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -29,7 +30,7 @@
                             <outlet property="delegate" destination="hLb-RG-WA8" id="vSD-QF-yml"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="CZ9-jJ-nTl"/>
+                    <navigationItem key="navigationItem" title="Watchlist" id="CZ9-jJ-nTl"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dRb-jM-iBp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -38,17 +39,23 @@
         <!--Navigation Controller-->
         <scene sceneID="3xX-RM-TbN">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="C7F-45-gBB" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" interfaceStyle="dark" toolbarHidden="NO" id="C7F-45-gBB" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="watchlist_icon" id="Lrs-xf-4Xg">
                         <color key="badgeColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ht6-pY-a87">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="ht6-pY-a87">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="z8X-Hv-Gay">
+                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="hLb-RG-WA8" kind="relationship" relationship="rootViewController" id="ecS-QW-V9Y"/>
                     </connections>

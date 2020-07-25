@@ -35,8 +35,8 @@ class StocksDataManager{
         for symbol in subscribedSymbols{
             var name: String?
             var price: Double?
-            var priceChange: Double?
-            var percentChange: Double?
+            var priceChange: String?
+            var percentChange: String?
             var previousClosePrice: Double?
             
             let _ = finnhubConnector.getStockQuote(withSymbol: symbol) {
@@ -108,14 +108,20 @@ class StocksDataManager{
         return subscribedStocks
     }
     
-    func calculatePriceChange(_ currentPrice: Double, _ previousClosingPrice: Double) -> Double{
+    func calculatePriceChange(_ currentPrice: Double, _ previousClosingPrice: Double) -> String{
         let priceChange = currentPrice - previousClosingPrice
-        return roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: priceChange)
+        let formattedPriceChange = "\(roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: priceChange))"
+        let sign = formattedPriceChange.first == "-" ?
+            "" : "+"
+        return sign + formattedPriceChange
     }
     
-    func calculatePercentChange(_ currentPrice: Double, _ previousClosingPrice: Double) -> Double{
-        let percentChange = 100 * (abs(currentPrice - previousClosingPrice) / previousClosingPrice)
-        return roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: percentChange)
+    func calculatePercentChange(_ currentPrice: Double, _ previousClosingPrice: Double) -> String{
+        let percentChange = 100 * ((currentPrice - previousClosingPrice) / previousClosingPrice)
+        let formmatedPercentChange = "\(roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: percentChange))"
+        let sign = formmatedPercentChange.first == "-" ?
+            "" : "+"
+        return sign + formmatedPercentChange
     }
     
     func roundTo(decimalPlace: Int, withValue: Double) -> Double{

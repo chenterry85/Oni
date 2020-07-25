@@ -37,8 +37,8 @@ struct Stock{
     let symbol: String
     let name: String
     let price: Double
-    let priceChange: Double
-    let percentChange: Double
+    let priceChange: String
+    let percentChange: String
     let previousClosePrice: Double
 
 }

@@ -11,7 +11,7 @@
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="qcz-kT-TM2" customClass="StockCell" customModule="Oni" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="52"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qcz-kT-TM2" id="ujm-rm-oWh" customClass="StockCell" customModule="Oni" customModuleProvider="target">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qcz-kT-TM2" id="ujm-rm-oWh">
                 <rect key="frame" x="0.0" y="0.0" width="414" height="52"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -33,6 +33,12 @@
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S7A-qr-FRb">
+                        <rect key="frame" x="336" y="5" width="39" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4WX-7d-wpG" userLabel="ChangeView">
                         <rect key="frame" x="320" y="27" width="55" height="21"/>
                         <subviews>
@@ -50,12 +56,6 @@
                             <constraint firstAttribute="height" constant="21" id="uyQ-ba-AYe"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S7A-qr-FRb">
-                        <rect key="frame" x="336" y="5" width="39" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="double-up" highlightedImage="double-down" translatesAutoresizingMaskIntoConstraints="NO" id="TRj-rI-Sjv">
                         <rect key="frame" x="382" y="14" width="25" height="25"/>
                         <constraints>
@@ -80,13 +80,13 @@
                     <constraint firstAttribute="bottom" secondItem="2QV-ZT-lO9" secondAttribute="bottom" constant="5" id="q53-bQ-EhL"/>
                     <constraint firstAttribute="bottom" secondItem="TRj-rI-Sjv" secondAttribute="bottom" constant="13" id="udG-mD-L00"/>
                 </constraints>
-                <connections>
-                    <outlet property="changeWrapper" destination="4WX-7d-wpG" id="Fm6-xl-XBu"/>
-                    <outlet property="percentChange" destination="589-7A-fdM" id="LDG-yS-vBB"/>
-                    <outlet property="price" destination="S7A-qr-FRb" id="5Ze-wf-uaC"/>
-                    <outlet property="symbol" destination="iwA-k4-V8u" id="mmC-0y-fim"/>
-                </connections>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="changeWrapper" destination="4WX-7d-wpG" id="hBI-Zd-Xj7"/>
+                <outlet property="percentChange" destination="589-7A-fdM" id="cMt-RM-eKu"/>
+                <outlet property="price" destination="S7A-qr-FRb" id="3VU-NX-Hry"/>
+                <outlet property="symbol" destination="iwA-k4-V8u" id="vjj-sU-9xH"/>
+            </connections>
             <point key="canvasLocation" x="-26.086956521739133" y="349.55357142857139"/>
         </tableViewCell>
     </objects>
