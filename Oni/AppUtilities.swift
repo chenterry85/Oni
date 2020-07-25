@@ -8,6 +8,16 @@
 
 import Foundation
 
+class App{
+    enum State{
+        case unregistered
+        case loggedIn(User)
+        case sessionExpired(User)
+    }
+    
+    var state: State = .unregistered
+}
+
 struct API{
     static let KEYS = ["bs88067rh5r8i6g9dhl0", "bsat2lnrh5r96cvcqtn0", "bsat31nrh5r96cvcqtu0", "bsat387rh5r96cvcquc0", ]
     static var CURRENT_KEY = KEYS[1]

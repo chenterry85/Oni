@@ -31,9 +31,13 @@ class WatchlistViewController: UITableViewController {
         
         stocksDataManager.connectToFinnhub()
         
+        // run after grabSubscribedStocksFromFirebase() and fetchStockObjects finishes
         dispatchGroup.notify(queue: .main) {
             self.stocks = self.stocksDataManager.getSubscribedStocks()
         }
+        
+        let customCell = UINib(nibName: "StockCell", bundle: nil)
+        tableView.register(customCell, forCellReuseIdentifier: "stock")
     }
 
     // MARK: - Table view data source
