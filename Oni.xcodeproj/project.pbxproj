@@ -28,6 +28,7 @@
 		361D667A24C5883300C620FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 361D667924C5883200C620FA /* GoogleService-Info.plist */; };
 		361D667C24C74CD700C620FA /* WatchlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361D667B24C74CD700C620FA /* WatchlistViewController.swift */; };
 		36D4A68F24CB458E00D6306B /* StockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D4A68E24CB458E00D6306B /* StockCell.swift */; };
+		36D4A69124CBEC7700D6306B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D4A69024CBEC7700D6306B /* User.swift */; };
 		EAC2AA9AB9C552AA1A065575 /* Pods_Oni.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C191498FCFA204F0A7996E6 /* Pods_Oni.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		361D667924C5883200C620FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		361D667B24C74CD700C620FA /* WatchlistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistViewController.swift; sourceTree = "<group>"; };
 		36D4A68E24CB458E00D6306B /* StockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCell.swift; sourceTree = "<group>"; };
+		36D4A69024CBEC7700D6306B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3F0F9044AADC8C00EBA4F092 /* Pods-Oni.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oni.debug.xcconfig"; path = "Target Support Files/Pods-Oni/Pods-Oni.debug.xcconfig"; sourceTree = "<group>"; };
 		91ABCD2AE96737D1117ADF28 /* Pods-Oni.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oni.release.xcconfig"; path = "Target Support Files/Pods-Oni/Pods-Oni.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,6 +147,7 @@
 				361D663924C0ABA000C620FA /* Info.plist */,
 				361D667924C5883200C620FA /* GoogleService-Info.plist */,
 				36D4A68E24CB458E00D6306B /* StockCell.swift */,
+				36D4A69024CBEC7700D6306B /* User.swift */,
 			);
 			path = Oni;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				361D667324C2246000C620FA /* FinnhubConnector.swift in Sources */,
 				361D666724C0AE6800C620FA /* LogInViewController.swift in Sources */,
 				361D667C24C74CD700C620FA /* WatchlistViewController.swift in Sources */,
+				36D4A69124CBEC7700D6306B /* User.swift in Sources */,
 				361D667724C33A4500C620FA /* Settings.swift in Sources */,
 				361D667124C2226200C620FA /* AppUtilities.swift in Sources */,
 				361D662E24C0AB9E00C620FA /* SceneDelegate.swift in Sources */,
