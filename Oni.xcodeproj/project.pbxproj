@@ -135,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				361D666F24C2226200C620FA /* AppUtilities.swift */,
+				36D4A69024CBEC7700D6306B /* User.swift */,
 				361D667624C33A4500C620FA /* Settings.swift */,
 				361D665B24C0ABCB00C620FA /* Storyboards */,
 				361D667824C4A6FD00C620FA /* ViewControllers */,
@@ -147,7 +148,6 @@
 				361D663924C0ABA000C620FA /* Info.plist */,
 				361D667924C5883200C620FA /* GoogleService-Info.plist */,
 				36D4A68E24CB458E00D6306B /* StockCell.swift */,
-				36D4A69024CBEC7700D6306B /* User.swift */,
 			);
 			path = Oni;
 			sourceTree = "<group>";

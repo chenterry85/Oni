@@ -8,7 +8,7 @@
 
 import Foundation
 
-class User{
+struct User{
     
     init(){
         
