@@ -59,8 +59,8 @@
                             <constraint firstAttribute="bottom" secondItem="589-7A-fdM" secondAttribute="bottom" constant="5" id="vnv-Zr-X3w"/>
                         </constraints>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="double-up" highlightedImage="double-up" translatesAutoresizingMaskIntoConstraints="NO" id="TRj-rI-Sjv" userLabel="priceChangeIcon">
-                        <rect key="frame" x="376" y="24" width="32" height="32"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="double--down" highlightedImage="double-up" translatesAutoresizingMaskIntoConstraints="NO" id="TRj-rI-Sjv" userLabel="priceChangeIcon">
+                        <rect key="frame" x="376" y="39" width="32" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="32" id="Iaa-2c-bVT"/>
                             <constraint firstAttribute="height" constant="32" id="dly-Zl-8Wl"/>
@@ -71,7 +71,7 @@
                 <constraints>
                     <constraint firstItem="2QV-ZT-lO9" firstAttribute="leading" secondItem="ujm-rm-oWh" secondAttribute="leading" constant="11" id="0a1-MS-WH0"/>
                     <constraint firstAttribute="bottom" secondItem="2QV-ZT-lO9" secondAttribute="bottom" constant="13" id="BF8-kJ-eyw"/>
-                    <constraint firstItem="TRj-rI-Sjv" firstAttribute="top" secondItem="ujm-rm-oWh" secondAttribute="top" constant="24" id="CSB-mG-svB"/>
+                    <constraint firstItem="TRj-rI-Sjv" firstAttribute="top" secondItem="ujm-rm-oWh" secondAttribute="top" constant="39" id="CSB-mG-svB"/>
                     <constraint firstAttribute="bottom" secondItem="4WX-7d-wpG" secondAttribute="bottom" constant="11" id="KRY-aC-p3M"/>
                     <constraint firstItem="1Dx-l9-xuw" firstAttribute="top" secondItem="ujm-rm-oWh" secondAttribute="top" constant="21" id="S6d-HC-G6G"/>
                     <constraint firstItem="TRj-rI-Sjv" firstAttribute="leading" secondItem="S7A-qr-FRb" secondAttribute="trailing" constant="5" id="UOS-O1-Ejs"/>
@@ -84,6 +84,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="changeSymbol" destination="TRj-rI-Sjv" id="uyN-YW-Vtk"/>
                 <outlet property="changeWrapper" destination="4WX-7d-wpG" id="hBI-Zd-Xj7"/>
                 <outlet property="percentChange" destination="589-7A-fdM" id="cMt-RM-eKu"/>
                 <outlet property="price" destination="S7A-qr-FRb" id="3VU-NX-Hry"/>
@@ -93,6 +94,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="double--down" width="50" height="50"/>
         <image name="double-up" width="50" height="50"/>
     </resources>
 </document>
