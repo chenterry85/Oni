@@ -8,7 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="qcz-kT-TM2" customClass="StockCell" customModule="Oni" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="80" id="qcz-kT-TM2" customClass="StockCell" customModule="Oni" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qcz-kT-TM2" id="ujm-rm-oWh">
@@ -34,8 +34,8 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S7A-qr-FRb">
-                        <rect key="frame" x="325" y="13" width="46" height="26"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                        <rect key="frame" x="320.5" y="13" width="50.5" height="26"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -76,7 +76,6 @@
                     <constraint firstItem="1Dx-l9-xuw" firstAttribute="top" secondItem="ujm-rm-oWh" secondAttribute="top" constant="21" id="S6d-HC-G6G"/>
                     <constraint firstItem="TRj-rI-Sjv" firstAttribute="leading" secondItem="S7A-qr-FRb" secondAttribute="trailing" constant="5" id="UOS-O1-Ejs"/>
                     <constraint firstItem="iwA-k4-V8u" firstAttribute="leading" secondItem="ujm-rm-oWh" secondAttribute="leading" constant="11" id="VC3-pL-uHo"/>
-                    <constraint firstAttribute="bottom" secondItem="TRj-rI-Sjv" secondAttribute="bottom" constant="24" id="VqN-iI-LbX"/>
                     <constraint firstItem="S7A-qr-FRb" firstAttribute="top" secondItem="ujm-rm-oWh" secondAttribute="top" constant="13" id="ber-v5-hyZ"/>
                     <constraint firstAttribute="trailing" secondItem="TRj-rI-Sjv" secondAttribute="trailing" constant="6" id="feu-35-Dn0"/>
                     <constraint firstItem="iwA-k4-V8u" firstAttribute="top" secondItem="ujm-rm-oWh" secondAttribute="top" constant="15" id="j9W-9Y-JN4"/>

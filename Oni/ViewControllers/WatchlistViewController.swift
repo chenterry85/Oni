@@ -17,8 +17,8 @@ class WatchlistViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        stocksDataManager.currentTableView = tableView
         stocksDataManager.connectToFinnhub()
+        stocksDataManager.currentTableView = tableView
         stocks = stocksDataManager.getSubscribedStocks()
         
         let customCell = UINib(nibName: "StockCell", bundle: nil)

@@ -36,11 +36,11 @@ struct API{
 struct Stock{
     let symbol: String
     let name: String
-    let price: Double
-    let priceChange: String
-    let percentChange: String
-    let previousClosePrice: Double
-
+    var price: Double
+    var priceChange: String
+    var percentChange: String
+    var previousClosePrice: Double
+    var edittedTimestamp: Int64
 }
 
 struct TradeDataPacket{
@@ -70,7 +70,7 @@ struct StockQuote: Decodable{
     let l: Double // low price of the day
     let o: Double // open price of the day
     let pc: Double // previous close price
-    let t:Int64
+    let t:Int64 // timestamp
     
     init(){
         self.c = 0.0

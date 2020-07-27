@@ -14,13 +14,20 @@ class StocksDataManager{
     static let shared = StocksDataManager()
     
     let finnhubConnector = FinnhubConnector.shared
+    var refresher: Timer!
     var subscribedSymbols: [String] = []
     var subscribedStocks: [Stock] = []
     var currentTableView: UITableView?
+    
         
     private init() {
         grabSubscribedStocksFromFirebase()
         fetchStockObjects()
+        refresher = Timer.scheduledTimer(withTimeInterval: Settings.stockDataRefreshRate, repeats: true, block: { [weak self] _ in
+            DispatchQueue.main.async {
+                self?.refreshStockDataOnUI()
+            }
+        })
     }
     
     func grabSubscribedStocksFromFirebase(){
@@ -51,7 +58,7 @@ class StocksDataManager{
                     priceChange = self.calculatePriceChange(price!,previousClosePrice!)
                     percentChange = self.calculatePercentChange(price!, previousClosePrice!)
                     
-                    let stock = Stock(symbol: symbol, name: name!, price: price!, priceChange: priceChange!, percentChange: percentChange!, previousClosePrice: previousClosePrice!)
+                    let stock = Stock(symbol: symbol, name: name!, price: price!, priceChange: priceChange!, percentChange: percentChange!, previousClosePrice: previousClosePrice!, edittedTimestamp: Int64(NSDate().timeIntervalSince1970))
                     
                     self.subscribedStocks.append(stock)
                     print(String(describing: stock))
@@ -60,29 +67,72 @@ class StocksDataManager{
                 }
             }
         }
+        
     }
     
     func finnhubHandler(incoming: TradeDataPacket){
         let stockSymbol = incoming.symbol
-        updateUI(withSymbol: stockSymbol)
+        let currentPrice = incoming.price
+        updateStockData(withSymbol: stockSymbol, withPrice: currentPrice)
     }
     
     func finnhubReady(){
         print("Finnhub Ready")
+        
+        for symbol in subscribedSymbols{
+            finnhubConnector.subscribe(withSymbol: symbol)
+        }
+        
         if marketIsOpen(){
-            for symbol in subscribedSymbols{
-                finnhubConnector.subscribe(withSymbol: symbol)
-            }
+            
         }else{
             print("makert closed")
         }
     }
     
-    func updateUI(withSymbol: String){
+    // called every 8 seconds
+    func refreshStockDataOnUI(){
         
-        let index = subscribedSymbols.firstIndex(of: withSymbol)
+        print("Begin Refresh")
         
+        let eight_seconds_ago = Int64(NSDate().timeIntervalSince1970) - 8
+    
+        // ensure all stocks are refreshed in the last 8 seconds
+        for i in 0 ..< subscribedStocks.count{
+
+            let stock = subscribedStocks[i]
+            var updatedStock = stock
+            
+            if stock.edittedTimestamp < eight_seconds_ago{ // update stock that did not get updated by webscoekt
+                finnhubConnector.getStockQuote(withSymbol: stock.symbol) {
+                    (stockQuote: StockQuote?) in
+                    if let stockQuote = stockQuote{
+                        print("\(stock.symbol) with old price: \(stock.price), new price: \(stockQuote.c)")
+                        updatedStock.price = stockQuote.c
+                        updatedStock.priceChange = self.calculatePriceChange(stockQuote.c, stock.previousClosePrice)
+                        updatedStock.percentChange = self.calculatePriceChange(stockQuote.c, stock.previousClosePrice)
+                        updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
+                    }
+                }
+                subscribedStocks[i] = updatedStock
+            }
+        }
         
+        currentTableView?.reloadData()
+        
+    
+    }
+    
+    func updateStockData(withSymbol: String, withPrice: Double){
+        if let index = subscribedSymbols.firstIndex(of: withSymbol){
+            var updatedStock = subscribedStocks[index]
+            updatedStock.price = withPrice
+            updatedStock.priceChange = calculatePriceChange(withPrice, updatedStock.previousClosePrice)
+            updatedStock.percentChange = calculatePriceChange(withPrice, updatedStock.previousClosePrice)
+            updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
+            
+            subscribedStocks[index] = updatedStock
+        }
     }
     
     func marketIsOpen() -> Bool{
