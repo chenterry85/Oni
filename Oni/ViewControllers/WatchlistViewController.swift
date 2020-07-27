@@ -17,6 +17,7 @@ class WatchlistViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        stocksDataManager.currentTableView = tableView
         stocksDataManager.connectToFinnhub()
         stocks = stocksDataManager.getSubscribedStocks()
         

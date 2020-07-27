@@ -31,7 +31,7 @@ class FinnhubConnector: WebSocketDelegate{
         socket = WebSocket(request: URLRequest(url: finnhubURL))
         socket?.delegate = self
         socket?.connect()
-    
+        
     }
     
     func didReceive(event: WebSocketEvent, client: WebSocket) {
@@ -62,8 +62,8 @@ class FinnhubConnector: WebSocketDelegate{
     
     func heartbeat() { // Send data to finnhub periodically to prevent disconnection for inactivity
         
+        print("heartbeat")
         for symbol in subscribedSymbols{
-            socket?.write(string: "{\"type\":\"unsubscribe\",\"symbol\":\"\(symbol)\"}")
             socket?.write(string: "{\"type\":\"subscribe\",\"symbol\":\"\(symbol)\"}")
         }
         

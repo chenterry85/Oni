@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class StocksDataManager{
     
@@ -15,6 +16,7 @@ class StocksDataManager{
     let finnhubConnector = FinnhubConnector.shared
     var subscribedSymbols: [String] = []
     var subscribedStocks: [Stock] = []
+    var currentTableView: UITableView?
         
     private init() {
         grabSubscribedStocksFromFirebase()
@@ -61,23 +63,25 @@ class StocksDataManager{
     }
     
     func finnhubHandler(incoming: TradeDataPacket){
-        updateStockDataOnUI()
+        let stockSymbol = incoming.symbol
+        updateUI(withSymbol: stockSymbol)
     }
     
     func finnhubReady(){
-        print("Event Ready")
-        
+        print("Finnhub Ready")
         if marketIsOpen(){
             for symbol in subscribedSymbols{
                 finnhubConnector.subscribe(withSymbol: symbol)
             }
         }else{
-            
+            print("makert closed")
         }
-        
     }
     
-    func updateStockDataOnUI(){
+    func updateUI(withSymbol: String){
+        
+        let index = subscribedSymbols.firstIndex(of: withSymbol)
+        
         
     }
     
