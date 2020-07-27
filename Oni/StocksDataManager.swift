@@ -53,7 +53,7 @@ class StocksDataManager{
                                 
                 if let stockQuote = stockQuote{
                     name = "" // empty for now
-                    price = stockQuote.c
+                    price = self.roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: stockQuote.c)
                     previousClosePrice = stockQuote.pc
                     priceChange = self.calculatePriceChange(price!,previousClosePrice!)
                     percentChange = self.calculatePercentChange(price!, previousClosePrice!)
@@ -108,7 +108,7 @@ class StocksDataManager{
                     (stockQuote: StockQuote?) in
                     if let stockQuote = stockQuote{
                         print("\(stock.symbol) with old price: \(stock.price), new price: \(stockQuote.c)")
-                        updatedStock.price = stockQuote.c
+                        updatedStock.price = self.roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: stockQuote.c)
                         updatedStock.priceChange = self.calculatePriceChange(stockQuote.c, stock.previousClosePrice)
                         updatedStock.percentChange = self.calculatePriceChange(stockQuote.c, stock.previousClosePrice)
                         updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
@@ -126,7 +126,7 @@ class StocksDataManager{
     func updateStockData(withSymbol: String, withPrice: Double){
         if let index = subscribedSymbols.firstIndex(of: withSymbol){
             var updatedStock = subscribedStocks[index]
-            updatedStock.price = withPrice
+            updatedStock.price = roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: withPrice)
             updatedStock.priceChange = calculatePriceChange(withPrice, updatedStock.previousClosePrice)
             updatedStock.percentChange = calculatePriceChange(withPrice, updatedStock.previousClosePrice)
             updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)

@@ -16,7 +16,9 @@ class StockCell: UITableViewCell{
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var percentChange: UILabel!
     @IBOutlet weak var changeWrapper: UIView!
-    @IBOutlet weak var changeSymbol: UIImageView!
+    @IBOutlet weak var positiveSignChangeIcon: UIImageView!
+    @IBOutlet weak var negativeSignChangeIcon: UIImageView!
+
 
     var stock: Stock? {
         didSet {
@@ -27,9 +29,12 @@ class StockCell: UITableViewCell{
                 changeWrapper.backgroundColor = percentChange.text?.first == "+"
                     ? UIColor.green.withAlphaComponent(0.7)
                     : UIColor.red
-                changeSymbol.image = percentChange.text?.first == "+"
-                    ? UIImage(named: "double--up")
-                    : UIImage(named: "double--down")
+                positiveSignChangeIcon.image = percentChange.text?.first == "+"
+                    ? UIImage(named: "double-up")
+                    : UIImage(named: "empty-double-up")
+                negativeSignChangeIcon.image = percentChange.text?.first == "-"
+                    ? UIImage(named: "double-down")
+                    : UIImage(named: "empty-double-down")
                 
             }
         }
