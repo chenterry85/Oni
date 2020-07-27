@@ -23,6 +23,7 @@ class WatchlistViewController: UITableViewController {
         
         let customCell = UINib(nibName: "StockCell", bundle: nil)
         tableView.register(customCell, forCellReuseIdentifier: "stock")
+        tableView.backgroundColor = .black
     }
 
     // MARK: - Table view data source
