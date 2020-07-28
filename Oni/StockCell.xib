@@ -59,14 +59,14 @@
                             <constraint firstAttribute="bottom" secondItem="589-7A-fdM" secondAttribute="bottom" constant="5" id="vnv-Zr-X3w"/>
                         </constraints>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="double-down" highlightedImage="double-up" translatesAutoresizingMaskIntoConstraints="NO" id="TRj-rI-Sjv" userLabel="positiveSignChangeIcon">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="double-down" highlightedImage="double-up" translatesAutoresizingMaskIntoConstraints="NO" id="TRj-rI-Sjv" userLabel="negativeSignChangeIcon">
                         <rect key="frame" x="376" y="39" width="32" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="32" id="Iaa-2c-bVT"/>
                             <constraint firstAttribute="height" constant="32" id="dly-Zl-8Wl"/>
                         </constraints>
                     </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="double-up" highlightedImage="double-up" translatesAutoresizingMaskIntoConstraints="NO" id="2a9-e1-5MP" userLabel="negativeSignChangeIcon">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="double-up" highlightedImage="double-up" translatesAutoresizingMaskIntoConstraints="NO" id="2a9-e1-5MP" userLabel="positiveSignChangeIcon">
                         <rect key="frame" x="376" y="8" width="32" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="32" id="Hcs-wr-BBh"/>
@@ -96,9 +96,9 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="changeWrapper" destination="4WX-7d-wpG" id="hBI-Zd-Xj7"/>
-                <outlet property="negativeSignChangeIcon" destination="TRj-rI-Sjv" id="0aC-wr-ouY"/>
+                <outlet property="negativeSignChangeIcon" destination="TRj-rI-Sjv" id="1Cg-d6-lqI"/>
                 <outlet property="percentChange" destination="589-7A-fdM" id="cMt-RM-eKu"/>
-                <outlet property="positiveSignChangeIcon" destination="2a9-e1-5MP" id="U3h-KT-FcU"/>
+                <outlet property="positiveSignChangeIcon" destination="2a9-e1-5MP" id="abw-HI-uV0"/>
                 <outlet property="price" destination="S7A-qr-FRb" id="3VU-NX-Hry"/>
                 <outlet property="symbol" destination="iwA-k4-V8u" id="vjj-sU-9xH"/>
             </connections>
