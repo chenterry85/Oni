@@ -21,7 +21,7 @@ class StocksDataManager{
     
         
     private init() {
-        grabSubscribedStocksFromFirebase()
+        fetchSubscribedStocksFromFirebase()
         fetchStockObjects()
         refresher = Timer.scheduledTimer(withTimeInterval: Settings.stockDataRefreshRate, repeats: true, block: { [weak self] _ in
             DispatchQueue.main.async {
@@ -30,17 +30,17 @@ class StocksDataManager{
         })
     }
     
-    func grabSubscribedStocksFromFirebase(){
-        // grab user subscribed stocks from Firebase
-        subscribedSymbols = ["AAPL","IBM","CCL","TSLA","GOOG","AMZN","CRM"]
-        
-        // init the size of subscribedStocks[]
-        subscribedStocks = [Stock](repeating: Stock(symbol: "", name: "", price: 0.0, priceChange: "", percentChange: "", previousClosePrice: 0.0, edittedTimestamp: 0), count: subscribedSymbols.count)
-    }
-    
     func connectToFinnhub(){
         finnhubConnector.start(myEventHandler: self.finnhubHandler(incoming:), onReadyEvent: self.finnhubReady)
     }
+    
+    func fetchSubscribedStocksFromFirebase(){
+           // grab user subscribed stocks from Firebase
+           subscribedSymbols = ["AAPL","IBM","CCL","TSLA","GOOG","AMZN","CRM"]
+           
+           // init the size of subscribedStocks[]
+           subscribedStocks = [Stock](repeating: Stock(symbol: "", name: "", price: 0.0, priceChange: "", percentChange: "", previousClosePrice: 0.0, edittedTimestamp: 0), count: subscribedSymbols.count)
+       }
     
     func fetchStockObjects(){
         
