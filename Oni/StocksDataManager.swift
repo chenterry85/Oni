@@ -116,7 +116,7 @@ class StocksDataManager{
                         print("\(stock.symbol) with old price: \(stock.price), new price: \(stockQuote.c)")
                         updatedStock.price = self.roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: stockQuote.c)
                         updatedStock.priceChange = self.calculatePriceChange(stockQuote.c, stockQuote.pc)
-                        updatedStock.percentChange = self.calculatePriceChange(stockQuote.c, stockQuote.pc)
+                        updatedStock.percentChange = self.calculatePercentChange(stockQuote.c, stockQuote.pc)
                         updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
                     }
                 }
@@ -126,7 +126,6 @@ class StocksDataManager{
         
         currentTableView?.reloadData()
         
-    
     }
     
     func updateStockData(withSymbol: String, withPrice: Double){

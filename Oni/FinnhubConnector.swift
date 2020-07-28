@@ -170,9 +170,26 @@ class FinnhubConnector: WebSocketDelegate{
                 if let stockQuote = try? JSONDecoder().decode(StockQuote.self, from: data) {
                     stockQuoteCompleteHandler(stockQuote)
                 }
-
-        }
+            }
     }
+    
+    func getCompanyInfo(withSymbol: String, companyInfoCompleteHandler: @escaping (_ stockQuote: StockQuote?) -> Void){
+        
+        AF.request("https://finnhub.io/api/v1/profile2?symbol=\(withSymbol)&token=\(API.CURRENT_KEY)")
+            .validate()
+            .responseJSON { [unowned self] response in
+                guard let data = response.data else {
+                    print("Error fetching stock quote")
+                    companyInfoCompleteHandler(nil)
+                    return
+                }
+                
+                if let stockQuote = try? JSONDecoder().decode(StockQuote.self, from: data) {
+                    companyInfoCompleteHandler(stockQuote)
+                }
+            }
+    }
+    
     
 }
 

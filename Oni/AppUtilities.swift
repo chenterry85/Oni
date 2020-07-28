@@ -81,3 +81,18 @@ struct StockQuote: Decodable{
         self.t = 0
     }
 }
+
+struct CompanyInfo: Decodable{
+    let country: String
+    let currency: String
+    let exchange: String
+    let ipo: String
+    let marketCapitalization: Int64
+    let name: String
+    let phone: String
+    let shareOutstanding: Double
+    let ticker: String
+    let weburl: String
+    let logo: String
+    let finnhubIndustry: String
+}
