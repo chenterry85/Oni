@@ -1,5 +1,5 @@
 # Oni
-**Finacne & Investment Simulation App**
+**Finance & Investment Simulation App**
 
 (In development)
 
