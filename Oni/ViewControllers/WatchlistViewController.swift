@@ -22,6 +22,40 @@ class WatchlistViewController: UITableViewController {
         tableView.register(customCell, forCellReuseIdentifier: "stock")
         tableView.backgroundColor = .black
     }
+    
+    func delayWithSeconds(_ seconds: Double, completion: @escaping () -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            completion()
+        }
+    }
+    
+    func animateRefreshStockCell(_ cell: StockCell){
+        DispatchQueue.main.async {
+            print("animate")
+            cell.price.font = UIFont(name: "System-Bold", size: 21.0)
+            
+            self.delayWithSeconds(0.5) {
+                cell.price.font = UIFont(name: "System-Heavy", size: 21.0)
+                print("animate1")
+            }
+            
+            self.delayWithSeconds(0.5) {
+                cell.price.font = UIFont(name: "System-Black", size: 21.0)
+                print("animate2")
+            }
+            
+            self.delayWithSeconds(0.5) {
+                cell.price.font = UIFont(name: "System-Heavy", size: 21.0)
+                print("animate3")
+            }
+            
+            self.delayWithSeconds(0.5) {
+                cell.price.font = UIFont(name: "System-Bold", size: 21.0)
+                print("animate4")
+            }
+            
+        }
+    }
 
     // MARK: - Table view data source
 
@@ -35,7 +69,6 @@ class WatchlistViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("reload")
         let cell = tableView.dequeueReusableCell(withIdentifier: "stock", for: indexPath) as! StockCell
         cell.stock = stocksDataManager.subscribedStocks[indexPath.row]
         return cell

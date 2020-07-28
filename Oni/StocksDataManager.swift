@@ -74,6 +74,24 @@ class StocksDataManager{
             }
         }
         
+        for i in 0 ..< subscribedSymbols.count{
+            
+            let symbol = subscribedSymbols[i]
+            
+            var companyName: String?
+            var exchange: String?
+            
+            let _ = finnhubConnector.getCompanyInfo(withSymbol: "AAPL") {
+                (companyInfo: CompanyInfo?) in
+                
+                if let companyInfo = companyInfo{
+                    
+                }
+                
+            }
+            
+        }
+        
     }
     
     func finnhubHandler(incoming: TradeDataPacket){

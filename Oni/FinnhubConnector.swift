@@ -173,19 +173,19 @@ class FinnhubConnector: WebSocketDelegate{
             }
     }
     
-    func getCompanyInfo(withSymbol: String, companyInfoCompleteHandler: @escaping (_ stockQuote: StockQuote?) -> Void){
+    func getCompanyInfo(withSymbol: String, companyInfoCompleteHandler: @escaping (_ companyInfo: CompanyInfo?) -> Void){
         
-        AF.request("https://finnhub.io/api/v1/profile2?symbol=\(withSymbol)&token=\(API.CURRENT_KEY)")
+        AF.request("https://finnhub.io/api/v1/stock/profile2?symbol=\(withSymbol)&token=\(API.CURRENT_KEY)")
             .validate()
             .responseJSON { [unowned self] response in
                 guard let data = response.data else {
-                    print("Error fetching stock quote")
+                    print("Error fetching company information")
                     companyInfoCompleteHandler(nil)
                     return
                 }
                 
-                if let stockQuote = try? JSONDecoder().decode(StockQuote.self, from: data) {
-                    companyInfoCompleteHandler(stockQuote)
+                if let companyInfo = try? JSONDecoder().decode(CompanyInfo.self, from: data) {
+                    companyInfoCompleteHandler(companyInfo)
                 }
             }
     }
