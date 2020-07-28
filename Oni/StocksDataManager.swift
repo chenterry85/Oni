@@ -33,6 +33,9 @@ class StocksDataManager{
     func grabSubscribedStocksFromFirebase(){
         // grab user subscribed stocks from Firebase
         subscribedSymbols = ["AAPL","IBM","CCL","TSLA","GOOG","AMZN","CRM"]
+        
+        // init the size of subscribedStocks[]
+        subscribedStocks = [Stock](repeating: Stock(symbol: "", name: "", price: 0.0, priceChange: "", percentChange: "", previousClosePrice: 0.0, edittedTimestamp: 0), count: subscribedSymbols.count)
     }
     
     func connectToFinnhub(){
@@ -41,7 +44,10 @@ class StocksDataManager{
     
     func fetchStockObjects(){
         
-        for symbol in subscribedSymbols{
+        for i in 0 ..< subscribedSymbols.count{
+            
+            let symbol = subscribedSymbols[i]
+            
             var name: String?
             var price: Double?
             var priceChange: String?
@@ -60,7 +66,7 @@ class StocksDataManager{
                     
                     let stock = Stock(symbol: symbol, name: name!, price: price!, priceChange: priceChange!, percentChange: percentChange!, previousClosePrice: previousClosePrice!, edittedTimestamp: Int64(NSDate().timeIntervalSince1970))
                     
-                    self.subscribedStocks.append(stock)
+                    self.subscribedStocks[i] = stock
                     print(String(describing: stock))
                 }else{
                     // error when requesting stock quote

@@ -34,8 +34,8 @@ struct API{
 }
 
 struct Stock{
-    let symbol: String
-    let name: String
+    var symbol: String
+    var name: String
     var price: Double
     var priceChange: String
     var percentChange: String
