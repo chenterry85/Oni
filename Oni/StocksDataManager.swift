@@ -12,11 +12,11 @@ import UIKit
 class StocksDataManager{
     
     static let shared = StocksDataManager()
+    static var subscribedSymbols: [String] = []
+    static var subscribedStocks: [Stock] = []
     
     let finnhubConnector = FinnhubConnector.shared
     var refresher: Timer!
-    var subscribedSymbols: [String] = []
-    var subscribedStocks: [Stock] = []
     var currentTableView: UITableView?
     
         
