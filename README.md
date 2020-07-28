@@ -1,7 +1,9 @@
 # Oni
 **Finacne & Investment Simulation App**
 
-(Currently in development)
+(In development)
+
+Version 2 display:
 
 
 ## Installation
