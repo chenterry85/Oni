@@ -59,14 +59,14 @@
                             <constraint firstAttribute="bottom" secondItem="589-7A-fdM" secondAttribute="bottom" constant="5" id="vnv-Zr-X3w"/>
                         </constraints>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="double-down" highlightedImage="double-up" translatesAutoresizingMaskIntoConstraints="NO" id="TRj-rI-Sjv" userLabel="negativeSignChangeIcon">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="double-down" translatesAutoresizingMaskIntoConstraints="NO" id="TRj-rI-Sjv" userLabel="negativeSignChangeIcon">
                         <rect key="frame" x="376" y="39" width="32" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="32" id="Iaa-2c-bVT"/>
                             <constraint firstAttribute="height" constant="32" id="dly-Zl-8Wl"/>
                         </constraints>
                     </imageView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="double-up" highlightedImage="double-up" translatesAutoresizingMaskIntoConstraints="NO" id="2a9-e1-5MP" userLabel="positiveSignChangeIcon">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="double-up" translatesAutoresizingMaskIntoConstraints="NO" id="2a9-e1-5MP" userLabel="positiveSignChangeIcon">
                         <rect key="frame" x="376" y="8" width="32" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="32" id="Hcs-wr-BBh"/>
