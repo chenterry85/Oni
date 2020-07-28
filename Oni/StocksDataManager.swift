@@ -12,9 +12,9 @@ import UIKit
 class StocksDataManager{
     
     static let shared = StocksDataManager()
-    static var subscribedSymbols: [String] = []
-    static var subscribedStocks: [Stock] = []
     
+    var subscribedSymbols: [String] = []
+    var subscribedStocks: [Stock] = []
     let finnhubConnector = FinnhubConnector.shared
     var refresher: Timer!
     var currentTableView: UITableView?
@@ -109,8 +109,8 @@ class StocksDataManager{
                     if let stockQuote = stockQuote{
                         print("\(stock.symbol) with old price: \(stock.price), new price: \(stockQuote.c)")
                         updatedStock.price = self.roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: stockQuote.c)
-                        updatedStock.priceChange = self.calculatePriceChange(stockQuote.c, stock.previousClosePrice)
-                        updatedStock.percentChange = self.calculatePriceChange(stockQuote.c, stock.previousClosePrice)
+                        updatedStock.priceChange = self.calculatePriceChange(stockQuote.c, stockQuote.pc)
+                        updatedStock.percentChange = self.calculatePriceChange(stockQuote.c, stockQuote.pc)
                         updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
                     }
                 }
@@ -156,10 +156,6 @@ class StocksDataManager{
         }
         
         return false
-    }
-    
-    func getSubscribedStocks() -> [Stock] {
-        return subscribedStocks
     }
     
     func calculatePriceChange(_ currentPrice: Double, _ previousClosingPrice: Double) -> String{

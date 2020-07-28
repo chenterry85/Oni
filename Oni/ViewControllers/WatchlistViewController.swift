@@ -9,8 +9,6 @@
 import UIKit
 
 class WatchlistViewController: UITableViewController {
-    
-    var stocks: [Stock] = []
 
     let stocksDataManager = StocksDataManager.shared
 
@@ -19,7 +17,6 @@ class WatchlistViewController: UITableViewController {
         
         stocksDataManager.connectToFinnhub()
         stocksDataManager.currentTableView = tableView
-        stocks = stocksDataManager.getSubscribedStocks()
         
         let customCell = UINib(nibName: "StockCell", bundle: nil)
         tableView.register(customCell, forCellReuseIdentifier: "stock")
@@ -39,7 +36,7 @@ class WatchlistViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "stock", for: indexPath) as! StockCell
-        cell.stock = stocks[indexPath.row]
+        cell.stock = stocksDataManager.subscribedStocks[indexPath.row]
         return cell
     }
     

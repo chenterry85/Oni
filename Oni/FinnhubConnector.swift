@@ -16,9 +16,9 @@ class FinnhubConnector: WebSocketDelegate{
     var eventHandler: ((TradeDataPacket) -> Void)?
     var eventReady: (() -> Void)?
     var connectionReady: Bool = false
-    var subscribedSymbols: [String] = []
     var heartbeater: Timer?
     
+    var stocksDataManger: StocksDataManager!
     static let shared = FinnhubConnector()
     
     private init() {}
@@ -27,6 +27,7 @@ class FinnhubConnector: WebSocketDelegate{
         
         eventHandler = myEventHandler
         eventReady = onReadyEvent
+        stocksDataManger = StocksDataManager.shared
     
         let finnhubURL = URL(string: "wss://ws.finnhub.io?token=" + API.CURRENT_KEY)!
         socket = WebSocket(request: URLRequest(url: finnhubURL))
@@ -64,7 +65,7 @@ class FinnhubConnector: WebSocketDelegate{
     func heartbeat() { // Send data to finnhub periodically to prevent disconnection for inactivity
         
         print("heartbeat")
-        for symbol in subscribedSymbols{
+        for symbol in stocksDataManger.subscribedSymbols{
             socket?.write(string: "{\"type\":\"subscribe\",\"symbol\":\"\(symbol)\"}")
         }
         
@@ -95,15 +96,16 @@ class FinnhubConnector: WebSocketDelegate{
     }
     
     func subscribe(withSymbol: String) {
-        if subscribedSymbols.firstIndex(of: withSymbol) == nil {
-            subscribedSymbols.append(withSymbol)
+        if stocksDataManger.subscribedSymbols.firstIndex(of: withSymbol) == nil{
+            stocksDataManger.subscribedSymbols.append(withSymbol)
             socket?.write(string: "{\"type\":\"subscribe\",\"symbol\":\"\(withSymbol)\"}")
         }
     }
     
     func unsubscribe(withSymbol: String) {
-        if let index = subscribedSymbols.firstIndex(of: withSymbol) {
-            subscribedSymbols.remove(at: index)
+        if let index = stocksDataManger.subscribedSymbols.firstIndex(of: withSymbol) {
+            stocksDataManger.subscribedSymbols.remove(at: index)
+            socket?.write(string: "{\"type\":\"subscribe\",\"symbol\":\"\(withSymbol)\"}")
         }
     }
         
