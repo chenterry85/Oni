@@ -35,6 +35,7 @@ class WatchlistViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("reload")
         let cell = tableView.dequeueReusableCell(withIdentifier: "stock", for: indexPath) as! StockCell
         cell.stock = stocksDataManager.subscribedStocks[indexPath.row]
         return cell
