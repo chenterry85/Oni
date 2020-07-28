@@ -39,7 +39,7 @@ struct Stock{
     var price: Double
     var priceChange: String
     var percentChange: String
-    var openPrice: Double
+    var previousClosePrice: Double
     var edittedTimestamp: Int64
 }
 

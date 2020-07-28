@@ -35,7 +35,7 @@ class StocksDataManager{
         subscribedSymbols = ["AAPL","IBM","CCL","TSLA","GOOG","AMZN","CRM"]
         
         // init the size of subscribedStocks[]
-        subscribedStocks = [Stock](repeating: Stock(symbol: "", name: "", price: 0.0, priceChange: "", percentChange: "", openPrice: 0.0, edittedTimestamp: 0), count: subscribedSymbols.count)
+        subscribedStocks = [Stock](repeating: Stock(symbol: "", name: "", price: 0.0, priceChange: "", percentChange: "", previousClosePrice: 0.0, edittedTimestamp: 0), count: subscribedSymbols.count)
     }
     
     func connectToFinnhub(){
@@ -52,19 +52,19 @@ class StocksDataManager{
             var price: Double?
             var priceChange: String?
             var percentChange: String?
-            var openPrice: Double?
+            var previousClosePrice: Double?
             
             let _ = finnhubConnector.getStockQuote(withSymbol: symbol) {
                 (stockQuote: StockQuote?) in
                                 
                 if let stockQuote = stockQuote{
                     name = "" // empty for now
-                    price = self.roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: stockQuote.c)
-                    openPrice = stockQuote.pc
-                    priceChange = self.calculatePriceChange(price!,openPrice!)
-                    percentChange = self.calculatePercentChange(price!, openPrice!)
+                    price = stockQuote.c.round(to: Settings.decimalPlace)
+                    previousClosePrice = stockQuote.pc.round(to: Settings.decimalPlace)
+                    priceChange = self.calculatePriceChange(price!,previousClosePrice!)
+                    percentChange = self.calculatePercentChange(price!, previousClosePrice!)
                     
-                    let stock = Stock(symbol: symbol, name: name!, price: price!, priceChange: priceChange!, percentChange: percentChange!, openPrice: openPrice!, edittedTimestamp: Int64(NSDate().timeIntervalSince1970))
+                    let stock = Stock(symbol: symbol, name: name!, price: price!, priceChange: priceChange!, percentChange: percentChange!, previousClosePrice: previousClosePrice!, edittedTimestamp: Int64(NSDate().timeIntervalSince1970))
                     
                     self.subscribedStocks[i] = stock
                     print(String(describing: stock))
@@ -90,7 +90,7 @@ class StocksDataManager{
         }
         
         if marketIsOpen(){
-            
+            // do something
         }else{
             print("makert closed")
         }
@@ -119,9 +119,9 @@ class StocksDataManager{
                     (stockQuote: StockQuote?) in
                     if let stockQuote = stockQuote{
                         print("\(stock.symbol) with old price: \(stock.price), new price: \(stockQuote.c)")
-                        updatedStock.price = self.roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: stockQuote.c)
-                        updatedStock.priceChange = self.calculatePriceChange(stockQuote.c, stockQuote.o)
-                        updatedStock.percentChange = self.calculatePercentChange(stockQuote.c, stockQuote.o)
+                        updatedStock.price = stockQuote.c.round(to: Settings.decimalPlace)
+                        updatedStock.priceChange = self.calculatePriceChange(updatedStock.price, updatedStock.previousClosePrice)
+                        updatedStock.percentChange = self.calculatePercentChange(updatedStock.price, updatedStock.previousClosePrice)
                         updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
                         
                         self.subscribedStocks[i] = updatedStock
@@ -143,9 +143,9 @@ class StocksDataManager{
     func updateStockData(withSymbol: String, withPrice: Double){
         if let index = subscribedSymbols.firstIndex(of: withSymbol){
             var updatedStock = subscribedStocks[index]
-            updatedStock.price = roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: withPrice)
-            updatedStock.priceChange = calculatePriceChange(withPrice, updatedStock.openPrice)
-            updatedStock.percentChange = calculatePercentChange(withPrice, updatedStock.openPrice)
+            updatedStock.price = withPrice.round(to: Settings.decimalPlace)
+            updatedStock.priceChange = calculatePriceChange(updatedStock.price, updatedStock.previousClosePrice)
+            updatedStock.percentChange = calculatePercentChange(updatedStock.price, updatedStock.previousClosePrice)
             updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
             
             subscribedStocks[index] = updatedStock
@@ -175,28 +175,29 @@ class StocksDataManager{
         return false
     }
     
-    func calculatePriceChange(_ currentPrice: Double, _ openPrice: Double) -> String{
-        let priceChange = currentPrice - openPrice
-        let formattedPriceChange = "\(roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: priceChange))"
+    func calculatePriceChange(_ currentPrice: Double, _ previousClosePrice: Double) -> String{
+        let priceChange = currentPrice - previousClosePrice
+        let formattedPriceChange = "\(priceChange.round(to: Settings.decimalPlace))"
         let sign = formattedPriceChange.first == "-" ?
             "" : "+"
         return sign + formattedPriceChange
     }
     
-    func calculatePercentChange(_ currentPrice: Double, _ openPrice: Double) -> String{
-        let percentChange = 100 * ((currentPrice - openPrice) / openPrice)
-        let formmatedPercentChange = "\(roundTo(decimalPlace: Settings.roundingDecimalPlaces, withValue: percentChange))"
+    func calculatePercentChange(_ currentPrice: Double, _ previousClosePrice: Double) -> String{
+        let percentChange = 100.0 * ((currentPrice - previousClosePrice) / previousClosePrice)
+        let formmatedPercentChange = "\(percentChange.round(to: Settings.decimalPlace))"
         let sign = formmatedPercentChange.first == "-" ?
             "" : "+"
         return sign + formmatedPercentChange
     }
+
+}
+
+extension Double{
     
-    func roundTo(decimalPlace: Int, withValue: Double) -> Double{
-        var base:Double = 10.0
-        for _ in 0 ..< (decimalPlace - 1){
-            base *= 10
-        }
-        return Double(round(base * withValue) / base)
+    func round(to places: Int) -> Double{
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
     }
     
 }
