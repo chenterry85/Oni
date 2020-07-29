@@ -11,8 +11,8 @@ import UIKit
 class StockCell: UITableViewCell{
     
     @IBOutlet weak var symbol: UILabel!
-    @IBOutlet private weak var name: UILable!
-    @IBOutlet private weak var stockExchange: UILabel!
+    @IBOutlet private weak var name: UILabel!
+    @IBOutlet private weak var exchange: UILabel!
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var percentChange: UILabel!
     @IBOutlet weak var changeWrapper: UIView!
@@ -24,6 +24,8 @@ class StockCell: UITableViewCell{
         didSet {
             if let stock = stock{
                 symbol.text = stock.symbol
+                name.text = stock.name
+                exchange.text = stock.exchange
                 price.text = "\(stock.price)"
                 percentChange.text = "\(stock.percentChange)%"
                 changeWrapper.backgroundColor = percentChange.text?.first == "+"

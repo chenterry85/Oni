@@ -36,6 +36,7 @@ struct API{
 struct Stock{
     var symbol: String
     var name: String
+    var exchange: String
     var price: Double
     var priceChange: String
     var percentChange: String
@@ -87,7 +88,7 @@ struct CompanyInfo: Decodable{
     let currency: String
     let exchange: String
     let ipo: String
-    let marketCapitalization: Int64
+    let marketCapitalization: Int
     let name: String
     let phone: String
     let shareOutstanding: Double
@@ -95,4 +96,19 @@ struct CompanyInfo: Decodable{
     let weburl: String
     let logo: String
     let finnhubIndustry: String
+    
+    init(){
+        self.country = ""
+        self.currency = ""
+        self.exchange = ""
+        self.ipo = ""
+        self.marketCapitalization = 0
+        self.name = ""
+        self.phone = ""
+        self.shareOutstanding = 0.0
+        self.ticker = ""
+        self.weburl = ""
+        self.logo = ""
+        self.finnhubIndustry = ""
+    }
 }

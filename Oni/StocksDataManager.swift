@@ -35,63 +35,100 @@ class StocksDataManager{
     }
     
     func fetchSubscribedStocksFromFirebase(){
-           // grab user subscribed stocks from Firebase
-           subscribedSymbols = ["AAPL","IBM","CCL","TSLA","GOOG","AMZN","CRM"]
+        // grab user subscribed stocks from Firebase
+        subscribedSymbols = ["AAPL","IBM","CCL","TSLA","GOOG","AMZN","CRM"]
            
-           // init the size of subscribedStocks[]
-           subscribedStocks = [Stock](repeating: Stock(symbol: "", name: "", price: 0.0, priceChange: "", percentChange: "", previousClosePrice: 0.0, edittedTimestamp: 0), count: subscribedSymbols.count)
-       }
+        // init the size of subscribedStocks[]
+        subscribedStocks = [Stock](repeating: Stock(symbol: "", name: "", exchange: "", price: 0.0, priceChange: "", percentChange: "", previousClosePrice: 0.0, edittedTimestamp: 0), count: subscribedSymbols.count)
+    }
     
     func fetchStockObjects(){
         
+        let fetchNumericalOp = BlockOperation{
+            // fetch current price, price change, percent change, pervious closed price
+            print("fetch numerical")
+            self.fetchNumericalStockComponents()
+        }
+        
+        let fetchAdvanceOp = BlockOperation{
+            // fetch company name and stock exchange
+            print("fetch advance")
+            self.fetchAdvanceStockComponents()
+        }
+        
+        let radQueue = OperationQueue()
+        radQueue.addOperation(fetchNumericalOp)
+        radQueue.addOperation(fetchAdvanceOp)
+        fetchAdvanceOp.addDependency(fetchNumericalOp)
+        
+    }
+    
+    func fetchNumericalStockComponents(){
+        
+        let dispatchGroup = DispatchGroup()
+
         for i in 0 ..< subscribedSymbols.count{
             
             let symbol = subscribedSymbols[i]
+            dispatchGroup.enter()
             
-            var name: String?
-            var price: Double?
-            var priceChange: String?
-            var percentChange: String?
-            var previousClosePrice: Double?
-            
-            let _ = finnhubConnector.getStockQuote(withSymbol: symbol) {
-                (stockQuote: StockQuote?) in
-                                
-                if let stockQuote = stockQuote{
-                    name = "" // empty for now
-                    price = stockQuote.c.round(to: Settings.decimalPlace)
-                    previousClosePrice = stockQuote.pc.round(to: Settings.decimalPlace)
-                    priceChange = self.calculatePriceChange(price!,previousClosePrice!)
-                    percentChange = self.calculatePercentChange(price!, previousClosePrice!)
-                    
-                    let stock = Stock(symbol: symbol, name: name!, price: price!, priceChange: priceChange!, percentChange: percentChange!, previousClosePrice: previousClosePrice!, edittedTimestamp: Int64(NSDate().timeIntervalSince1970))
-                    
-                    self.subscribedStocks[i] = stock
-                    print(String(describing: stock))
-                }else{
-                    // error when requesting stock quote
+            DispatchQueue.global(qos: .userInteractive).async {
+                self.finnhubConnector.getStockQuote(withSymbol: symbol) {
+                    (stockQuote: StockQuote?) in
+                                    
+                    if let stockQuote = stockQuote{
+                        var updatedStock = self.subscribedStocks[i]
+                        updatedStock.symbol = symbol
+                        updatedStock.price = stockQuote.c.round(to: Settings.decimalPlace)
+                        updatedStock.previousClosePrice = stockQuote.pc.round(to: Settings.decimalPlace)
+                        updatedStock.priceChange = self.calculatePriceChange(updatedStock.price, updatedStock.previousClosePrice)
+                        updatedStock.percentChange = self.calculatePercentChange(updatedStock.price, updatedStock.previousClosePrice)
+                        updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
+                        
+                        self.subscribedStocks[i] = updatedStock
+                        print(String(describing: updatedStock))
+                    }else{
+                        // error when requesting stock quote
+                    }
+                    dispatchGroup.leave()
                 }
             }
+
         }
+        
+        // function will return after all API calls are responded
+        dispatchGroup.wait()
+    }
+    
+    func fetchAdvanceStockComponents(){
+        
+        let dispatchGroup = DispatchGroup()
         
         for i in 0 ..< subscribedSymbols.count{
             
             let symbol = subscribedSymbols[i]
+            dispatchGroup.enter()
             
-            var companyName: String?
-            var exchange: String?
+            print("fetching \(symbol)")
             
-            let _ = finnhubConnector.getCompanyInfo(withSymbol: "AAPL") {
+            finnhubConnector.getCompanyInfo(withSymbol: symbol) {
                 (companyInfo: CompanyInfo?) in
                 
                 if let companyInfo = companyInfo{
+                    var updatedStock = self.subscribedStocks[i]
+                    updatedStock.name = companyInfo.name
+                    updatedStock.exchange = companyInfo.exchange.components(separatedBy: " ").first!
                     
+                    self.subscribedStocks[i] = updatedStock
+                    print(String(describing: updatedStock))
+                }else{
+                    // error when requesting company info
                 }
-                
+                dispatchGroup.leave()
             }
-            
         }
-        
+        // function will return after all API calls are responded
+        dispatchGroup.wait()
     }
     
     func finnhubHandler(incoming: TradeDataPacket){
@@ -207,6 +244,12 @@ class StocksDataManager{
         let sign = formmatedPercentChange.first == "-" ?
             "" : "+"
         return sign + formmatedPercentChange
+    }
+    
+    func delayWithSeconds(_ seconds: Double, completion: @escaping () -> ()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            completion()
+        }
     }
 
 }

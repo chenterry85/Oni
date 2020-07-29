@@ -29,7 +29,8 @@ class FinnhubConnector: WebSocketDelegate{
         eventReady = onReadyEvent
         stocksDataManger = StocksDataManager.shared
     
-        let finnhubURL = URL(string: "wss://ws.finnhub.io?token=" + API.CURRENT_KEY)!
+        let endpoint = "wss://ws.finnhub.io?token=" + API.CURRENT_KEY
+        let finnhubURL = URL(string: endpoint)!
         socket = WebSocket(request: URLRequest(url: finnhubURL))
         socket?.delegate = self
         socket?.connect()
@@ -158,36 +159,86 @@ class FinnhubConnector: WebSocketDelegate{
     
     func getStockQuote(withSymbol: String, stockQuoteCompleteHandler: @escaping (_ stockQuote: StockQuote?) -> Void){
         
-        AF.request("https://finnhub.io/api/v1/quote?symbol=\(withSymbol)&token=\(API.CURRENT_KEY)")
-            .validate()
-            .responseJSON { [unowned self] response in
-                guard let data = response.data else {
-                    print("Error fetching stock quote")
-                    stockQuoteCompleteHandler(nil)
-                    return
-                }
-                
-                if let stockQuote = try? JSONDecoder().decode(StockQuote.self, from: data) {
-                    stockQuoteCompleteHandler(stockQuote)
-                }
+        let endpoint = "https://finnhub.io/api/v1/quote?symbol=\(withSymbol)&token=\(API.CURRENT_KEY)"
+        guard let url = URL(string: endpoint) else{
+            print("Error: Invalid URL for \(withSymbol) stock quote")
+            return
+        }
+        
+        let fetchTask = URLSession.shared.downloadTask(with: url) { (url:URL?, response:URLResponse?, error:Error?) in
+            
+            guard let url=url, let response=response else{
+                print("Error: fetching JSON for \(withSymbol) stock quote")
+                return
             }
+
+            guard error == nil else{
+                print(error!)
+                return
+            }
+
+            guard (response as! HTTPURLResponse).statusCode == 200 else { //status code 200 =  success download
+                print("Error: grab failed for \(withSymbol) stock quote")
+                return
+            }
+
+            guard let data = try? Data.init(contentsOf: url) else{
+                return
+            }
+
+            if let stockQuote = try? JSONDecoder().decode(StockQuote.self, from: data) {
+                stockQuoteCompleteHandler(stockQuote)
+            }else{
+                print("Error: decoding for \(withSymbol) stock quote")
+            }
+            
+        }
+        fetchTask.resume()
     }
-    
+        
     func getCompanyInfo(withSymbol: String, companyInfoCompleteHandler: @escaping (_ companyInfo: CompanyInfo?) -> Void){
         
-        AF.request("https://finnhub.io/api/v1/stock/profile2?symbol=\(withSymbol)&token=\(API.CURRENT_KEY)")
-            .validate()
-            .responseJSON { [unowned self] response in
-                guard let data = response.data else {
-                    print("Error fetching company information")
-                    companyInfoCompleteHandler(nil)
-                    return
-                }
-                
-                if let companyInfo = try? JSONDecoder().decode(CompanyInfo.self, from: data) {
-                    companyInfoCompleteHandler(companyInfo)
-                }
+        let endpoint = "https://finnhub.io/api/v1/stock/profile2?symbol=\(withSymbol)&token=\(API.KEYS[2])"
+        guard let url = URL(string: endpoint) else{
+           print("Error: Invalid URL for \(withSymbol) Company Information")
+           return
+        }
+
+        let fetchTask = URLSession.shared.downloadTask(with: url) { (url:URL?, response:URLResponse?, error:Error?) in
+            
+            guard let url=url, let response=response else{
+                print("Error: fetching JSON for \(withSymbol) Company Information")
+                companyInfoCompleteHandler(nil)
+                return
             }
+
+            guard error == nil else{
+                print(error!)
+                companyInfoCompleteHandler(nil)
+                return
+            }
+
+            guard (response as! HTTPURLResponse).statusCode == 200 else { //status code 200 =  success download
+                print("Error: grab failed for \(withSymbol) Company Information")
+                companyInfoCompleteHandler(nil)
+                return
+            }
+
+            guard let data = try? Data.init(contentsOf: url) else{
+                companyInfoCompleteHandler(nil)
+                return
+            }
+
+            if let companyInfo = try? JSONDecoder().decode(CompanyInfo.self, from: data) {
+                print(companyInfo.name)
+                companyInfoCompleteHandler(companyInfo)
+            }else {
+                print("Error: decoding for \(withSymbol) Company information")
+                companyInfoCompleteHandler(nil)
+            }
+           
+        }
+        fetchTask.resume()
     }
     
     

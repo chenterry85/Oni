@@ -94,6 +94,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="changeWrapper" destination="4WX-7d-wpG" id="hBI-Zd-Xj7"/>
+                <outlet property="exchange" destination="1Dx-l9-xuw" id="17E-A9-FI0"/>
+                <outlet property="name" destination="2QV-ZT-lO9" id="EBC-sv-yVw"/>
                 <outlet property="negativeSignChangeIcon" destination="TRj-rI-Sjv" id="1Cg-d6-lqI"/>
                 <outlet property="percentChange" destination="589-7A-fdM" id="cMt-RM-eKu"/>
                 <outlet property="positiveSignChangeIcon" destination="2a9-e1-5MP" id="abw-HI-uV0"/>
