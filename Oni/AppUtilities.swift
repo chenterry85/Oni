@@ -72,43 +72,19 @@ struct StockQuote: Decodable{
     let o: Double // open price of the day
     let pc: Double // previous close price
     let t:Int64 // timestamp
-    
-    init(){
-        self.c = 0.0
-        self.h = 0.0
-        self.l = 0.0
-        self.o = 0.0
-        self.pc = 0.0
-        self.t = 0
-    }
 }
 
 struct CompanyInfo: Decodable{
     let country: String
     let currency: String
     let exchange: String
+    let finnhubIndustry: String
     let ipo: String
-    let marketCapitalization: Int
+    let logo: String
+    let marketCapitalization: Double
     let name: String
     let phone: String
     let shareOutstanding: Double
     let ticker: String
     let weburl: String
-    let logo: String
-    let finnhubIndustry: String
-    
-    init(){
-        self.country = ""
-        self.currency = ""
-        self.exchange = ""
-        self.ipo = ""
-        self.marketCapitalization = 0
-        self.name = ""
-        self.phone = ""
-        self.shareOutstanding = 0.0
-        self.ticker = ""
-        self.weburl = ""
-        self.logo = ""
-        self.finnhubIndustry = ""
-    }
 }

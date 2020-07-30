@@ -169,20 +169,24 @@ class FinnhubConnector: WebSocketDelegate{
             
             guard let url=url, let response=response else{
                 print("Error: fetching JSON for \(withSymbol) stock quote")
+                stockQuoteCompleteHandler(nil)
                 return
             }
 
             guard error == nil else{
                 print(error!)
+                stockQuoteCompleteHandler(nil)
                 return
             }
 
             guard (response as! HTTPURLResponse).statusCode == 200 else { //status code 200 =  success download
                 print("Error: grab failed for \(withSymbol) stock quote")
+                stockQuoteCompleteHandler(nil)
                 return
             }
 
             guard let data = try? Data.init(contentsOf: url) else{
+                stockQuoteCompleteHandler(nil)
                 return
             }
 
@@ -190,6 +194,7 @@ class FinnhubConnector: WebSocketDelegate{
                 stockQuoteCompleteHandler(stockQuote)
             }else{
                 print("Error: decoding for \(withSymbol) stock quote")
+                stockQuoteCompleteHandler(nil)
             }
             
         }
@@ -240,7 +245,6 @@ class FinnhubConnector: WebSocketDelegate{
         }
         fetchTask.resume()
     }
-    
     
 }
 

@@ -64,71 +64,53 @@ class StocksDataManager{
     }
     
     func fetchNumericalStockComponents(){
-        
-        let dispatchGroup = DispatchGroup()
-
+    
         for i in 0 ..< subscribedSymbols.count{
             
             let symbol = subscribedSymbols[i]
-            dispatchGroup.enter()
             
-            DispatchQueue.global(qos: .userInteractive).async {
-                self.finnhubConnector.getStockQuote(withSymbol: symbol) {
-                    (stockQuote: StockQuote?) in
-                                    
-                    if let stockQuote = stockQuote{
-                        var updatedStock = self.subscribedStocks[i]
-                        updatedStock.symbol = symbol
-                        updatedStock.price = stockQuote.c.round(to: Settings.decimalPlace)
-                        updatedStock.previousClosePrice = stockQuote.pc.round(to: Settings.decimalPlace)
-                        updatedStock.priceChange = self.calculatePriceChange(updatedStock.price, updatedStock.previousClosePrice)
-                        updatedStock.percentChange = self.calculatePercentChange(updatedStock.price, updatedStock.previousClosePrice)
-                        updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
-                        
-                        self.subscribedStocks[i] = updatedStock
-                        print(String(describing: updatedStock))
-                    }else{
-                        // error when requesting stock quote
-                    }
-                    dispatchGroup.leave()
+            finnhubConnector.getStockQuote(withSymbol: symbol) {
+                (stockQuote: StockQuote?) in
+                                
+                if let stockQuote = stockQuote{
+                    var updatedStock = self.subscribedStocks[i]
+                    updatedStock.symbol = symbol
+                    updatedStock.price = stockQuote.c.round(to: Settings.decimalPlace)
+                    updatedStock.previousClosePrice = stockQuote.pc.round(to: Settings.decimalPlace)
+                    updatedStock.priceChange = self.calculatePriceChange(updatedStock.price, updatedStock.previousClosePrice)
+                    updatedStock.percentChange = self.calculatePercentChange(updatedStock.price, updatedStock.previousClosePrice)
+                    updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
+                    
+                    self.subscribedStocks[i] = updatedStock
+                    print(String(describing: updatedStock))
+                }else{
+                    // error when requesting stock quote
                 }
             }
-
         }
-        
-        // function will return after all API calls are responded
-        dispatchGroup.wait()
     }
     
     func fetchAdvanceStockComponents(){
         
-        let dispatchGroup = DispatchGroup()
-        
         for i in 0 ..< subscribedSymbols.count{
             
             let symbol = subscribedSymbols[i]
-            dispatchGroup.enter()
-            
-            print("fetching \(symbol)")
-            
+                        
             finnhubConnector.getCompanyInfo(withSymbol: symbol) {
                 (companyInfo: CompanyInfo?) in
                 
                 if let companyInfo = companyInfo{
                     var updatedStock = self.subscribedStocks[i]
                     updatedStock.name = companyInfo.name
-                    updatedStock.exchange = companyInfo.exchange.components(separatedBy: " ").first!
+                    updatedStock.exchange = self.abbreviationForStockExchange(companyInfo.exchange)
                     
                     self.subscribedStocks[i] = updatedStock
                     print(String(describing: updatedStock))
                 }else{
                     // error when requesting company info
                 }
-                dispatchGroup.leave()
             }
         }
-        // function will return after all API calls are responded
-        dispatchGroup.wait()
     }
     
     func finnhubHandler(incoming: TradeDataPacket){
@@ -249,6 +231,17 @@ class StocksDataManager{
     func delayWithSeconds(_ seconds: Double, completion: @escaping () -> ()) {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             completion()
+        }
+    }
+    
+    func abbreviationForStockExchange(_ exchange: String) -> String{
+        switch exchange {
+        case "NEW YORK STOCK EXCHANGE, INC.":
+            return "NYSE"
+        case "NASDAQ NMS - GLOBAL MARKET":
+            return "NASDAQ"
+        default:
+            return exchange
         }
     }
 
