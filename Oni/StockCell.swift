@@ -37,7 +37,6 @@ class StockCell: UITableViewCell{
                 negativeSignChangeIcon.image = percentChange.text?.first == "-"
                     ? UIImage(named: "double-down")
                     : UIImage(named: "empty-double-down")
-                
             }
         }
     }

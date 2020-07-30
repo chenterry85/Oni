@@ -42,6 +42,17 @@ struct Stock{
     var percentChange: String
     var previousClosePrice: Double
     var edittedTimestamp: Int64
+    
+    init(){
+        self.symbol = ""
+        self.name = ""
+        self.exchange = ""
+        self.price = 0.0
+        self.priceChange = ""
+        self.percentChange = ""
+        self.previousClosePrice = 0.0
+        self.edittedTimestamp = 0
+    }
 }
 
 struct TradeDataPacket{

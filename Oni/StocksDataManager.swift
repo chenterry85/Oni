@@ -14,7 +14,7 @@ class StocksDataManager{
     static let shared = StocksDataManager()
     
     var subscribedSymbols: [String] = []
-    var subscribedStocks: [Stock] = []
+    var subscribedStocks: [Stock] = [Stock()]
     let finnhubConnector = FinnhubConnector.shared
     var refresher: Timer!
     var currentTableView: UITableView?
@@ -36,39 +36,28 @@ class StocksDataManager{
     
     func fetchSubscribedStocksFromFirebase(){
         // grab user subscribed stocks from Firebase
-        subscribedSymbols = ["AAPL","IBM","CCL","TSLA","GOOG","AMZN","CRM"]
+        subscribedSymbols = ["AAPL","IBM","CCL","TSLA","MGM","AMZN","CRM","MSFT","DAL","AMD"]
            
         // init the size of subscribedStocks[]
-        subscribedStocks = [Stock](repeating: Stock(symbol: "", name: "", exchange: "", price: 0.0, priceChange: "", percentChange: "", previousClosePrice: 0.0, edittedTimestamp: 0), count: subscribedSymbols.count)
+        subscribedStocks = [Stock](repeating: Stock(), count: subscribedSymbols.count)
     }
     
     func fetchStockObjects(){
-        
-        let fetchNumericalOp = BlockOperation{
-            // fetch current price, price change, percent change, pervious closed price
-            print("fetch numerical")
-            self.fetchNumericalStockComponents()
+        DispatchQueue.global(qos: .userInitiated).sync{
+            fetchNumericalStockComponents()
+            fetchCompanyDetailStockComponents()
         }
-        
-        let fetchAdvanceOp = BlockOperation{
-            // fetch company name and stock exchange
-            print("fetch advance")
-            self.fetchAdvanceStockComponents()
-        }
-        
-        let radQueue = OperationQueue()
-        radQueue.addOperation(fetchNumericalOp)
-        radQueue.addOperation(fetchAdvanceOp)
-        fetchAdvanceOp.addDependency(fetchNumericalOp)
-        
     }
     
     func fetchNumericalStockComponents(){
-    
+        
+        let dispatchGroup = DispatchGroup()
+        
         for i in 0 ..< subscribedSymbols.count{
             
             let symbol = subscribedSymbols[i]
             
+            dispatchGroup.enter()
             finnhubConnector.getStockQuote(withSymbol: symbol) {
                 (stockQuote: StockQuote?) in
                                 
@@ -86,16 +75,23 @@ class StocksDataManager{
                 }else{
                     // error when requesting stock quote
                 }
+                dispatchGroup.leave()
             }
         }
+        
+        //returns after all API calls are responded
+        dispatchGroup.wait()
     }
     
-    func fetchAdvanceStockComponents(){
+    func fetchCompanyDetailStockComponents(){
+        
+        let dispatchGroup = DispatchGroup()
         
         for i in 0 ..< subscribedSymbols.count{
             
             let symbol = subscribedSymbols[i]
-                        
+            
+            dispatchGroup.enter()
             finnhubConnector.getCompanyInfo(withSymbol: symbol) {
                 (companyInfo: CompanyInfo?) in
                 
@@ -109,7 +105,12 @@ class StocksDataManager{
                 }else{
                     // error when requesting company info
                 }
+                dispatchGroup.leave()
             }
+        }
+        
+        dispatchGroup.notify(queue: .global(qos: .userInitiated)) {
+            self.reloadTableView()
         }
     }
     
@@ -136,7 +137,7 @@ class StocksDataManager{
     // called every 8 seconds
     func refreshStockDataOnUI(){
         
-        print("Begin Refresh")
+        print("Refreshing--------------------")
         
         let eight_seconds_ago = Int64(NSDate().timeIntervalSince1970) - 8
         let dispatchGroup = DispatchGroup()
@@ -171,8 +172,8 @@ class StocksDataManager{
         }
         
         dispatchGroup.notify(queue: .main) {
-            self.currentTableView?.reloadData()
-            print("End Refresh")
+            print("Finished Refreshing------------")
+            self.reloadTableView()
         }
 
     }
@@ -186,6 +187,12 @@ class StocksDataManager{
             updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
             
             subscribedStocks[index] = updatedStock
+        }
+    }
+    
+    func reloadTableView(){
+        DispatchQueue.main.async {
+            self.currentTableView?.reloadData()
         }
     }
     
