@@ -32,11 +32,48 @@
                             <outlet property="delegate" destination="hLb-RG-WA8" id="vSD-QF-yml"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Watchlist" id="CZ9-jJ-nTl"/>
+                    <navigationItem key="navigationItem" title="Watchlist" id="CZ9-jJ-nTl">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="a5v-Qq-hl5">
+                            <connections>
+                                <action selector="addNewStock:" destination="hLb-RG-WA8" id="7xh-T4-idc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="uUv-yf-mEg" kind="presentation" identifier="addStock" id="7Yi-Fd-76t"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dRb-jM-iBp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2450.7246376811595" y="300.66964285714283"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="Nci-Ja-CYZ">
+            <objects>
+                <tableViewController id="uUv-yf-mEg" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="PSb-DF-dNE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="cu6-RX-au5">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cu6-RX-au5" id="1la-lt-YtS">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="uUv-yf-mEg" id="uZC-Lc-yRh"/>
+                            <outlet property="delegate" destination="uUv-yf-mEg" id="v8q-Qw-Qo9"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vdN-I2-1BU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3325" y="301"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3xX-RM-TbN">
@@ -67,6 +104,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="watchlist_icon" width="25" height="25"/>
     </resources>
 </document>

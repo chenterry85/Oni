@@ -23,36 +23,12 @@ class WatchlistViewController: UITableViewController {
         tableView.backgroundColor = .black
     }
     
-    func delayWithSeconds(_ seconds: Double, completion: @escaping () -> ()) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-            completion()
-        }
+    @IBAction func addNewStock(_ sender: UIBarButtonItem){
+        performSegue(withIdentifier: "addStock", sender: nil)
     }
     
-    func animateRefreshStockCell(_ cell: StockCell){
-        DispatchQueue.main.async {
-            print("animate")
-            cell.price.font = UIFont(name: "System-Bold", size: 21.0)
-            
-            self.delayWithSeconds(0.5) {
-                cell.price.font = UIFont(name: "System-Heavy", size: 21.0)
-                print("animate1")
-            }
-            
-            self.delayWithSeconds(0.5) {
-                cell.price.font = UIFont(name: "System-Black", size: 21.0)
-                print("animate2")
-            }
-            
-            self.delayWithSeconds(0.5) {
-                cell.price.font = UIFont(name: "System-Heavy", size: 21.0)
-                print("animate3")
-            }
-            
-            self.delayWithSeconds(0.5) {
-                cell.price.font = UIFont(name: "System-Bold", size: 21.0)
-                print("animate4")
-            }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addStock" {
             
         }
     }
