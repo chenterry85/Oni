@@ -203,6 +203,8 @@ class FinnhubConnector: WebSocketDelegate{
         
     func getCompanyInfo(withSymbol: String, companyInfoCompleteHandler: @escaping (_ companyInfo: CompanyInfo?) -> Void){
         
+        var withSymbol = switchToProperSymbol(withSymbol)
+        
         let endpoint = "https://finnhub.io/api/v1/stock/profile2?symbol=\(withSymbol)&token=\(API.KEYS[2])"
         guard let url = URL(string: endpoint) else{
            print("Error: Invalid URL for \(withSymbol) Company Information")
@@ -244,6 +246,16 @@ class FinnhubConnector: WebSocketDelegate{
            
         }
         fetchTask.resume()
+    }
+    
+    // Ensure getCompanyInfo() has valid company symbol for finnhub
+    func switchToProperSymbol(_ symbol: String) -> String{
+        switch symbol{
+        case "GOOG":
+            return "GOOGL"
+        default:
+            return symbol
+        }
     }
     
 }

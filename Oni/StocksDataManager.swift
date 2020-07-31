@@ -36,7 +36,7 @@ class StocksDataManager{
     
     func fetchSubscribedStocksFromFirebase(){
         // grab user subscribed stocks from Firebase
-        subscribedSymbols = ["AAPL","IBM","CCL","TSLA","MGM","AMZN","CRM","MSFT","DAL","AMD"]
+        subscribedSymbols = ["AAPL","IBM","GOOG","CCL","TSLA","MGM","AMZN","CRM","MSFT","DAL","AMD"]
            
         // init the size of subscribedStocks[]
         subscribedStocks = [Stock](repeating: Stock(), count: subscribedSymbols.count)

@@ -16,8 +16,8 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SYMBL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iwA-k4-V8u">
-                        <rect key="frame" x="11" y="15" width="77" height="28"/>
-                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
+                        <rect key="frame" x="11" y="15" width="80.5" height="29"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -31,7 +31,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EXCHG" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Dx-l9-xuw">
-                        <rect key="frame" x="96" y="21" width="54" height="20"/>
+                        <rect key="frame" x="99.5" y="23" width="54" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -86,7 +86,7 @@
                     <constraint firstAttribute="trailing" secondItem="4WX-7d-wpG" secondAttribute="trailing" constant="41" id="Isy-8B-OHy"/>
                     <constraint firstAttribute="bottom" secondItem="4WX-7d-wpG" secondAttribute="bottom" constant="11" id="KRY-aC-p3M"/>
                     <constraint firstAttribute="bottom" secondItem="TRj-rI-Sjv" secondAttribute="bottom" constant="14" id="NNf-ZM-TAo"/>
-                    <constraint firstItem="1Dx-l9-xuw" firstAttribute="top" secondItem="ujm-rm-oWh" secondAttribute="top" constant="21" id="S6d-HC-G6G"/>
+                    <constraint firstItem="1Dx-l9-xuw" firstAttribute="top" secondItem="ujm-rm-oWh" secondAttribute="top" constant="23" id="S6d-HC-G6G"/>
                     <constraint firstAttribute="trailing" secondItem="TRj-rI-Sjv" secondAttribute="trailing" constant="8" id="UBf-ok-oNf"/>
                     <constraint firstItem="iwA-k4-V8u" firstAttribute="leading" secondItem="ujm-rm-oWh" secondAttribute="leading" constant="11" id="VC3-pL-uHo"/>
                     <constraint firstItem="S7A-qr-FRb" firstAttribute="top" secondItem="ujm-rm-oWh" secondAttribute="top" constant="13" id="ber-v5-hyZ"/>
