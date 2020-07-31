@@ -27,6 +27,7 @@
 		361D667724C33A4500C620FA /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361D667624C33A4500C620FA /* Settings.swift */; };
 		361D667A24C5883300C620FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 361D667924C5883200C620FA /* GoogleService-Info.plist */; };
 		361D667C24C74CD700C620FA /* WatchlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361D667B24C74CD700C620FA /* WatchlistViewController.swift */; };
+		3697A7BC24D4132C00D75639 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A7BB24D4132B00D75639 /* SearchViewController.swift */; };
 		36D4A69124CBEC7700D6306B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D4A69024CBEC7700D6306B /* User.swift */; };
 		36D4A69324CC104500D6306B /* StockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D4A69224CC104500D6306B /* StockCell.swift */; };
 		36D4A69524CC117800D6306B /* StockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36D4A69424CC117800D6306B /* StockCell.xib */; };
@@ -78,6 +79,7 @@
 		361D667624C33A4500C620FA /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		361D667924C5883200C620FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		361D667B24C74CD700C620FA /* WatchlistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistViewController.swift; sourceTree = "<group>"; };
+		3697A7BB24D4132B00D75639 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		36D4A69024CBEC7700D6306B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		36D4A69224CC104500D6306B /* StockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCell.swift; sourceTree = "<group>"; };
 		36D4A69424CC117800D6306B /* StockCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StockCell.xib; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				361D666624C0AE6800C620FA /* LogInViewController.swift */,
 				361D662F24C0AB9E00C620FA /* HomeViewController.swift */,
 				361D667B24C74CD700C620FA /* WatchlistViewController.swift */,
+				3697A7BB24D4132B00D75639 /* SearchViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				361D667324C2246000C620FA /* FinnhubConnector.swift in Sources */,
 				361D666724C0AE6800C620FA /* LogInViewController.swift in Sources */,
 				361D667C24C74CD700C620FA /* WatchlistViewController.swift in Sources */,
+				3697A7BC24D4132C00D75639 /* SearchViewController.swift in Sources */,
 				36D4A69124CBEC7700D6306B /* User.swift in Sources */,
 				361D667724C33A4500C620FA /* Settings.swift in Sources */,
 				361D667124C2226200C620FA /* AppUtilities.swift in Sources */,
