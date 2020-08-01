@@ -22,10 +22,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Company Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2QV-ZT-lO9">
-                        <rect key="frame" x="11" y="49" width="270" height="18"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="270" id="icD-NJ-ACw"/>
-                        </constraints>
+                        <rect key="frame" x="11" y="49" width="269" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -93,6 +90,7 @@
                     <constraint firstItem="iwA-k4-V8u" firstAttribute="top" secondItem="ujm-rm-oWh" secondAttribute="top" constant="15" id="j9W-9Y-JN4"/>
                     <constraint firstItem="1Dx-l9-xuw" firstAttribute="leading" secondItem="iwA-k4-V8u" secondAttribute="trailing" constant="8" id="lYO-vf-Ro2"/>
                     <constraint firstItem="2a9-e1-5MP" firstAttribute="top" secondItem="ujm-rm-oWh" secondAttribute="top" constant="13" id="ltb-mw-wRP"/>
+                    <constraint firstItem="4WX-7d-wpG" firstAttribute="leading" secondItem="2QV-ZT-lO9" secondAttribute="trailing" constant="22" id="sXY-56-bih"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
