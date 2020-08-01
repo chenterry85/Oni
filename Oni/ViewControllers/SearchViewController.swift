@@ -12,7 +12,6 @@ class SearchViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var textLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +42,6 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate{
         return cell
     }
     
-    
 }
 
 extension SearchViewController: UISearchBarDelegate{
@@ -57,5 +55,7 @@ extension SearchViewController: UISearchBarDelegate{
         isSearching = false
         searchBar.text = ""
         tableView.reloadData()
+        
+        // pop view and return to watchlist
     }
 }
