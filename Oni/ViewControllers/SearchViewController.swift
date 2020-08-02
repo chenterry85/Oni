@@ -53,7 +53,12 @@ extension SearchViewController: UISearchBarDelegate{
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        // pop of out scene and return to watchlist
         self.dismiss(animated: true, completion: nil)
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // close keyboard
+        self.searchBar.endEditing(true)
+    }
 }
