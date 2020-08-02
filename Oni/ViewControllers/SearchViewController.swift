@@ -15,7 +15,8 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        searchBar.becomeFirstResponder()
         // Do any additional setup after loading the view.
     }
     
@@ -52,10 +53,7 @@ extension SearchViewController: UISearchBarDelegate{
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        isSearching = false
-        searchBar.text = ""
-        tableView.reloadData()
-        
-        // pop view and return to watchlist
+        self.dismiss(animated: true, completion: nil)
     }
+    
 }

@@ -11,8 +11,8 @@ import UIKit
 class StockCell: UITableViewCell{
     
     @IBOutlet weak var symbol: UILabel!
-    @IBOutlet private weak var name: UILabel!
-    @IBOutlet private weak var exchange: UILabel!
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var exchange: UILabel!
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var percentChange: UILabel!
     @IBOutlet weak var changeWrapper: UIView!
