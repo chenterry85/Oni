@@ -13,6 +13,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    let sqliteConnector = SQLiteConnector.shared
     var allStocks = [DB_Stock]()
     var searchedStocks = [DB_Stock]()
     var isSearching = false
@@ -21,7 +22,7 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         //searchBar.becomeFirstResponder()
-        allStocks = searchStocksFromDB(searchInput: "")
+        allStocks = sqliteConnector.searchStocks(withInput: "")
     }
 }
 
@@ -48,7 +49,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate{
 
 extension SearchViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchedStocks = searchStocksFromDB(searchInput: searchText)
+        searchedStocks = sqliteConnector.searchStocks(withInput: searchTextgi)
         isSearching = true
         tableView.reloadData()
     }
