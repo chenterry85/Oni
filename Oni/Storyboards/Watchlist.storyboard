@@ -70,18 +70,18 @@
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pHm-eb-TMM">
-                                <rect key="frame" x="0.0" y="103" width="414" height="705"/>
+                                <rect key="frame" x="0.0" y="103" width="414" height="739"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="searchCell" textLabel="xU1-71-igY" rowHeight="47" style="IBUITableViewCellStyleDefault" id="52R-q5-eS9">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="47"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="searchCell" textLabel="xU1-71-igY" style="IBUITableViewCellStyleDefault" id="52R-q5-eS9">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="52R-q5-eS9" id="9Tu-NT-YB0">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="47"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xU1-71-igY">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="47"/>
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -105,7 +105,7 @@
                             <constraint firstItem="Jiz-3x-ZOS" firstAttribute="top" secondItem="uCY-gY-nxX" secondAttribute="top" id="g42-BG-VZN"/>
                             <constraint firstItem="Jiz-3x-ZOS" firstAttribute="trailing" secondItem="uCY-gY-nxX" secondAttribute="trailing" id="gWk-mW-rBC"/>
                             <constraint firstItem="uCY-gY-nxX" firstAttribute="trailing" secondItem="pHm-eb-TMM" secondAttribute="trailing" id="wTz-mS-FkV"/>
-                            <constraint firstItem="uCY-gY-nxX" firstAttribute="bottom" secondItem="pHm-eb-TMM" secondAttribute="bottom" id="wYJ-On-vcI"/>
+                            <constraint firstAttribute="bottom" secondItem="pHm-eb-TMM" secondAttribute="bottom" id="yA3-Pz-Hap"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uCY-gY-nxX"/>
                     </view>

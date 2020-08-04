@@ -23,6 +23,10 @@ class SearchViewController: UIViewController {
         
         //searchBar.becomeFirstResponder()
         allStocks = sqliteConnector.searchStocks(withInput: "")
+        
+        let customCell = UINib(nibName: "SearchCell", bundle: nil)
+        tableView.register(customCell, forCellReuseIdentifier: "searchCell")
+        tableView.backgroundColor = .black
     }
 }
 
@@ -36,11 +40,11 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
         if isSearching {
-            cell.textLabel?.text = searchedStocks[indexPath.row].symbol
+            cell.stock = searchedStocks[indexPath.row]
         }else {
-            cell.textLabel?.text = allStocks[indexPath.row].symbol
+            cell.stock = allStocks[indexPath.row]
         }
         return cell
     }
