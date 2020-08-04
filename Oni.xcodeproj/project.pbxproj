@@ -32,6 +32,8 @@
 		36D4A69124CBEC7700D6306B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D4A69024CBEC7700D6306B /* User.swift */; };
 		36D4A69324CC104500D6306B /* StockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D4A69224CC104500D6306B /* StockCell.swift */; };
 		36D4A69524CC117800D6306B /* StockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36D4A69424CC117800D6306B /* StockCell.xib */; };
+		36F3FC6724D9477700448584 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 36F3FC6624D9477700448584 /* libsqlite3.tbd */; };
+		36F3FC6824D94B3F00448584 /* US-all-data.db in Resources */ = {isa = PBXBuildFile; fileRef = 36F3FC6524D9460300448584 /* US-all-data.db */; };
 		EAC2AA9AB9C552AA1A065575 /* Pods_Oni.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C191498FCFA204F0A7996E6 /* Pods_Oni.framework */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +87,8 @@
 		36D4A69024CBEC7700D6306B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		36D4A69224CC104500D6306B /* StockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCell.swift; sourceTree = "<group>"; };
 		36D4A69424CC117800D6306B /* StockCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StockCell.xib; sourceTree = "<group>"; };
+		36F3FC6524D9460300448584 /* US-all-data.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = "US-all-data.db"; sourceTree = SOURCE_ROOT; };
+		36F3FC6624D9477700448584 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		3F0F9044AADC8C00EBA4F092 /* Pods-Oni.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oni.debug.xcconfig"; path = "Target Support Files/Pods-Oni/Pods-Oni.debug.xcconfig"; sourceTree = "<group>"; };
 		91ABCD2AE96737D1117ADF28 /* Pods-Oni.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oni.release.xcconfig"; path = "Target Support Files/Pods-Oni/Pods-Oni.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36F3FC6724D9477700448584 /* libsqlite3.tbd in Frameworks */,
 				EAC2AA9AB9C552AA1A065575 /* Pods_Oni.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,6 +161,7 @@
 				36D4A69224CC104500D6306B /* StockCell.swift */,
 				36D4A69424CC117800D6306B /* StockCell.xib */,
 				3697A7BD24D47BDE00D75639 /* StockExchange.swift */,
+				36F3FC6524D9460300448584 /* US-all-data.db */,
 			);
 			path = Oni;
 			sourceTree = "<group>";
@@ -214,6 +220,7 @@
 		EF9CEC09F82E86430F417CF4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				36F3FC6624D9477700448584 /* libsqlite3.tbd */,
 				1C191498FCFA204F0A7996E6 /* Pods_Oni.framework */,
 			);
 			name = Frameworks;
@@ -334,6 +341,7 @@
 				361D663324C0AB9E00C620FA /* Main.storyboard in Resources */,
 				361D665F24C0ACCC00C620FA /* Home.storyboard in Resources */,
 				361D666524C0ADB800C620FA /* Settings.storyboard in Resources */,
+				36F3FC6824D94B3F00448584 /* US-all-data.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
