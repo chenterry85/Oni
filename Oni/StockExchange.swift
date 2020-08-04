@@ -12,7 +12,7 @@ import SQLite3
 var db: OpaquePointer!
 let dbPath = Bundle.main.path(forResource: "US-all-data", ofType: "db") ?? ""
 
-func searchResult(searchInput: String) -> [DB_Stock] {
+func searchStocksFromDB(searchInput: String) -> [DB_Stock] {
     let sqlCommand = "SELECT * FROM  'US-all-data' WHERE symbol  LIKE '\(searchInput)%'"
     var statement: OpaquePointer!
     var searchResult = [DB_Stock]()
@@ -26,12 +26,14 @@ func searchResult(searchInput: String) -> [DB_Stock] {
     }
     
     while sqlite3_step(statement) == SQLITE_ROW{
-        let currency = String(cString: sqlite3_column_text(statement, 0))
-        let description = String(cString: sqlite3_column_text(statement, 1))
-        let displaySymbol = String(cString: sqlite3_column_text(statement, 2))
-        let symbol = String(cString: sqlite3_column_text(statement, 3))
-        let type = String(cString: sqlite3_column_text(statement, 4))
-        
+        var currency = "", description = "", displaySymbol = "", symbol = "", type = ""
+
+        if let col0 = sqlite3_column_text(statement, 0){ currency = String(cString: col0) }
+        if let col1 = sqlite3_column_text(statement, 1){ description = String(cString: col1) }
+        if let col2 = sqlite3_column_text(statement, 2){ displaySymbol = String(cString: col2) }
+        if let col3 = sqlite3_column_text(statement, 3){ symbol = String(cString: col3) }
+        if let col4 = sqlite3_column_text(statement, 4){ type = String(cString: col4) }
+
         let extractedStock = DB_Stock(currency: currency, description: description, displaySymbol: displaySymbol, symbol: symbol, type: type)
         searchResult.append(extractedStock)
     }

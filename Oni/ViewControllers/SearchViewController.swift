@@ -13,32 +13,33 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var allStocks = [DB_Stock]()
+    var searchedStocks = [DB_Stock]()
+    var isSearching = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchBar.becomeFirstResponder()
-        // Do any additional setup after loading the view.
+        //searchBar.becomeFirstResponder()
+        allStocks = searchStocksFromDB(searchInput: "")
     }
-    
-    var searchCountry = [String]()
-    var isSearching = false
 }
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearching {
-            return searchCountry.count
+            return searchedStocks.count
         } else {
-            return countries.count
+            return allStocks.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath)
         if isSearching {
-            cell.textLabel?.text = searchCountry[indexPath.row]
+            cell.textLabel?.text = searchedStocks[indexPath.row].symbol
         }else {
-            cell.textLabel?.text = countries[indexPath.row]
+            cell.textLabel?.text = allStocks[indexPath.row].symbol
         }
         return cell
     }
@@ -47,7 +48,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate{
 
 extension SearchViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchCountry = countries.filter({$0.lowercased().prefix(searchText.count) == searchText.lowercased()})
+        searchedStocks = searchStocksFromDB(searchInput: searchText)
         isSearching = true
         tableView.reloadData()
     }
