@@ -49,7 +49,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate{
 
 extension SearchViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchedStocks = sqliteConnector.searchStocks(withInput: searchTextgi)
+        searchedStocks = sqliteConnector.searchStocks(withInput: searchText)
         isSearching = true
         tableView.reloadData()
     }
