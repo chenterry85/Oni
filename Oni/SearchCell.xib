@@ -33,6 +33,14 @@
                         <state key="normal" title="+ Watchlist">
                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="addStock:" destination="Knq-hJ-zUE" eventType="touchUpInside" id="zo4-h8-Zqi"/>
+                        </connections>
                     </button>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IRV-Nn-BGs">
                         <rect key="frame" x="105" y="25" width="42" height="21"/>
@@ -58,7 +66,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="addToWatchlistButton" destination="QAG-44-944" id="KHy-lo-RfB"/>
+                <outlet property="addButton" destination="QAG-44-944" id="H9A-7s-tyT"/>
                 <outlet property="name" destination="IRV-Nn-BGs" id="hWN-48-Isj"/>
                 <outlet property="symbol" destination="Mxm-bK-H9k" id="5Vd-1H-QMQ"/>
                 <outlet property="symbolWidth" destination="yQf-fb-sev" id="mtk-3o-iz5"/>

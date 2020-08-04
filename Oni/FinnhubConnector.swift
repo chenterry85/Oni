@@ -159,7 +159,7 @@ class FinnhubConnector: WebSocketDelegate{
     
     func getStockQuote(withSymbol: String, stockQuoteCompleteHandler: @escaping (_ stockQuote: StockQuote?) -> Void){
         
-        let endpoint = "https://finnhub.io/api/v1/quote?symbol=\(withSymbol)&token=\(API.CURRENT_KEY)"
+        let endpoint = "https://finnhub.io/api/v1/quote?symbol=\(withSymbol)&token=\(API.KEYS[1])"
         guard let url = URL(string: endpoint) else{
             print("Error: Invalid URL for \(withSymbol) stock quote")
             return

@@ -28,6 +28,8 @@ class SearchViewController: UIViewController {
         tableView.register(customCell, forCellReuseIdentifier: "searchCell")
         tableView.backgroundColor = .black
     }
+    
+    
 }
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate{
@@ -60,7 +62,8 @@ extension SearchViewController: UISearchBarDelegate{
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         // pop of out scene and return to watchlist
-        self.dismiss(animated: true, completion: nil)
+        //self.dismiss(animated: true, completion: nil)
+        self.performSegue(withIdentifier: "unwindToWatchlist", sender: self)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

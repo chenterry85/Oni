@@ -10,9 +10,11 @@ import UIKit
 
 class SearchCell: UITableViewCell {
 
+    var stocksDataManager:StocksDataManager!
+    
     @IBOutlet weak var symbol: UILabel!
     @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var addToWatchlistButton: UIButton!
+    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var symbolWidth: NSLayoutConstraint!
     
     var stock: DB_Stock? {
@@ -21,15 +23,19 @@ class SearchCell: UITableViewCell {
                 symbol.text = stock.symbol
                 name.text = stock.description
                 
+                stocksDataManager = StocksDataManager.shared
+                addButton.showsTouchWhenHighlighted = true
                 symbolWidth.constant = CGFloat(symbol.intrinsicContentSize.width)
             }
         }
     }
     
+    @IBAction func addStock(_ sender: UIButton){
+        stocksDataManager.addNewStockObject(withSymbol: stock?.symbol ?? "", withDescription: stock?.description ?? "")
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        addToWatchlistButton.layer.cornerRadius = 5
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -27,6 +27,10 @@ class WatchlistViewController: UITableViewController {
         performSegue(withIdentifier: "addStock", sender: nil)
     }
     
+    @IBAction func unwindSeuge(_ segue: UIStoryboardSegue){
+        tableView.reloadData()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addStock" {
             
@@ -56,6 +60,7 @@ class WatchlistViewController: UITableViewController {
             // goToStockDetail()
         }
     }
+    
 
     /*
     // Override to support conditional editing of the table view.

@@ -18,7 +18,6 @@ class StocksDataManager{
     let finnhubConnector = FinnhubConnector.shared
     var refresher: Timer!
     var currentTableView: UITableView?
-    
         
     private init() {
         fetchSubscribedStocksFromFirebase()
@@ -44,18 +43,18 @@ class StocksDataManager{
     
     func fetchStockObjects(){
         DispatchQueue.global(qos: .userInitiated).sync{
-            fetchNumericalStockComponents()
-            fetchCompanyDetailStockComponents()
+            fetchNumericalStockComponents(symbols: subscribedSymbols)
+            fetchCompanyDetailStockComponents(symbols: subscribedSymbols)
         }
     }
     
-    func fetchNumericalStockComponents(){
+    func fetchNumericalStockComponents(symbols: [String]){
         
         let dispatchGroup = DispatchGroup()
         
-        for i in 0 ..< subscribedSymbols.count{
+        for i in 0 ..< symbols.count{
             
-            let symbol = subscribedSymbols[i]
+            let symbol = symbols[i]
             
             dispatchGroup.enter()
             finnhubConnector.getStockQuote(withSymbol: symbol) {
@@ -83,13 +82,13 @@ class StocksDataManager{
         dispatchGroup.wait()
     }
     
-    func fetchCompanyDetailStockComponents(){
+    func fetchCompanyDetailStockComponents(symbols: [String]){
         
         let dispatchGroup = DispatchGroup()
         
-        for i in 0 ..< subscribedSymbols.count{
+        for i in 0 ..< symbols.count{
             
-            let symbol = subscribedSymbols[i]
+            let symbol = symbols[i]
             
             dispatchGroup.enter()
             finnhubConnector.getCompanyInfo(withSymbol: symbol) {
@@ -196,6 +195,74 @@ class StocksDataManager{
         }
     }
     
+    // called from searchVC
+    func addNewStockObject(withSymbol: String, withDescription: String){
+        
+        if subscribedSymbols.contains(withSymbol){ // exit function if stock already exists
+            return
+        }
+        
+        subscribedSymbols.append(withSymbol)
+        subscribedStocks.append(Stock())
+        let newStockIndex = subscribedStocks.count - 1
+        
+        //fill in company name
+        var updatedStock = subscribedStocks[newStockIndex]
+        updatedStock.symbol = withSymbol
+        updatedStock.name = withDescription
+        subscribedStocks[newStockIndex] = updatedStock
+        
+        // fetch stock info
+        DispatchQueue.global(qos: .userInteractive).async{
+            
+            let dg1 = DispatchGroup()
+            
+            dg1.enter()
+            self.finnhubConnector.getStockQuote(withSymbol: withSymbol) {
+                (stockQuote: StockQuote?) in
+                                
+                if let stockQuote = stockQuote{
+                    var updatedStock = self.subscribedStocks[newStockIndex]
+                    updatedStock.price = stockQuote.c.round(to: Settings.decimalPlace)
+                    updatedStock.previousClosePrice = stockQuote.pc.round(to: Settings.decimalPlace)
+                    updatedStock.priceChange = self.calculatePriceChange(updatedStock.price, updatedStock.previousClosePrice)
+                    updatedStock.percentChange = self.calculatePercentChange(updatedStock.price, updatedStock.previousClosePrice)
+                    updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
+                    
+                    self.subscribedStocks[newStockIndex] = updatedStock
+                    print(String(describing: updatedStock))
+                }else{
+                    // error when requesting stock quote
+                }
+                dg1.leave()
+            }
+            
+            dg1.wait()
+            
+            let dg2 = DispatchGroup()
+            
+            dg2.enter()
+            self.finnhubConnector.getCompanyInfo(withSymbol: withSymbol) {
+                (companyInfo: CompanyInfo?) in
+                
+                if let companyInfo = companyInfo{
+                    var updatedStock = self.subscribedStocks[newStockIndex]
+                    updatedStock.exchange = self.abbreviationForStockExchange(companyInfo.exchange)
+                    
+                    self.subscribedStocks[newStockIndex] = updatedStock
+                    print(String(describing: updatedStock))
+                }else{
+                    // error when requesting company info
+                }
+                dg2.leave()
+            }
+            
+            dg2.notify(queue: .global(qos: .userInteractive)) {
+                self.reloadTableView()
+            }
+        }
+    }
+    
     func marketIsOpen() -> Bool{
         let secondsInOneHour = 3600.0
         
@@ -246,7 +313,7 @@ class StocksDataManager{
         case "NEW YORK STOCK EXCHANGE, INC.":
             return "NYSE"
         case "NASDAQ NMS - GLOBAL MARKET":
-            return "NASDAQ"
+            return "NASDAQ NMS"
         default:
             return exchange
         }
@@ -255,7 +322,7 @@ class StocksDataManager{
 }
 
 extension Double{
-    
+
     func round(to places: Int) -> Double{
         let divisor = pow(10.0, Double(places))
         return (self * divisor).rounded() / divisor

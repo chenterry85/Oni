@@ -112,9 +112,11 @@
                     <connections>
                         <outlet property="searchBar" destination="Jiz-3x-ZOS" id="K7b-g4-gss"/>
                         <outlet property="tableView" destination="pHm-eb-TMM" id="w0P-W0-n6y"/>
+                        <segue destination="s4P-Kr-DzW" kind="unwind" identifier="unwindToWatchlist" unwindAction="unwindSeuge:" id="czr-pH-YpO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Z0-kz-b3R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="s4P-Kr-DzW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3244.9275362318845" y="633.48214285714278"/>
         </scene>
