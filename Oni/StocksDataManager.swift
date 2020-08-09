@@ -36,7 +36,6 @@ class StocksDataManager{
     func fetchSubscribedStocksFromFirebase(){
         // grab user subscribed stocks from Firebase
         subscribedSymbols = ["AAPL","IBM","GOOG","CCL","TSLA","MGM","AMZN","CRM","MSFT","DAL","AMD"]
-           
         // init the size of subscribedStocks[]
         subscribedStocks = [Stock](repeating: Stock(), count: subscribedSymbols.count)
     }
@@ -123,7 +122,7 @@ class StocksDataManager{
         print("Finnhub Ready")
         
         for symbol in subscribedSymbols{
-            finnhubConnector.subscribe(withSymbol: symbol)
+            subscribe(withSymbol: symbol)
         }
         
         if marketIsOpen(){
@@ -202,8 +201,8 @@ class StocksDataManager{
             return
         }
         
-        subscribedSymbols.append(withSymbol)
-        subscribedStocks.append(Stock())
+        subscribe(withSymbol: withSymbol)
+        subscribedStocks.append(Stock()) // init empty stock container
         let newStockIndex = subscribedStocks.count - 1
         
         //fill in company name
@@ -216,8 +215,8 @@ class StocksDataManager{
         DispatchQueue.global(qos: .userInteractive).async{
             
             let dg1 = DispatchGroup()
-            
             dg1.enter()
+            
             self.finnhubConnector.getStockQuote(withSymbol: withSymbol) {
                 (stockQuote: StockQuote?) in
                                 
@@ -236,12 +235,13 @@ class StocksDataManager{
                 }
                 dg1.leave()
             }
-            
             dg1.wait()
             
-            let dg2 = DispatchGroup()
+            self.reloadTableView()
             
+            let dg2 = DispatchGroup()
             dg2.enter()
+            
             self.finnhubConnector.getCompanyInfo(withSymbol: withSymbol) {
                 (companyInfo: CompanyInfo?) in
                 
@@ -256,13 +256,27 @@ class StocksDataManager{
                 }
                 dg2.leave()
             }
+            dg2.wait()
             
-            dg2.notify(queue: .global(qos: .userInteractive)) {
-                self.reloadTableView()
-            }
+            self.reloadTableView()
         }
     }
     
+    func subscribe(withSymbol: String){
+        if subscribedSymbols.firstIndex(of: withSymbol) == nil {
+            subscribedSymbols.append(withSymbol)
+            finnhubConnector.subscribe(withSymbol: withSymbol)
+        }
+    }
+    
+    func unsubscribe(withSymbol: String){
+        if let index = subscribedSymbols.firstIndex(of: withSymbol) {
+            subscribedSymbols.remove(at: index)
+            subscribedStocks.remove(at: index)
+            finnhubConnector.unsubscribe(withSymbol: withSymbol)
+        }
+    }
+  
     func marketIsOpen() -> Bool{
         let secondsInOneHour = 3600.0
         

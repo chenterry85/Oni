@@ -61,6 +61,23 @@ class WatchlistViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // handling deleted row
+        if (editingStyle == .delete) {
+            
+            let cell = tableView.cellForRow(at: indexPath) as! StockCell
+            if let stock = cell.stock {
+                stocksDataManager.unsubscribe(withSymbol: stock.symbol)
+                print("Unsubscribe \(stock.symbol)")
+                tableView.reloadData()
+            }
+        }
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.

@@ -67,7 +67,7 @@ class FinnhubConnector: WebSocketDelegate{
         
         print("heartbeat")
         for symbol in stocksDataManger.subscribedSymbols{
-            socket?.write(string: "{\"type\":\"subscribe\",\"symbol\":\"\(symbol)\"}")
+            subscribe(withSymbol: symbol)
         }
         
     }
@@ -97,17 +97,11 @@ class FinnhubConnector: WebSocketDelegate{
     }
     
     func subscribe(withSymbol: String) {
-        if stocksDataManger.subscribedSymbols.firstIndex(of: withSymbol) == nil{
-            stocksDataManger.subscribedSymbols.append(withSymbol)
-            socket?.write(string: "{\"type\":\"subscribe\",\"symbol\":\"\(withSymbol)\"}")
-        }
+        socket?.write(string: "{\"type\":\"subscribe\",\"symbol\":\"\(withSymbol)\"}")
     }
     
     func unsubscribe(withSymbol: String) {
-        if let index = stocksDataManger.subscribedSymbols.firstIndex(of: withSymbol) {
-            stocksDataManger.subscribedSymbols.remove(at: index)
-            socket?.write(string: "{\"type\":\"subscribe\",\"symbol\":\"\(withSymbol)\"}")
-        }
+        socket?.write(string: "{\"type\":\"unsubscribe\",\"symbol\":\"\(withSymbol)\"}")
     }
         
     func websocketDidReceiveMessage(text: String) {

@@ -124,6 +124,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		36037B9324D9D6BA0003F3EE /* SearchCellComponents */ = {
+			isa = PBXGroup;
+			children = (
+				36F3FC6A24D9717E00448584 /* SearchCell.xib */,
+				36F3FC6C24D971AB00448584 /* SearchCell.swift */,
+			);
+			path = SearchCellComponents;
+			sourceTree = "<group>";
+		};
 		361D661F24C0AB9E00C620FA = {
 			isa = PBXGroup;
 			children = (
@@ -158,15 +167,14 @@
 				361D665B24C0ABCB00C620FA /* Storyboards */,
 				361D667824C4A6FD00C620FA /* ViewControllers */,
 				36F3FC6924D9701A00448584 /* StockCellComponents */,
+				36037B9324D9D6BA0003F3EE /* SearchCellComponents */,
+				361D663424C0ABA000C620FA /* Assets.xcassets */,
 				361D667424C227EB00C620FA /* StocksDataManager.swift */,
 				361D667224C2246000C620FA /* FinnhubConnector.swift */,
 				3697A7BD24D47BDE00D75639 /* SQLiteConnector.swift */,
-				361D663424C0ABA000C620FA /* Assets.xcassets */,
 				361D663924C0ABA000C620FA /* Info.plist */,
 				361D667924C5883200C620FA /* GoogleService-Info.plist */,
 				36F3FC6524D9460300448584 /* US-all-data.db */,
-				36F3FC6A24D9717E00448584 /* SearchCell.xib */,
-				36F3FC6C24D971AB00448584 /* SearchCell.swift */,
 			);
 			path = Oni;
 			sourceTree = "<group>";
