@@ -10,7 +10,7 @@ import UIKit
 
 class SearchCell: UITableViewCell {
 
-    var stocksDataManager:StocksDataManager!
+    var stocksDataManager: StocksDataManager!
     
     @IBOutlet weak var symbol: UILabel!
     @IBOutlet weak var name: UILabel!
@@ -24,7 +24,6 @@ class SearchCell: UITableViewCell {
                 name.text = stock.description
                 
                 stocksDataManager = StocksDataManager.shared
-                addButton.showsTouchWhenHighlighted = true
                 symbolWidth.constant = CGFloat(symbol.intrinsicContentSize.width)
             }
         }
@@ -40,7 +39,6 @@ class SearchCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
 

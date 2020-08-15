@@ -21,7 +21,7 @@ class StocksDataManager{
         
     private init() {
         fetchSubscribedStocksFromFirebase()
-        fetchStockObjects()
+        initStockObject()
         refresher = Timer.scheduledTimer(withTimeInterval: Settings.stockDataRefreshRate, repeats: true, block: { [weak self] _ in
             DispatchQueue.main.async {
                 self?.refreshStockDataOnUI()
@@ -40,10 +40,11 @@ class StocksDataManager{
         subscribedStocks = [Stock](repeating: Stock(), count: subscribedSymbols.count)
     }
     
-    func fetchStockObjects(){
-        DispatchQueue.global(qos: .userInitiated).sync{
-            fetchNumericalStockComponents(symbols: subscribedSymbols)
-            fetchCompanyDetailStockComponents(symbols: subscribedSymbols)
+    func initStockObject(){
+        DispatchQueue.global(qos: .userInteractive).async{
+            self.fetchNumericalStockComponents(symbols: self.subscribedSymbols)
+            self.fetchCompanyDetailStockComponents(symbols: self.subscribedSymbols)
+            self.reloadTableView()
         }
     }
     
@@ -107,9 +108,8 @@ class StocksDataManager{
             }
         }
         
-        dispatchGroup.notify(queue: .global(qos: .userInitiated)) {
-            self.reloadTableView()
-        }
+        //returns after all API calls are responded
+        dispatchGroup.wait()
     }
     
     func finnhubHandler(incoming: TradeDataPacket){
@@ -261,6 +261,7 @@ class StocksDataManager{
             self.reloadTableView()
         }
     }
+    
     
     func subscribe(withSymbol: String){
         if subscribedSymbols.firstIndex(of: withSymbol) == nil {

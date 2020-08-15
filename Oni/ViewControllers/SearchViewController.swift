@@ -29,7 +29,6 @@ class SearchViewController: UIViewController {
         tableView.backgroundColor = .black
     }
     
-    
 }
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate{
@@ -43,6 +42,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
+        
         if isSearching {
             cell.stock = searchedStocks[indexPath.row]
         }else {
@@ -61,9 +61,8 @@ extension SearchViewController: UISearchBarDelegate{
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        // pop of out scene and return to watchlist
-        //self.dismiss(animated: true, completion: nil)
-        self.performSegue(withIdentifier: "unwindToWatchlist", sender: self)
+        // leave scene and return to watchlist
+        self.dismiss(animated: true, completion: nil)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -71,3 +70,4 @@ extension SearchViewController: UISearchBarDelegate{
         self.searchBar.endEditing(true)
     }
 }
+
