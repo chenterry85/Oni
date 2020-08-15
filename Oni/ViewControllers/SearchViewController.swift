@@ -42,6 +42,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchCell
+        cell.cellDelegate = self
         
         if isSearching {
             cell.stock = searchedStocks[indexPath.row]
@@ -68,6 +69,23 @@ extension SearchViewController: UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // close keyboard
         self.searchBar.endEditing(true)
+    }
+}
+
+extension SearchViewController: NewStockAdded{
+    
+    func displayAlert(forSymbol: String) {
+        //alert view
+        let message = "\(forSymbol) Added!"
+        let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
+        self.present(alert, animated: true)
+        
+        //Disappear after .5 seconds
+        let killTime = DispatchTime.now() + 0.5
+        DispatchQueue.main.asyncAfter(deadline: killTime) {
+            alert.dismiss(animated: true, completion: nil)
+        }
+        
     }
 }
 

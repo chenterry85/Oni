@@ -8,14 +8,20 @@
 
 import UIKit
 
+protocol NewStockAdded{
+    func displayAlert(forSymbol: String)
+}
+
 class SearchCell: UITableViewCell {
 
     var stocksDataManager: StocksDataManager!
+    var cellDelegate: NewStockAdded?
     
     @IBOutlet weak var symbol: UILabel!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var symbolWidth: NSLayoutConstraint!
+    
     
     var stock: DB_Stock? {
         didSet{
@@ -30,7 +36,11 @@ class SearchCell: UITableViewCell {
     }
     
     @IBAction func addStock(_ sender: UIButton){
-        stocksDataManager.addNewStockObject(withSymbol: stock?.symbol ?? "", withDescription: stock?.description ?? "")
+        let symbol = stock?.symbol ?? ""
+        let description = stock?.description ?? ""
+        
+        stocksDataManager.addNewStockObject(withSymbol: symbol, withDescription: description)
+        cellDelegate?.displayAlert(forSymbol: symbol)
     }
     
     override func awakeFromNib() {

@@ -259,9 +259,26 @@ class StocksDataManager{
             dg2.wait()
             
             self.reloadTableView()
+            //self.displayMessageAfterAddingNewStock()
         }
     }
     
+    func displayMessageAfterAddingNewStock(){
+        DispatchQueue.main.async { //alert needs to run in main thread
+            let alertController = UIAlertController(title: "", message: "hello", preferredStyle: .alert)
+            
+            //...
+            var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+            if let navigationController = rootViewController as? UINavigationController {
+                rootViewController = navigationController.viewControllers.first
+            }
+            if let tabBarController = rootViewController as? UITabBarController {
+                rootViewController = tabBarController.selectedViewController
+            }
+            //...
+            rootViewController?.present(alertController, animated: true, completion: nil)
+        }
+    }
     
     func subscribe(withSymbol: String){
         if subscribedSymbols.firstIndex(of: withSymbol) == nil {
