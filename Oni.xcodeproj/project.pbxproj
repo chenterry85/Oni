@@ -28,6 +28,7 @@
 		361D667A24C5883300C620FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 361D667924C5883200C620FA /* GoogleService-Info.plist */; };
 		361D667C24C74CD700C620FA /* WatchlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361D667B24C74CD700C620FA /* WatchlistViewController.swift */; };
 		36896F5024E8029D00ADB87B /* DetailPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36896F4F24E8029D00ADB87B /* DetailPage.storyboard */; };
+		36896F5224E946DB00ADB87B /* DetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36896F5124E946DB00ADB87B /* DetailPageViewController.swift */; };
 		3697A7BC24D4132C00D75639 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A7BB24D4132B00D75639 /* SearchViewController.swift */; };
 		3697A7BE24D47BDF00D75639 /* SQLiteConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697A7BD24D47BDE00D75639 /* SQLiteConnector.swift */; };
 		36D4A69124CBEC7700D6306B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D4A69024CBEC7700D6306B /* User.swift */; };
@@ -86,6 +87,7 @@
 		361D667924C5883200C620FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		361D667B24C74CD700C620FA /* WatchlistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistViewController.swift; sourceTree = "<group>"; };
 		36896F4F24E8029D00ADB87B /* DetailPage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailPage.storyboard; sourceTree = "<group>"; };
+		36896F5124E946DB00ADB87B /* DetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPageViewController.swift; sourceTree = "<group>"; };
 		3697A7BB24D4132B00D75639 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3697A7BD24D47BDE00D75639 /* SQLiteConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteConnector.swift; sourceTree = "<group>"; };
 		36D4A69024CBEC7700D6306B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				361D662F24C0AB9E00C620FA /* HomeViewController.swift */,
 				361D667B24C74CD700C620FA /* WatchlistViewController.swift */,
 				3697A7BB24D4132B00D75639 /* SearchViewController.swift */,
+				36896F5124E946DB00ADB87B /* DetailPageViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				361D662C24C0AB9E00C620FA /* AppDelegate.swift in Sources */,
 				3697A7BE24D47BDF00D75639 /* SQLiteConnector.swift in Sources */,
 				361D667324C2246000C620FA /* FinnhubConnector.swift in Sources */,
+				36896F5224E946DB00ADB87B /* DetailPageViewController.swift in Sources */,
 				361D666724C0AE6800C620FA /* LogInViewController.swift in Sources */,
 				361D667C24C74CD700C620FA /* WatchlistViewController.swift in Sources */,
 				3697A7BC24D4132C00D75639 /* SearchViewController.swift in Sources */,

@@ -27,13 +27,11 @@ class WatchlistViewController: UITableViewController {
         performSegue(withIdentifier: "addStock", sender: nil)
     }
     
-    @IBAction func unwindSeuge(_ segue: UIStoryboardSegue){
-        tableView.reloadData()
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addStock" {
-            
+            // prep
+        }else if segue.identifier == "navigateToDetailPage"{
+            // prep
         }
     }
 
@@ -57,7 +55,7 @@ class WatchlistViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! StockCell
         if let stock = cell.stock {
-            // goToStockDetail()
+            performSegue(withIdentifier: "navigateToDetailPage", sender: nil)
         }
     }
     
