@@ -42,11 +42,22 @@
                     </navigationItem>
                     <connections>
                         <segue destination="ava-M5-qsh" kind="presentation" identifier="addStock" id="dOo-dW-df7"/>
+                        <segue destination="DC3-Pj-I4Q" kind="show" id="JF0-VE-HKL"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dRb-jM-iBp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2467" y="301"/>
+        </scene>
+        <!--DetailPage-->
+        <scene sceneID="oU6-Ur-dBJ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="DetailPage" id="DC3-Pj-I4Q" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="aM2-Hw-AWX"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nDC-2L-fk2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3014" y="60"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="rOH-i9-NG5">
