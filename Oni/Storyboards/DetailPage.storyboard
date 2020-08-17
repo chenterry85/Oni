@@ -7,21 +7,21 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Detail Page View Controller-->
+        <!--DetailPageViewController-->
         <scene sceneID="wgE-nw-MMS">
             <objects>
-                <viewController id="rIH-4f-Px4" customClass="DetailPageViewController" customModule="Oni" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="rIH-4f-Px4" userLabel="DetailPageViewController" customClass="DetailPageViewController" customModule="Oni" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="568-5h-Dxp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IBM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X90-Ny-IbG">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IBM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X90-Ny-IbG" userLabel="name">
                                 <rect key="frame" x="35" y="108" width="59" height="40"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="33"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 40.70" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biw-5v-elp" userLabel="Price">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 40.70" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biw-5v-elp" userLabel="price">
                                 <rect key="frame" x="35" y="187" width="150" height="55.5"/>
                                 <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="50"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -34,7 +34,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NASDAQ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVo-og-lUb" userLabel="exchange">
-                                <rect key="frame" x="163" y="126" width="65" height="20"/>
+                                <rect key="frame" x="163" y="125" width="65" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -51,11 +51,11 @@
                                 <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8GV-4f-zpc" userLabel="star">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8GV-4f-zpc" userLabel="checkButton">
                                 <rect key="frame" x="359" y="118.5" width="20" height="19"/>
                                 <color key="tintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t2q-0v-cb5">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t2q-0v-cb5" userLabel="chart">
                                 <rect key="frame" x="0.0" y="295.5" width="414" height="360"/>
                                 <color key="backgroundColor" red="0.15516381607305696" green="0.15516381607305696" blue="0.15516381607305696" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -82,7 +82,7 @@
                             <constraint firstItem="t2q-0v-cb5" firstAttribute="top" secondItem="35o-CI-Rx7" secondAttribute="bottom" constant="15" id="Pvf-Gy-w9m"/>
                             <constraint firstItem="cGI-wb-TlH" firstAttribute="leading" secondItem="X90-Ny-IbG" secondAttribute="trailing" constant="20" id="YIQ-5u-zqD"/>
                             <constraint firstItem="t2q-0v-cb5" firstAttribute="trailing" secondItem="zbx-sZ-mg7" secondAttribute="trailing" id="a9x-GW-rCP"/>
-                            <constraint firstItem="SVo-og-lUb" firstAttribute="top" secondItem="zbx-sZ-mg7" secondAttribute="top" constant="38" id="frD-aD-kBC"/>
+                            <constraint firstItem="SVo-og-lUb" firstAttribute="top" secondItem="zbx-sZ-mg7" secondAttribute="top" constant="37" id="frD-aD-kBC"/>
                             <constraint firstItem="X90-Ny-IbG" firstAttribute="top" secondItem="zbx-sZ-mg7" secondAttribute="top" constant="20" id="lLJ-51-Ipb"/>
                             <constraint firstItem="SVo-og-lUb" firstAttribute="leading" secondItem="cGI-wb-TlH" secondAttribute="trailing" constant="15" id="m9v-Fa-0z7"/>
                             <constraint firstItem="8GV-4f-zpc" firstAttribute="top" secondItem="zbx-sZ-mg7" secondAttribute="top" constant="30" id="neq-4w-xop"/>
@@ -94,6 +94,15 @@
                         <viewLayoutGuide key="safeArea" id="zbx-sZ-mg7"/>
                     </view>
                     <navigationItem key="navigationItem" id="ehM-X2-GSv"/>
+                    <connections>
+                        <outlet property="currency" destination="cGI-wb-TlH" id="Uzp-wM-Tcb"/>
+                        <outlet property="exchange" destination="SVo-og-lUb" id="BOX-EN-Rgj"/>
+                        <outlet property="name" destination="FtL-tO-OlV" id="OXc-k3-aeJ"/>
+                        <outlet property="percentChange" destination="Cmt-Tb-kvM" id="MbT-ys-0LV"/>
+                        <outlet property="price" destination="biw-5v-elp" id="2vl-xp-pUr"/>
+                        <outlet property="priceChange" destination="35o-CI-Rx7" id="mHe-bZ-vtp"/>
+                        <outlet property="symbol" destination="X90-Ny-IbG" id="Tyq-JR-GWP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PAs-7G-Dxy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

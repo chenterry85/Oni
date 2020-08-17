@@ -9,6 +9,14 @@
 import UIKit
 
 class DetailPageViewController: UIViewController {
+    
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var symbol: UILabel!
+    @IBOutlet weak var currency: UILabel!
+    @IBOutlet weak var exchange: UILabel!
+    @IBOutlet weak var price: UILabel!
+    @IBOutlet weak var priceChange: UILabel!
+    @IBOutlet weak var percentChange: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
