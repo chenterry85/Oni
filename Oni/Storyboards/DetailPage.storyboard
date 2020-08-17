@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Stock Detail-->
+        <!--Detail Page View Controller-->
         <scene sceneID="wgE-nw-MMS">
             <objects>
                 <viewController id="rIH-4f-Px4" customClass="DetailPageViewController" customModule="Oni" customModuleProvider="target" sceneMemberID="viewController">
@@ -15,18 +15,85 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DetailPage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X90-Ny-IbG">
-                                <rect key="frame" x="166" y="438" width="83" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IBM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X90-Ny-IbG">
+                                <rect key="frame" x="35" y="108" width="59" height="40"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="33"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 40.70" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biw-5v-elp" userLabel="Price">
+                                <rect key="frame" x="35" y="187" width="150" height="55.5"/>
+                                <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="50"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="▲ 20.23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35o-CI-Rx7" userLabel="priceChange">
+                                <rect key="frame" x="35" y="259.5" width="62" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NASDAQ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVo-og-lUb" userLabel="exchange">
+                                <rect key="frame" x="163" y="126" width="65" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cGI-wb-TlH" userLabel="currency">
+                                <rect key="frame" x="114" y="125" width="34" height="19"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+ 1.12%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cmt-Tb-kvM" userLabel="percentChange">
+                                <rect key="frame" x="117" y="259.5" width="58" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8GV-4f-zpc" userLabel="star">
+                                <rect key="frame" x="359" y="118.5" width="20" height="19"/>
+                                <color key="tintColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t2q-0v-cb5">
+                                <rect key="frame" x="0.0" y="295.5" width="414" height="360"/>
+                                <color key="backgroundColor" red="0.15516381607305696" green="0.15516381607305696" blue="0.15516381607305696" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="360" id="maf-48-zcR"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="International Business Machine Corp." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FtL-tO-OlV">
+                                <rect key="frame" x="35" y="154" width="284" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.12371141970000001" green="0.12371141970000001" blue="0.12371141970000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="FtL-tO-OlV" firstAttribute="leading" secondItem="zbx-sZ-mg7" secondAttribute="leading" constant="35" id="5KT-9P-Iro"/>
+                            <constraint firstItem="biw-5v-elp" firstAttribute="leading" secondItem="zbx-sZ-mg7" secondAttribute="leading" constant="35" id="65K-Oh-erj"/>
+                            <constraint firstItem="cGI-wb-TlH" firstAttribute="top" secondItem="zbx-sZ-mg7" secondAttribute="top" constant="37" id="6wq-Hk-eEM"/>
+                            <constraint firstItem="biw-5v-elp" firstAttribute="top" secondItem="FtL-tO-OlV" secondAttribute="bottom" constant="12" id="7vQ-Hq-DH0"/>
+                            <constraint firstItem="35o-CI-Rx7" firstAttribute="top" secondItem="biw-5v-elp" secondAttribute="bottom" constant="17" id="AL2-jn-lbg"/>
+                            <constraint firstItem="FtL-tO-OlV" firstAttribute="top" secondItem="X90-Ny-IbG" secondAttribute="bottom" constant="6" id="AZC-q3-uah"/>
+                            <constraint firstItem="t2q-0v-cb5" firstAttribute="leading" secondItem="zbx-sZ-mg7" secondAttribute="leading" id="B0S-6m-WlF"/>
+                            <constraint firstItem="35o-CI-Rx7" firstAttribute="leading" secondItem="zbx-sZ-mg7" secondAttribute="leading" constant="35" id="HOl-qP-YEd"/>
+                            <constraint firstItem="t2q-0v-cb5" firstAttribute="top" secondItem="35o-CI-Rx7" secondAttribute="bottom" constant="15" id="Pvf-Gy-w9m"/>
+                            <constraint firstItem="cGI-wb-TlH" firstAttribute="leading" secondItem="X90-Ny-IbG" secondAttribute="trailing" constant="20" id="YIQ-5u-zqD"/>
+                            <constraint firstItem="t2q-0v-cb5" firstAttribute="trailing" secondItem="zbx-sZ-mg7" secondAttribute="trailing" id="a9x-GW-rCP"/>
+                            <constraint firstItem="SVo-og-lUb" firstAttribute="top" secondItem="zbx-sZ-mg7" secondAttribute="top" constant="38" id="frD-aD-kBC"/>
+                            <constraint firstItem="X90-Ny-IbG" firstAttribute="top" secondItem="zbx-sZ-mg7" secondAttribute="top" constant="20" id="lLJ-51-Ipb"/>
+                            <constraint firstItem="SVo-og-lUb" firstAttribute="leading" secondItem="cGI-wb-TlH" secondAttribute="trailing" constant="15" id="m9v-Fa-0z7"/>
+                            <constraint firstItem="8GV-4f-zpc" firstAttribute="top" secondItem="zbx-sZ-mg7" secondAttribute="top" constant="30" id="neq-4w-xop"/>
+                            <constraint firstItem="Cmt-Tb-kvM" firstAttribute="leading" secondItem="35o-CI-Rx7" secondAttribute="trailing" constant="20" id="ouV-Y4-bcv"/>
+                            <constraint firstItem="zbx-sZ-mg7" firstAttribute="trailing" secondItem="8GV-4f-zpc" secondAttribute="trailing" constant="35" id="ssU-XV-hN6"/>
+                            <constraint firstItem="X90-Ny-IbG" firstAttribute="leading" secondItem="zbx-sZ-mg7" secondAttribute="leading" constant="35" id="vzY-9j-Dvh"/>
+                            <constraint firstItem="Cmt-Tb-kvM" firstAttribute="top" secondItem="biw-5v-elp" secondAttribute="bottom" constant="17" id="wE8-67-CJm"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="zbx-sZ-mg7"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Stock Detail" id="ehM-X2-GSv"/>
+                    <navigationItem key="navigationItem" id="ehM-X2-GSv"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PAs-7G-Dxy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -51,4 +118,7 @@
             <point key="canvasLocation" x="-50.724637681159422" y="82.366071428571431"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
+    </resources>
 </document>
