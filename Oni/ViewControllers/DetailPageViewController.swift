@@ -34,11 +34,11 @@ class DetailPageViewController: UIViewController {
         percentChange.text = "\(stock.percentChange)%"
         
         priceChange.textColor = percentChange.text?.first == "+"
-            ? UIColor.green.withAlphaComponent(0.7)
-            : UIColor.red
+            ? Settings.customGreen
+            : Settings.customRed
         percentChange.textColor = percentChange.text?.first == "+"
-            ? UIColor.green.withAlphaComponent(0.7)
-            : UIColor.red
+            ? Settings.customGreen
+            : Settings.customRed
         
     }
     

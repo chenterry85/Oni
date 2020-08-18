@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Settings{
     
@@ -14,5 +15,8 @@ struct Settings{
     static let stockDataRefreshRate: Double = 8.0
     static let heartbeatTimeInterval: Double = 10.0
     static let backgroundThemeColor: String = "Black"
+    
+    static let customRed: UIColor = UIColor.red.withAlphaComponent(0.95)
+    static let customGreen: UIColor = UIColor.green.withAlphaComponent(0.7)
     
 }

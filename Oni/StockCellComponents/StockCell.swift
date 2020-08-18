@@ -28,9 +28,10 @@ class StockCell: UITableViewCell{
                 exchange.text = stock.exchange
                 price.text = "\(stock.price)"
                 percentChange.text = "\(stock.percentChange)%"
+                
                 changeWrapper.backgroundColor = percentChange.text?.first == "+"
-                    ? UIColor.green.withAlphaComponent(0.7)
-                    : UIColor.red
+                    ? Settings.customGreen
+                    : Settings.customRed
                 positiveSignChangeIcon.image = percentChange.text?.first == "+"
                     ? UIImage(named: "double-up")
                     : UIImage(named: "empty-double-up")
