@@ -14,15 +14,15 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     let sqliteConnector = SQLiteConnector.shared
-    var allStocks = [DB_Stock]()
-    var searchedStocks = [DB_Stock]()
+    var allStocks = [DB_Stock]() // All stocks on database
+    var searchedStocks = [DB_Stock]() // Stocks returned from search
     var isSearching = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //searchBar.becomeFirstResponder()
-        allStocks = sqliteConnector.searchStocks(withInput: "")
+        allStocks = sqliteConnector.searchForStocks(withInput: "")
         
         let customCell = UINib(nibName: "SearchCell", bundle: nil)
         tableView.register(customCell, forCellReuseIdentifier: "searchCell")
@@ -56,7 +56,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate{
 
 extension SearchViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchedStocks = sqliteConnector.searchStocks(withInput: searchText)
+        searchedStocks = sqliteConnector.searchForStocks(withInput: searchText)
         isSearching = true
         tableView.reloadData()
     }

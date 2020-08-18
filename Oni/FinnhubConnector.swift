@@ -231,7 +231,6 @@ class FinnhubConnector: WebSocketDelegate{
             }
 
             if let companyInfo = try? JSONDecoder().decode(CompanyInfo.self, from: data) {
-                print(companyInfo.name)
                 companyInfoCompleteHandler(companyInfo)
             }else {
                 print("Error: decoding for \(withSymbol) Company information")

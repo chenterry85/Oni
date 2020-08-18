@@ -13,9 +13,11 @@ class StocksDataManager{
     
     static let shared = StocksDataManager()
     
+    let finnhubConnector = FinnhubConnector.shared
+    let sqliteConnector = SQLiteConnector.shared
+    
     var subscribedSymbols: [String] = []
     var subscribedStocks: [Stock] = [Stock()]
-    let finnhubConnector = FinnhubConnector.shared
     var refresher: Timer!
     var currentTableView: UITableView?
         
@@ -91,21 +93,17 @@ class StocksDataManager{
             let symbol = symbols[i]
             
             dispatchGroup.enter()
-            finnhubConnector.getCompanyInfo(withSymbol: symbol) {
-                (companyInfo: CompanyInfo?) in
+            
+                let stockFromDB: DB_Stock = sqliteConnector.getStock(withSymbol: symbol)
                 
-                if let companyInfo = companyInfo{
-                    var updatedStock = self.subscribedStocks[i]
-                    updatedStock.name = companyInfo.name
-                    updatedStock.exchange = self.abbreviationForStockExchange(companyInfo.exchange)
-                    
-                    self.subscribedStocks[i] = updatedStock
-                    print(String(describing: updatedStock))
-                }else{
-                    // error when requesting company info
-                }
-                dispatchGroup.leave()
-            }
+                var updatedStock = self.subscribedStocks[i]
+                updatedStock.name = stockFromDB.description
+                //updatedStock.exchange = self.abbreviationForStockExchange(stockFromDB.exchange)
+                
+                self.subscribedStocks[i] = updatedStock
+                print(String(describing: updatedStock))
+
+            dispatchGroup.leave()
         }
         
         //returns after all API calls are responded
