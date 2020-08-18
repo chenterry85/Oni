@@ -17,11 +17,29 @@ class DetailPageViewController: UIViewController {
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var priceChange: UILabel!
     @IBOutlet weak var percentChange: UILabel!
+    
+    var stock: Stock!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let priceChangeSign = stock.percentChange.first == "+" ? "▲" : "▼"
 
-        // Do any additional setup after loading the view.
+        name.text = stock.name
+        symbol.text = stock.symbol
+        //currency.text = stock?.currency
+        exchange.text = stock.exchange
+        price.text = "$ \(stock.price)"
+        priceChange.text = "\(priceChangeSign) \(stock.priceChange)"
+        percentChange.text = "\(stock.percentChange)%"
+        
+        priceChange.textColor = percentChange.text?.first == "+"
+            ? UIColor.green.withAlphaComponent(0.7)
+            : UIColor.red
+        percentChange.textColor = percentChange.text?.first == "+"
+            ? UIColor.green.withAlphaComponent(0.7)
+            : UIColor.red
+        
     }
     
 

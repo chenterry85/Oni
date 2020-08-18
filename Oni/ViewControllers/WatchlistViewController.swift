@@ -31,7 +31,9 @@ class WatchlistViewController: UITableViewController {
         if segue.identifier == "addStock" {
             // prep
         }else if segue.identifier == "navigateToDetailPage"{
-            // prep
+            let stock = sender as! Stock
+            let detailPageVC = segue.destination as! DetailPageViewController
+            detailPageVC.stock = stock
         }
     }
 
@@ -54,8 +56,9 @@ class WatchlistViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! StockCell
+        
         if let stock = cell.stock {
-            performSegue(withIdentifier: "navigateToDetailPage", sender: nil)
+            performSegue(withIdentifier: "navigateToDetailPage", sender: stock)
         }
     }
     
@@ -66,9 +69,8 @@ class WatchlistViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         // handling deleted row
         if (editingStyle == .delete) {
-            
-            let cell = tableView.cellForRow(at: indexPath) as! StockCell
-            if let stock = cell.stock {
+            let cell = tableView.cellForRow(at: indexPath) as? StockCell
+            if let stock = cell?.stock {
                 stocksDataManager.unsubscribe(withSymbol: stock.symbol)
                 print("Unsubscribe \(stock.symbol)")
                 tableView.reloadData()

@@ -135,8 +135,8 @@
 		36037B9324D9D6BA0003F3EE /* SearchCellComponents */ = {
 			isa = PBXGroup;
 			children = (
-				36F3FC6A24D9717E00448584 /* SearchCell.xib */,
 				36F3FC6C24D971AB00448584 /* SearchCell.swift */,
+				36F3FC6A24D9717E00448584 /* SearchCell.xib */,
 			);
 			path = SearchCellComponents;
 			sourceTree = "<group>";
