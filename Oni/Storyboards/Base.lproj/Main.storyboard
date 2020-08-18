@@ -110,12 +110,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Omni is the finance destination for tracking ETF market performance." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p7M-Zy-rvI">
-                                <rect key="frame" x="20" y="459.5" width="249" height="86"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oni is the finance destination for tracking the performance of your custom portfolio" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p7M-Zy-rvI">
+                                <rect key="frame" x="20" y="459.5" width="249" height="101"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="86" id="ias-gv-U6V"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="249" id="nVX-im-nli"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="86" id="uFJ-MG-Kbb"/>
+                                    <constraint firstAttribute="height" constant="101" id="ias-gv-U6V"/>
                                     <constraint firstAttribute="width" constant="249" id="z2N-5F-33W"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="21"/>
