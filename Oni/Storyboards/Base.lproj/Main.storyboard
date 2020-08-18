@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JQ8-aS-vnl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JQ8-aS-vnl">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -10,12 +10,13 @@
         <!--Tab Bar Controller-->
         <scene sceneID="7ON-gc-XZC">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="EkG-CA-gWs" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" interfaceStyle="dark" id="EkG-CA-gWs" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="RKY-QC-uVh"/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cez-ic-d1G">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="cez-ic-d1G">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -73,7 +74,7 @@
         <!--Log In View Controller-->
         <scene sceneID="gPy-tn-B3r">
             <objects>
-                <viewController id="5XH-CV-pil" customClass="LogInViewController" customModule="Omnic___ETF" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5XH-CV-pil" customClass="LogInViewController" customModule="Oni" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OSl-eO-RYX" customClass="Log">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -99,7 +100,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="eUU-Vn-7sU">
             <objects>
-                <viewController id="h53-Cm-czo" customClass="WelcomeViewController" customModule="Omnic___ETF" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="h53-Cm-czo" customClass="WelcomeViewController" customModule="Oni" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="e9K-Ct-t11">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -196,7 +197,7 @@
         <!--Log In View Controller-->
         <scene sceneID="2R1-rK-GMK">
             <objects>
-                <viewController id="P1Q-LI-7UW" customClass="LogInViewController" customModule="Omnic___ETF" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="P1Q-LI-7UW" customClass="LogInViewController" customModule="Oni" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4iO-9T-G9L">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -228,7 +229,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="cZt-CY-u55"/>
+        <segue reference="jsk-jq-fBV"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="welcome_bg" width="3223" height="4834"/>

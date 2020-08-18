@@ -7,7 +7,7 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadDataToDB()
+        //loadDataToDB()
     }
     
     @IBAction func clickLogIn(){
