@@ -17,6 +17,6 @@ struct Settings{
     static let backgroundThemeColor: String = "Black"
     
     static let customRed: UIColor = UIColor.red.withAlphaComponent(0.95)
-    static let customGreen: UIColor = UIColor.green.withAlphaComponent(0.7)
+    static let customGreen: UIColor = UIColor.green.withAlphaComponent(0.72)
     
 }
