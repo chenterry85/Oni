@@ -114,8 +114,13 @@ enum ChartTimespan{
     case oneDay
     case oneMonth
     case threeMonths
-    case oneyear
-    case all
+    case oneYear
+    case threeYears
+}
+
+struct ChartEntry{
+    let x: Double
+    let y: Double
 }
 
 struct DB_Stock{

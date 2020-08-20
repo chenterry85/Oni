@@ -136,6 +136,21 @@ class StocksDataManager{
         }
     }
     
+    func subscribe(withSymbol: String){
+           if subscribedSymbols.firstIndex(of: withSymbol) == nil {
+               subscribedSymbols.append(withSymbol)
+               finnhubConnector.subscribe(withSymbol: withSymbol)
+           }
+       }
+       
+       func unsubscribe(withSymbol: String){
+           if let index = subscribedSymbols.firstIndex(of: withSymbol) {
+               subscribedSymbols.remove(at: index)
+               subscribedStocks.remove(at: index)
+               finnhubConnector.unsubscribe(withSymbol: withSymbol)
+           }
+       }
+    
     // called every 8 seconds
     func refreshStockDataOnUI(){
         
@@ -198,7 +213,7 @@ class StocksDataManager{
         }
     }
     
-    // called from searchVC
+    // function called from searchVC
     func addNewStockObject(withSymbol: String, withDescription: String){
         
         if subscribedSymbols.contains(withSymbol){ // exit function if stock already exists
@@ -263,40 +278,54 @@ class StocksDataManager{
             dg2.wait()
             
             self.reloadTableView()
-            //self.displayMessageAfterAddingNewStock()
         }
     }
     
-    func displayMessageAfterAddingNewStock(){
-        DispatchQueue.main.async { //alert needs to run in main thread
-            let alertController = UIAlertController(title: "", message: "hello", preferredStyle: .alert)
-            
-            //...
-            var rootViewController = UIApplication.shared.keyWindow?.rootViewController
-            if let navigationController = rootViewController as? UINavigationController {
-                rootViewController = navigationController.viewControllers.first
+    func getStockCandleChartEntry(for symbol: String, in timespan: ChartTimespan) -> [ChartEntry]{
+        let now = NSDate().timeIntervalSince1970
+        var startingTimestamp: Double = 0.0
+        var chartEntryList = [ChartEntry]()
+        
+        print("time right now: \(now)")
+        
+        switch timespan{
+        case .oneDay:
+            let secondsInOneDay = 86400.0
+            startingTimestamp = now - secondsInOneDay
+        case .oneMonth:
+            let secondsInOneMonth = 2592000.0
+            startingTimestamp = now - secondsInOneMonth
+        case .threeMonths:
+            let secondsInThreeMonth = 7776000.0
+            startingTimestamp = now - secondsInThreeMonth
+        case .oneYear:
+            let secondsInOneYear = 31536000.0
+            startingTimestamp = now - secondsInOneYear
+        case .threeYears:
+            let secondsInThreeYears = 94608000.0
+            startingTimestamp = now - secondsInThreeYears
+        }
+        
+        let dispatchGroup = DispatchGroup()
+        
+        dispatchGroup.enter()
+        finnhubConnector.getStockCandle(withSymbol: symbol, from: Int64(startingTimestamp), to: Int64(now)) {
+            (stockCandle: StockCandle?) in
+            if let stockCandle = stockCandle{
+                
+                let openPrices = stockCandle.o
+                for (index, price) in zip(1...openPrices.count, openPrices){
+                    let entry = ChartEntry(x: Double(index), y: price)
+                    chartEntryList.append(entry)
+                }
+                
+                dispatchGroup.leave()
             }
-            if let tabBarController = rootViewController as? UITabBarController {
-                rootViewController = tabBarController.selectedViewController
-            }
-            //...
-            rootViewController?.present(alertController, animated: true, completion: nil)
         }
-    }
-    
-    func subscribe(withSymbol: String){
-        if subscribedSymbols.firstIndex(of: withSymbol) == nil {
-            subscribedSymbols.append(withSymbol)
-            finnhubConnector.subscribe(withSymbol: withSymbol)
-        }
-    }
-    
-    func unsubscribe(withSymbol: String){
-        if let index = subscribedSymbols.firstIndex(of: withSymbol) {
-            subscribedSymbols.remove(at: index)
-            subscribedStocks.remove(at: index)
-            finnhubConnector.unsubscribe(withSymbol: withSymbol)
-        }
+        
+        dispatchGroup.wait()
+        
+        return chartEntryList
     }
   
     func marketIsOpen() -> Bool{

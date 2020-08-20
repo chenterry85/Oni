@@ -21,6 +21,7 @@ class DetailPageViewController: UIViewController, ChartViewDelegate{
     @IBOutlet weak var percentChange: UILabel!
     @IBOutlet weak var chartHolderView: UIView!
     
+    let stockDataManger = StocksDataManager.shared
     lazy var lineChartView: LineChartView = {
         let chartView = LineChartView()
         chartView.backgroundColor = .systemBlue
@@ -54,10 +55,13 @@ class DetailPageViewController: UIViewController, ChartViewDelegate{
         lineChartView.centerInSuperview()
         lineChartView.width(to: chartHolderView)
         lineChartView.height(to: chartHolderView)
+        
+        
+        let points = stockDataManger.getStockCandleChartEntry(for: symbol.text!, in: .oneDay)
+        print(String(describing: points))
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        print(entry)
     }
 
 }
