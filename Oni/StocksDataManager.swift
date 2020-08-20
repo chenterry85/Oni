@@ -59,7 +59,7 @@ class StocksDataManager{
             let symbol = symbols[i]
             
             dispatchGroup.enter()
-            finnhubConnector.getStockQuote(withSymbol: symbol) {
+            finnhubConnector.getStockQuote(with: symbol) {
                 (stockQuote: StockQuote?) in
                                 
                 if let stockQuote = stockQuote{
@@ -93,7 +93,7 @@ class StocksDataManager{
             let symbol = symbols[i]
             
             dispatchGroup.enter()
-            finnhubConnector.getCompanyInfo(withSymbol: symbol) {
+            finnhubConnector.getCompanyInfo(with: symbol) {
                 (companyInfo: CompanyInfo?) in
                 
                 if let companyInfo = companyInfo{
@@ -119,14 +119,14 @@ class StocksDataManager{
     func finnhubHandler(incoming: TradeDataPacket){
         let stockSymbol = incoming.symbol
         let currentPrice = incoming.price
-        updateStockData(withSymbol: stockSymbol, withPrice: currentPrice)
+        updateStockData(with: stockSymbol, and: currentPrice)
     }
     
     func finnhubReady(){
         print("Finnhub Ready")
         
         for symbol in subscribedSymbols{
-            subscribe(withSymbol: symbol)
+            subscribe(with: symbol)
         }
         
         if marketIsOpen(){
@@ -136,18 +136,18 @@ class StocksDataManager{
         }
     }
     
-    func subscribe(withSymbol: String){
-           if subscribedSymbols.firstIndex(of: withSymbol) == nil {
-               subscribedSymbols.append(withSymbol)
-               finnhubConnector.subscribe(withSymbol: withSymbol)
+    func subscribe(with symbol: String){
+           if subscribedSymbols.firstIndex(of: symbol) == nil {
+               subscribedSymbols.append(symbol)
+               finnhubConnector.subscribe(with: symbol)
            }
        }
        
-       func unsubscribe(withSymbol: String){
-           if let index = subscribedSymbols.firstIndex(of: withSymbol) {
+       func unsubscribe(with symbol: String){
+           if let index = subscribedSymbols.firstIndex(of: symbol) {
                subscribedSymbols.remove(at: index)
                subscribedStocks.remove(at: index)
-               finnhubConnector.unsubscribe(withSymbol: withSymbol)
+               finnhubConnector.unsubscribe(with: symbol)
            }
        }
     
@@ -170,7 +170,7 @@ class StocksDataManager{
                 print("Getting info for \(stock.symbol)")
                 dispatchGroup.enter()
 
-                finnhubConnector.getStockQuote(withSymbol: stock.symbol) {
+                finnhubConnector.getStockQuote(with: stock.symbol) {
                     (stockQuote: StockQuote?) in
                     if let stockQuote = stockQuote{
                         print("\(stock.symbol) with old price: \(stock.price), new price: \(stockQuote.c)")
@@ -195,10 +195,10 @@ class StocksDataManager{
 
     }
     
-    func updateStockData(withSymbol: String, withPrice: Double){
-        if let index = subscribedSymbols.firstIndex(of: withSymbol){
+    func updateStockData(with symbol: String, and price: Double){
+        if let index = subscribedSymbols.firstIndex(of: symbol){
             var updatedStock = subscribedStocks[index]
-            updatedStock.price = withPrice.round(to: Settings.decimalPlace)
+            updatedStock.price = price.round(to: Settings.decimalPlace)
             updatedStock.priceChange = calculatePriceChange(updatedStock.price, updatedStock.previousClosePrice)
             updatedStock.percentChange = calculatePercentChange(updatedStock.price, updatedStock.previousClosePrice)
             updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
@@ -214,20 +214,20 @@ class StocksDataManager{
     }
     
     // function called from searchVC
-    func addNewStockObject(withSymbol: String, withDescription: String){
+    func addNewStockObject(with symbol: String, and description: String){
         
-        if subscribedSymbols.contains(withSymbol){ // exit function if stock already exists
+        if subscribedSymbols.contains(symbol){ // exit function if stock already exists
             return
         }
         
-        subscribe(withSymbol: withSymbol)
+        subscribe(with: symbol)
         subscribedStocks.append(Stock()) // init empty stock container
         let newStockIndex = subscribedStocks.count - 1
         
         //fill in company name
         var updatedStock = subscribedStocks[newStockIndex]
-        updatedStock.symbol = withSymbol
-        updatedStock.name = withDescription
+        updatedStock.symbol = symbol
+        updatedStock.name = description
         subscribedStocks[newStockIndex] = updatedStock
         
         // fetch stock info
@@ -236,7 +236,7 @@ class StocksDataManager{
             let dg1 = DispatchGroup()
             dg1.enter()
             
-            self.finnhubConnector.getStockQuote(withSymbol: withSymbol) {
+            self.finnhubConnector.getStockQuote(with: symbol) {
                 (stockQuote: StockQuote?) in
                                 
                 if let stockQuote = stockQuote{
@@ -261,7 +261,7 @@ class StocksDataManager{
             let dg2 = DispatchGroup()
             dg2.enter()
             
-            self.finnhubConnector.getCompanyInfo(withSymbol: withSymbol) {
+            self.finnhubConnector.getCompanyInfo(with: symbol) {
                 (companyInfo: CompanyInfo?) in
                 
                 if let companyInfo = companyInfo{
@@ -281,13 +281,11 @@ class StocksDataManager{
         }
     }
     
-    func getStockCandleChartEntry(for symbol: String, in timespan: ChartTimespan) -> [ChartEntry]{
+    func getStockCandleChartEntry(with symbol: String, in timespan: ChartTimespan) -> [ChartEntry]{
         let now = NSDate().timeIntervalSince1970
         var startingTimestamp: Double = 0.0
         var chartEntryList = [ChartEntry]()
-        
-        print("time right now: \(now)")
-        
+    
         switch timespan{
         case .oneDay:
             let secondsInOneDay = 86400.0
@@ -309,7 +307,7 @@ class StocksDataManager{
         let dispatchGroup = DispatchGroup()
         
         dispatchGroup.enter()
-        finnhubConnector.getStockCandle(withSymbol: symbol, from: Int64(startingTimestamp), to: Int64(now)) {
+        finnhubConnector.getStockCandle(with: symbol, from: Int64(startingTimestamp), to: Int64(now)) {
             (stockCandle: StockCandle?) in
             if let stockCandle = stockCandle{
                 

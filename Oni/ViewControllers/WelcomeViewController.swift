@@ -35,7 +35,7 @@ class WelcomeViewController: UIViewController {
             let symbol = stock.symbol
             
             dg.enter()
-            finnhubConnector.getCompanyInfo(withSymbol: symbol) {
+            finnhubConnector.getCompanyInfo(with: symbol) {
                 (companyInfo: CompanyInfo?) in
                 
                 if let companyInfo = companyInfo{

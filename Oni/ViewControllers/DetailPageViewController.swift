@@ -57,7 +57,7 @@ class DetailPageViewController: UIViewController, ChartViewDelegate{
         lineChartView.height(to: chartHolderView)
         
         
-        let points = stockDataManger.getStockCandleChartEntry(for: symbol.text!, in: .oneDay)
+        let points = stockDataManger.getStockCandleChartEntry(with: symbol.text!, in: .oneDay)
         print(String(describing: points))
     }
     

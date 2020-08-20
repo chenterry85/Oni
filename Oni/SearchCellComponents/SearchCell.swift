@@ -39,7 +39,7 @@ class SearchCell: UITableViewCell {
         let symbol = stock?.symbol ?? ""
         let description = stock?.description ?? ""
         
-        stocksDataManager.addNewStockObject(withSymbol: symbol, withDescription: description)
+        stocksDataManager.addNewStockObject(with: symbol, and: description)
         cellDelegate?.displayAlert(forSymbol: symbol)
     }
     

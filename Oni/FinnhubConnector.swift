@@ -67,7 +67,7 @@ class FinnhubConnector: WebSocketDelegate{
         
         print("heartbeat")
         for symbol in stocksDataManger.subscribedSymbols{
-            subscribe(withSymbol: symbol)
+            subscribe(with: symbol)
         }
         
     }
@@ -96,12 +96,12 @@ class FinnhubConnector: WebSocketDelegate{
         heartbeater?.invalidate()
     }
     
-    func subscribe(withSymbol: String) {
-        socket?.write(string: "{\"type\":\"subscribe\",\"symbol\":\"\(withSymbol)\"}")
+    func subscribe(with symbol: String) {
+        socket?.write(string: "{\"type\":\"subscribe\",\"symbol\":\"\(symbol)\"}")
     }
     
-    func unsubscribe(withSymbol: String) {
-        socket?.write(string: "{\"type\":\"unsubscribe\",\"symbol\":\"\(withSymbol)\"}")
+    func unsubscribe(with symbol: String) {
+        socket?.write(string: "{\"type\":\"unsubscribe\",\"symbol\":\"\(symbol)\"}")
     }
         
     func websocketDidReceiveMessage(text: String) {
@@ -151,18 +151,18 @@ class FinnhubConnector: WebSocketDelegate{
         }
     }
     
-    func getStockQuote(withSymbol: String, stockQuoteCompleteHandler: @escaping (_ stockQuote: StockQuote?) -> Void){
+    func getStockQuote(with symbol: String, stockQuoteCompleteHandler: @escaping (_ stockQuote: StockQuote?) -> Void){
         
-        let endpoint = "https://finnhub.io/api/v1/quote?symbol=\(withSymbol)&token=\(API.KEYS[1])"
+        let endpoint = "https://finnhub.io/api/v1/quote?symbol=\(symbol)&token=\(API.KEYS[1])"
         guard let url = URL(string: endpoint) else{
-            print("Error: Invalid URL for \(withSymbol) stock quote")
+            print("Error: Invalid URL for \(symbol) stock quote")
             return
         }
         
         let fetchTask = URLSession.shared.downloadTask(with: url) { (url:URL?, response:URLResponse?, error:Error?) in
             
             guard let url=url, let response=response else{
-                print("Error: fetching JSON for \(withSymbol) stock quote")
+                print("Error: fetching JSON for \(symbol) stock quote")
                 stockQuoteCompleteHandler(nil)
                 return
             }
@@ -174,7 +174,7 @@ class FinnhubConnector: WebSocketDelegate{
             }
 
             guard (response as! HTTPURLResponse).statusCode == 200 else { //status code 200 =  success download
-                print("Error: grab failed for \(withSymbol) stock quote")
+                print("Error: grab failed for \(symbol) stock quote")
                 stockQuoteCompleteHandler(nil)
                 return
             }
@@ -187,7 +187,7 @@ class FinnhubConnector: WebSocketDelegate{
             if let stockQuote = try? JSONDecoder().decode(StockQuote.self, from: data) {
                 stockQuoteCompleteHandler(stockQuote)
             }else{
-                print("Error: decoding for \(withSymbol) stock quote")
+                print("Error: decoding for \(symbol) stock quote")
                 stockQuoteCompleteHandler(nil)
             }
             
@@ -195,20 +195,20 @@ class FinnhubConnector: WebSocketDelegate{
         fetchTask.resume()
     }
         
-    func getCompanyInfo(withSymbol: String, companyInfoCompleteHandler: @escaping (_ companyInfo: CompanyInfo?) -> Void){
+    func getCompanyInfo(with symbol: String, companyInfoCompleteHandler: @escaping (_ companyInfo: CompanyInfo?) -> Void){
         
-        var withSymbol = switchToProperSymbol(withSymbol)
+        var symbol = switchToProperSymbol(for: symbol)
         
-        let endpoint = "https://finnhub.io/api/v1/stock/profile2?symbol=\(withSymbol)&token=\(API.KEYS[2])"
+        let endpoint = "https://finnhub.io/api/v1/stock/profile2?symbol=\(symbol)&token=\(API.KEYS[2])"
         guard let url = URL(string: endpoint) else{
-           print("Error: Invalid URL for \(withSymbol) Company Information")
+           print("Error: Invalid URL for \(symbol) Company Information")
            return
         }
 
         let fetchTask = URLSession.shared.downloadTask(with: url) { (url:URL?, response:URLResponse?, error:Error?) in
             
             guard let url=url, let response=response else{
-                print("Error: fetching JSON for \(withSymbol) Company Information")
+                print("Error: fetching JSON for \(symbol) Company Information")
                 companyInfoCompleteHandler(nil)
                 return
             }
@@ -220,7 +220,7 @@ class FinnhubConnector: WebSocketDelegate{
             }
 
             guard (response as! HTTPURLResponse).statusCode == 200 else { //status code 200 =  success download
-                print("Error: grab failed for \(withSymbol) Company Information")
+                print("Error: grab failed for \(symbol) Company Information")
                 companyInfoCompleteHandler(nil)
                 return
             }
@@ -233,7 +233,7 @@ class FinnhubConnector: WebSocketDelegate{
             if let companyInfo = try? JSONDecoder().decode(CompanyInfo.self, from: data) {
                 companyInfoCompleteHandler(companyInfo)
             }else {
-                print("Error: decoding for \(withSymbol) Company information")
+                print("Error: decoding for \(symbol) Company information")
                 companyInfoCompleteHandler(nil)
             }
            
@@ -242,7 +242,7 @@ class FinnhubConnector: WebSocketDelegate{
     }
     
     // Ensure getCompanyInfo() has valid company symbol for finnhub
-    func switchToProperSymbol(_ symbol: String) -> String{
+    func switchToProperSymbol(for symbol: String) -> String{
         switch symbol{
         case "GOOG":
             return "GOOGL"
@@ -251,19 +251,19 @@ class FinnhubConnector: WebSocketDelegate{
         }
     }
     
-    func getStockCandle(withSymbol: String, from startTime: Int64, to endTime: Int64, stockCandleCompleteHandler: @escaping (_ stockCandle: StockCandle?) -> Void){
+    func getStockCandle(with symbol: String, from startTime: Int64, to endTime: Int64, stockCandleCompleteHandler: @escaping (_ stockCandle: StockCandle?) -> Void){
         
-        let endpoint = "https://finnhub.io/api/v1/stock/candle?symbol=\(withSymbol)&resolution=1&from=\(startTime)&to=\(endTime)&token=\(API.KEYS[2])"
+        let endpoint = "https://finnhub.io/api/v1/stock/candle?symbol=\(symbol)&resolution=1&from=\(startTime)&to=\(endTime)&token=\(API.KEYS[2])"
         
         guard let url = URL(string: endpoint) else{
-           print("Error: Invalid URL for \(withSymbol) Stock Candle")
+           print("Error: Invalid URL for \(symbol) Stock Candle")
            return
         }
 
         let fetchTask = URLSession.shared.downloadTask(with: url) { (url:URL?, response:URLResponse?, error:Error?) in
             
             guard let url=url, let response=response else{
-                print("Error: fetching JSON for \(withSymbol) Stock Candle")
+                print("Error: fetching JSON for \(symbol) Stock Candle")
                 stockCandleCompleteHandler(nil)
                 return
             }
@@ -275,7 +275,7 @@ class FinnhubConnector: WebSocketDelegate{
             }
 
             guard (response as! HTTPURLResponse).statusCode == 200 else { //status code 200 =  success download
-                print("Error: grab failed for \(withSymbol) Stock Candle")
+                print("Error: grab failed for \(symbol) Stock Candle")
                 stockCandleCompleteHandler(nil)
                 return
             }
@@ -288,7 +288,7 @@ class FinnhubConnector: WebSocketDelegate{
             if let stockCandle = try? JSONDecoder().decode(StockCandle.self, from: data) {
                 stockCandleCompleteHandler(stockCandle)
             }else {
-                print("Error: decoding for \(withSymbol) Stock Candle")
+                print("Error: decoding for \(symbol) Stock Candle")
                 stockCandleCompleteHandler(nil)
             }
            

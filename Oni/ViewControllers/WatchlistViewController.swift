@@ -71,7 +71,7 @@ class WatchlistViewController: UITableViewController {
         if (editingStyle == .delete) {
             let cell = tableView.cellForRow(at: indexPath) as? StockCell
             if let stock = cell?.stock {
-                stocksDataManager.unsubscribe(withSymbol: stock.symbol)
+                stocksDataManager.unsubscribe(with: stock.symbol)
                 print("Unsubscribe \(stock.symbol)")
                 tableView.reloadData()
             }
