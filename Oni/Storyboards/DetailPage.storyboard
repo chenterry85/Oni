@@ -60,10 +60,10 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRT-2Z-wAE" userLabel="chart">
-                                <rect key="frame" x="0.0" y="247.5" width="414" height="360"/>
+                                <rect key="frame" x="0.0" y="247.5" width="414" height="400"/>
                                 <color key="backgroundColor" red="0.15516381609999999" green="0.15516381609999999" blue="0.15516381609999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="360" id="YsF-2E-4Vw"/>
+                                    <constraint firstAttribute="height" constant="400" id="KxV-Jh-ESt"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="International Business Machine Corp." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHe-aN-XQb">
@@ -99,6 +99,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="R0x-a4-OUv"/>
                     <connections>
+                        <outlet property="chartHolderView" destination="KRT-2Z-wAE" id="WWj-e2-LMy"/>
                         <outlet property="currency" destination="5Lg-Jb-z8j" id="pfk-RA-FC2"/>
                         <outlet property="exchange" destination="Uar-iW-y92" id="Z3o-rl-utm"/>
                         <outlet property="name" destination="iHe-aN-XQb" id="8tk-Zp-tSi"/>

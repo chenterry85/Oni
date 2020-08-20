@@ -12,5 +12,7 @@ target 'Oni' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Firestore'
   pod 'Firebase/Auth'
+  pod 'Charts'
+  pod 'TinyConstraints'
 
 end

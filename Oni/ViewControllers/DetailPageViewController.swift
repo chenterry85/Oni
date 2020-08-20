@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Charts
+import TinyConstraints
 
 class DetailPageViewController: UIViewController {
     
@@ -17,6 +19,13 @@ class DetailPageViewController: UIViewController {
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var priceChange: UILabel!
     @IBOutlet weak var percentChange: UILabel!
+    @IBOutlet weak var chartHolderView: UIView!
+    
+    lazy var lineChartView: LineChartView = {
+        let chartView = LineChartView()
+        chartView.backgroundColor = .systemBlue
+        return chartView
+    }()
     
     var stock: Stock!
 
@@ -39,7 +48,12 @@ class DetailPageViewController: UIViewController {
         percentChange.textColor = percentChange.text?.first == "+"
             ? Settings.customGreen
             : Settings.customRed
-
+        
+        //Line Chart Settings
+        chartHolderView.addSubview(lineChartView)
+        lineChartView.centerInSuperview()
+        lineChartView.width(to: chartHolderView)
+        lineChartView.height(to: chartHolderView)
     }
 
 }
