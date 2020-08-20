@@ -110,6 +110,14 @@ struct StockCandle: Decodable{
     let v: [Int64]  // volume
 }
 
+enum ChartTimespan{
+    case oneDay
+    case oneMonth
+    case threeMonths
+    case oneyear
+    case all
+}
+
 struct DB_Stock{
     let currency: String
     let description: String
