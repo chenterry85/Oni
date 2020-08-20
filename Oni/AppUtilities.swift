@@ -125,3 +125,38 @@ struct DB_Stock{
     let symbol: String
     let type: String
 }
+
+
+
+func calculatePriceChange(_ currentPrice: Double, _ previousClosePrice: Double) -> String{
+       let priceChange = currentPrice - previousClosePrice
+       let formattedPriceChange = "\(priceChange.round(to: Settings.decimalPlace))"
+       let sign = formattedPriceChange.first == "-" ?
+           "" : "+"
+       return sign + formattedPriceChange
+}
+
+func calculatePercentChange(_ currentPrice: Double, _ previousClosePrice: Double) -> String{
+    let percentChange = 100.0 * ((currentPrice - previousClosePrice) / previousClosePrice)
+    let formmatedPercentChange = "\(percentChange.round(to: Settings.decimalPlace))"
+    let sign = formmatedPercentChange.first == "-" ?
+        "" : "+"
+    return sign + formmatedPercentChange
+}
+
+func delayWithSeconds(_ seconds: Double, completion: @escaping () -> ()) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+        completion()
+    }
+}
+
+func abbreviationForStockExchange(_ exchange: String) -> String{
+    switch exchange {
+    case "NEW YORK STOCK EXCHANGE, INC.":
+        return "NYSE"
+    case "NASDAQ NMS - GLOBAL MARKET":
+        return "NASDAQ NMS"
+    default:
+        return exchange
+    }
+}

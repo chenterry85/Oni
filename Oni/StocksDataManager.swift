@@ -67,8 +67,8 @@ class StocksDataManager{
                     updatedStock.symbol = symbol
                     updatedStock.price = stockQuote.c.round(to: Settings.decimalPlace)
                     updatedStock.previousClosePrice = stockQuote.pc.round(to: Settings.decimalPlace)
-                    updatedStock.priceChange = self.calculatePriceChange(updatedStock.price, updatedStock.previousClosePrice)
-                    updatedStock.percentChange = self.calculatePercentChange(updatedStock.price, updatedStock.previousClosePrice)
+                    updatedStock.priceChange = calculatePriceChange(updatedStock.price, updatedStock.previousClosePrice)
+                    updatedStock.percentChange = calculatePercentChange(updatedStock.price, updatedStock.previousClosePrice)
                     updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
                     
                     self.subscribedStocks[i] = updatedStock
@@ -101,7 +101,7 @@ class StocksDataManager{
                     let stockFromDB: DB_Stock = self.sqliteConnector.getStock(withSymbol: symbol)
                     
                     updatedStock.name = stockFromDB.description
-                    updatedStock.exchange = self.abbreviationForStockExchange(companyInfo.exchange)
+                    updatedStock.exchange = abbreviationForStockExchange(companyInfo.exchange)
                     
                     self.subscribedStocks[i] = updatedStock
                     print(String(describing: updatedStock))
@@ -160,8 +160,8 @@ class StocksDataManager{
                     if let stockQuote = stockQuote{
                         print("\(stock.symbol) with old price: \(stock.price), new price: \(stockQuote.c)")
                         updatedStock.price = stockQuote.c.round(to: Settings.decimalPlace)
-                        updatedStock.priceChange = self.calculatePriceChange(updatedStock.price, updatedStock.previousClosePrice)
-                        updatedStock.percentChange = self.calculatePercentChange(updatedStock.price, updatedStock.previousClosePrice)
+                        updatedStock.priceChange = calculatePriceChange(updatedStock.price, updatedStock.previousClosePrice)
+                        updatedStock.percentChange = calculatePercentChange(updatedStock.price, updatedStock.previousClosePrice)
                         updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
                         
                         self.subscribedStocks[i] = updatedStock
@@ -228,8 +228,8 @@ class StocksDataManager{
                     var updatedStock = self.subscribedStocks[newStockIndex]
                     updatedStock.price = stockQuote.c.round(to: Settings.decimalPlace)
                     updatedStock.previousClosePrice = stockQuote.pc.round(to: Settings.decimalPlace)
-                    updatedStock.priceChange = self.calculatePriceChange(updatedStock.price, updatedStock.previousClosePrice)
-                    updatedStock.percentChange = self.calculatePercentChange(updatedStock.price, updatedStock.previousClosePrice)
+                    updatedStock.priceChange = calculatePriceChange(updatedStock.price, updatedStock.previousClosePrice)
+                    updatedStock.percentChange = calculatePercentChange(updatedStock.price, updatedStock.previousClosePrice)
                     updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
                     
                     self.subscribedStocks[newStockIndex] = updatedStock
@@ -251,7 +251,7 @@ class StocksDataManager{
                 
                 if let companyInfo = companyInfo{
                     var updatedStock = self.subscribedStocks[newStockIndex]
-                    updatedStock.exchange = self.abbreviationForStockExchange(companyInfo.exchange)
+                    updatedStock.exchange = abbreviationForStockExchange(companyInfo.exchange)
                     
                     self.subscribedStocks[newStockIndex] = updatedStock
                     print(String(describing: updatedStock))
@@ -322,38 +322,6 @@ class StocksDataManager{
         return false
     }
     
-    func calculatePriceChange(_ currentPrice: Double, _ previousClosePrice: Double) -> String{
-        let priceChange = currentPrice - previousClosePrice
-        let formattedPriceChange = "\(priceChange.round(to: Settings.decimalPlace))"
-        let sign = formattedPriceChange.first == "-" ?
-            "" : "+"
-        return sign + formattedPriceChange
-    }
-    
-    func calculatePercentChange(_ currentPrice: Double, _ previousClosePrice: Double) -> String{
-        let percentChange = 100.0 * ((currentPrice - previousClosePrice) / previousClosePrice)
-        let formmatedPercentChange = "\(percentChange.round(to: Settings.decimalPlace))"
-        let sign = formmatedPercentChange.first == "-" ?
-            "" : "+"
-        return sign + formmatedPercentChange
-    }
-    
-    func delayWithSeconds(_ seconds: Double, completion: @escaping () -> ()) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-            completion()
-        }
-    }
-    
-    func abbreviationForStockExchange(_ exchange: String) -> String{
-        switch exchange {
-        case "NEW YORK STOCK EXCHANGE, INC.":
-            return "NYSE"
-        case "NASDAQ NMS - GLOBAL MARKET":
-            return "NASDAQ NMS"
-        default:
-            return exchange
-        }
-    }
 
 }
 
