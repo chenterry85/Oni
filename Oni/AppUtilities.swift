@@ -126,8 +126,6 @@ struct DB_Stock{
     let type: String
 }
 
-
-
 func calculatePriceChange(_ currentPrice: Double, _ previousClosePrice: Double) -> String{
        let priceChange = currentPrice - previousClosePrice
        let formattedPriceChange = "\(priceChange.round(to: Settings.decimalPlace))"
@@ -155,7 +153,7 @@ func abbreviationForStockExchange(_ exchange: String) -> String{
     case "NEW YORK STOCK EXCHANGE, INC.":
         return "NYSE"
     case "NASDAQ NMS - GLOBAL MARKET":
-        return "NASDAQ NMS"
+        return "NASDAQ"
     default:
         return exchange
     }

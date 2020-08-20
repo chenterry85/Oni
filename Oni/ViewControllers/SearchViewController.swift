@@ -76,13 +76,12 @@ extension SearchViewController: NewStockAdded{
     
     func displayAlert(forSymbol: String) {
         //alert view
-        let message = "\(forSymbol) Added!"
+        let message = "Add \(forSymbol) to watchlist"
         let alert = UIAlertController(title: "", message: message, preferredStyle: .alert)
         self.present(alert, animated: true)
         
         //Disappear after .5 seconds
-        let killTime = DispatchTime.now() + 0.5
-        DispatchQueue.main.asyncAfter(deadline: killTime) {
+        delayWithSeconds(0.5) {
             alert.dismiss(animated: true, completion: nil)
         }
         
