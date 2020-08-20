@@ -251,8 +251,49 @@ class FinnhubConnector: WebSocketDelegate{
         }
     }
     
-    func getStockCandles(withSymbol: String, stockCandleCompleteHandler: @escaping (_ companyInfo: ?) -> Void){
+    func getStockCandle(withSymbol: String, from startTime: Int64, to endTime: Int64, stockCandleCompleteHandler: @escaping (_ stockCandle: StockCandle?) -> Void){
         
+        let endpoint = "https://finnhub.io/api/v1/stock/candle?symbol=\(withSymbol)&resolution=1&from=\(startTime)&to=\(endTime)&token=\(API.KEYS[2])"
+        
+        guard let url = URL(string: endpoint) else{
+           print("Error: Invalid URL for \(withSymbol) Stock Candle")
+           return
+        }
+
+        let fetchTask = URLSession.shared.downloadTask(with: url) { (url:URL?, response:URLResponse?, error:Error?) in
+            
+            guard let url=url, let response=response else{
+                print("Error: fetching JSON for \(withSymbol) Stock Candle")
+                stockCandleCompleteHandler(nil)
+                return
+            }
+
+            guard error == nil else{
+                print(error!)
+                stockCandleCompleteHandler(nil)
+                return
+            }
+
+            guard (response as! HTTPURLResponse).statusCode == 200 else { //status code 200 =  success download
+                print("Error: grab failed for \(withSymbol) Stock Candle")
+                stockCandleCompleteHandler(nil)
+                return
+            }
+
+            guard let data = try? Data.init(contentsOf: url) else{
+                stockCandleCompleteHandler(nil)
+                return
+            }
+
+            if let stockCandle = try? JSONDecoder().decode(StockCandle.self, from: data) {
+                stockCandleCompleteHandler(stockCandle)
+            }else {
+                print("Error: decoding for \(withSymbol) Stock Candle")
+                stockCandleCompleteHandler(nil)
+            }
+           
+        }
+        fetchTask.resume()
     }
     
 }
