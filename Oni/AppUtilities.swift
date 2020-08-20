@@ -82,7 +82,7 @@ struct StockQuote: Decodable{
     let l: Double // low price of the day
     let o: Double // open price of the day
     let pc: Double // previous close price
-    let t:Int64 // timestamp
+    let t: Int64 // timestamp
 }
 
 struct CompanyInfo: Decodable{
@@ -98,6 +98,16 @@ struct CompanyInfo: Decodable{
     let shareOutstanding: Double
     let ticker: String
     let weburl: String
+}
+
+struct StockCandle: Decodable{
+    let c: [Double] // close price
+    let h: [Double] // high price
+    let l: [Double] // low price
+    let o: [Double] // open price
+    let s: String   // status of respond: (ok || no_data)
+    let t: [Int64]  // timestamp
+    let v: [Int64]  // volume
 }
 
 struct DB_Stock{

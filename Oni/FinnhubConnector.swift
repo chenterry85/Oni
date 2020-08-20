@@ -251,6 +251,10 @@ class FinnhubConnector: WebSocketDelegate{
         }
     }
     
+    func getStockCandles(withSymbol: String, stockCandleCompleteHandler: @escaping (_ companyInfo: ?) -> Void){
+        
+    }
+    
 }
 
 

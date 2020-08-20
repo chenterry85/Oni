@@ -10,7 +10,7 @@ import UIKit
 import Charts
 import TinyConstraints
 
-class DetailPageViewController: UIViewController {
+class DetailPageViewController: UIViewController, ChartViewDelegate{
     
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var symbol: UILabel!
@@ -54,6 +54,10 @@ class DetailPageViewController: UIViewController {
         lineChartView.centerInSuperview()
         lineChartView.width(to: chartHolderView)
         lineChartView.height(to: chartHolderView)
+    }
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        print(entry)
     }
 
 }
