@@ -118,11 +118,6 @@ enum ChartTimespan{
     case threeYears
 }
 
-struct ChartEntry{
-    let x: Double
-    let y: Double
-}
-
 struct DB_Stock{
     let currency: String
     let description: String

@@ -21,14 +21,27 @@ class DetailPageViewController: UIViewController, ChartViewDelegate{
     @IBOutlet weak var percentChange: UILabel!
     @IBOutlet weak var chartHolderView: UIView!
     
-    let stockDataManger = StocksDataManager.shared
+    let stocksDataManager:StocksDataManager = StocksDataManager.shared
+    var stock: Stock!
+    var yValues: [ChartDataEntry] = []
+    
     lazy var lineChartView: LineChartView = {
         let chartView = LineChartView()
         chartView.backgroundColor = .systemBlue
+        chartView.rightAxis.enabled = false
+        
+        let yAxis = chartView.leftAxis
+        yAxis.labelFont = .boldSystemFont(ofSize: 12)
+        yAxis.setLabelCount(6, force: false)
+        yAxis.labelTextColor = .white
+        yAxis.axisLineColor = .white
+        yAxis.labelPosition = .insideChart
+        
+        chartView.xAxis.labelPosition = .bottom
+        
         return chartView
     }()
     
-    var stock: Stock!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,13 +68,26 @@ class DetailPageViewController: UIViewController, ChartViewDelegate{
         lineChartView.centerInSuperview()
         lineChartView.width(to: chartHolderView)
         lineChartView.height(to: chartHolderView)
-        
-        
-        let points = stockDataManger.getStockCandleChartEntry(with: symbol.text!, in: .oneDay)
-        print(String(describing: points))
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //yValues = stocksDataManager.getStockCandleChartDataEntry(with: name.text!, in: .oneDay)
+        for i in 0...40 {
+            yValues.append(ChartDataEntry(x: Double(i), y: Double(Int.random(in: 0...100 ))))
+        }
+        setData()
     }
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        print(entry)
     }
-
+    
+    func setData() {
+        let set1 = LineChartDataSet(entries: yValues, label: "Price")
+        
+        let data = LineChartData(dataSet: set1)
+        lineChartView.data = data
+    }
+    
 }

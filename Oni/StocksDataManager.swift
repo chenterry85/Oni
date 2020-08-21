@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Charts
 import UIKit
 
 class StocksDataManager{
@@ -276,10 +277,10 @@ class StocksDataManager{
         }
     }
     
-    func getStockCandleChartEntry(with symbol: String, in timespan: ChartTimespan) -> [ChartEntry]{
+    func getStockCandleChartDataEntry(with symbol: String, in timespan: ChartTimespan) -> [ChartDataEntry]{
         let now = NSDate().timeIntervalSince1970
         var startingTimestamp: Double = 0.0
-        var chartEntryList = [ChartEntry]()
+        var chartEntryList = [ChartDataEntry]()
     
         switch timespan{
         case .oneDay:
@@ -308,7 +309,7 @@ class StocksDataManager{
                 
                 let openPrices = stockCandle.o
                 for (index, price) in zip(1...openPrices.count, openPrices){
-                    let entry = ChartEntry(x: Double(index), y: price)
+                    let entry = ChartDataEntry(x: Double(index), y: price)
                     chartEntryList.append(entry)
                 }
                 
