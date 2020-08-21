@@ -54,16 +54,14 @@ class StocksDataManager{
         
         let dispatchGroup = DispatchGroup()
         
-        for i in 0 ..< symbols.count{
-            
-            let symbol = symbols[i]
-            
+        for (index, symbol) in zip(0 ..< symbols.count, symbols){
+                        
             dispatchGroup.enter()
             finnhubConnector.getStockQuote(with: symbol) {
                 (stockQuote: StockQuote?) in
                                 
                 if let stockQuote = stockQuote{
-                    var updatedStock = self.subscribedStocks[i]
+                    var updatedStock = self.subscribedStocks[index]
                     updatedStock.symbol = symbol
                     updatedStock.price = stockQuote.c.round(to: Settings.decimalPlace)
                     updatedStock.previousClosePrice = stockQuote.pc.round(to: Settings.decimalPlace)
@@ -71,7 +69,7 @@ class StocksDataManager{
                     updatedStock.percentChange = calculatePercentChange(updatedStock.price, updatedStock.previousClosePrice)
                     updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
                     
-                    self.subscribedStocks[i] = updatedStock
+                    self.subscribedStocks[index] = updatedStock
                     print(String(describing: updatedStock))
                 }else{
                     // error when requesting stock quote
@@ -88,22 +86,20 @@ class StocksDataManager{
         
         let dispatchGroup = DispatchGroup()
         
-        for i in 0 ..< symbols.count{
-            
-            let symbol = symbols[i]
-            
+        for (index, symbol) in zip(0 ..< symbols.count,symbols) {
+                        
             dispatchGroup.enter()
             finnhubConnector.getCompanyInfo(with: symbol) {
                 (companyInfo: CompanyInfo?) in
                 
                 if let companyInfo = companyInfo{
-                    var updatedStock = self.subscribedStocks[i]
+                    var updatedStock = self.subscribedStocks[index]
                     let stockFromDB: DB_Stock = self.sqliteConnector.getStock(withSymbol: symbol)
                     
                     updatedStock.name = stockFromDB.description
                     updatedStock.exchange = abbreviationForStockExchange(companyInfo.exchange)
                     
-                    self.subscribedStocks[i] = updatedStock
+                    self.subscribedStocks[index] = updatedStock
                     print(String(describing: updatedStock))
                 }else{
                     // error when requesting company info
@@ -160,9 +156,8 @@ class StocksDataManager{
         let dispatchGroup = DispatchGroup()
     
         // ensure all stocks are refreshed in the last 8 seconds
-        for i in 0 ..< subscribedStocks.count{
+        for (index, stock) in zip(0 ..< subscribedStocks.count, subscribedStocks){
 
-            let stock = subscribedStocks[i]
             var updatedStock = stock
                         
             if stock.edittedTimestamp < eight_seconds_ago{ // update stock that did not get updated by webscoekt
@@ -179,7 +174,7 @@ class StocksDataManager{
                         updatedStock.percentChange = calculatePercentChange(updatedStock.price, updatedStock.previousClosePrice)
                         updatedStock.edittedTimestamp = Int64(NSDate().timeIntervalSince1970)
                         
-                        self.subscribedStocks[i] = updatedStock
+                        self.subscribedStocks[index] = updatedStock
                     }else{
                         // invalid stock quote
                     }
